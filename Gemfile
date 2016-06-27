@@ -32,9 +32,55 @@ gem 'sdoc', '~> 0.4.0', group: :doc
 # Use Capistrano for deployment
 # gem 'capistrano-rails', group: :development
 
+# gems from current radon gemfile
+gem 'therubyracer'
+gem 'less-rails'
+gem 'twitter-bootstrap-rails', branch: 'bootstrap3', git: 'git://github.com/seyhunak/twitter-bootstrap-rails.git'
+
+gem 'activerecord-session_store', github: 'rails/activerecord-session_store'
+
+gem 'acts_as_list'
+
+gem 'formtastic', '~> 2.3.0.rc2', branch: '2.3-stable', git: 'git://github.com/justinfrench/formtastic.git'
+gem 'formtastic-bootstrap', '~> 3.0.0'
+
+gem 'authlogic', '~> 3.4.0'
+gem 'scrypt'
+gem 'declarative_authorization'
+
+gem 'kaminari'
+gem 'geonames'
+gem 'pg', '~> 0.18'
+gem 'rmagick', '>=2.13.2'
+gem 'ruby_parser'
+
+gem 'wice_grid', '~> 3.4.10'
+
+gem 'unicorn' 
+
+gem 'openlayers-rails'
+
+gem 'recaptcha', :require => 'recaptcha/rails'
+
+gem 'bibtex-ruby'
+gem 'twitter', '~> 5.0'
+
+gem 'redcarpet', '~> 3.1.1'
+
 group :development, :test do
   # Call 'byebug' anywhere in the code to stop execution and get a debugger console
   gem 'byebug'
+
+  # gems from current radon gemfile
+  gem 'rspec-rails', '~> 2.14.2'
+  gem 'capybara', '~> 2.2.1'
+  gem 'guard-rspec', '~> 4.2.8'
+  gem 'launchy'
+  gem 'factory_girl_rails', '~> 4.4.1'
+  gem 'database_cleaner'
+  gem 'spork', '~> 1.0rc'
+  gem 'guard-spork'
+  gem 'selenium-webdriver', '~> 2.40.0'
 end
 
 group :development do
@@ -43,5 +89,14 @@ group :development do
 
   # Spring speeds up development by keeping your application running in the background. Read more: https://github.com/rails/spring
   gem 'spring'
+
+  # gems from current radon gemfile
+  gem 'capistrano', '~> 2.13.5'
+  gem 'net-ssh', '~> 2.6.2'
 end
 
+# add these gems to help with the transition:
+#  gem 'protected_attributes'
+#  gem 'rails-observers'
+#  gem 'actionpack-page_caching'
+#  gem 'actionpack-action_caching'
