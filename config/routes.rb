@@ -1,71 +1,157 @@
-Rails.application.routes.draw do
-  resources :literatures_samples
-  resources :samples
-  resources :sites
-  resources :rights
-  resources :prmats
-  resources :phases
-  resources :pages
-  resources :literatures
-  resources :labs
-  resources :cultures
-  resources :country_subdivisions
+Radon::Application.routes.draw do
+
   resources :announcements
-  resources :countries
-  resources :feature_types
-  resources :dating_methods
-  # The priority is based upon order of creation: first created -> highest priority.
-  # See how all your routes lay out with "rake routes".
 
-  # You can have the root of your site routed with "root"
-  # root 'welcome#index'
+  root to: "pages#show", :name => 'home'
+#  root to: "samples#index", constraints: lambda { |r| Page.where(:name => "home").blank? }, as: :samples_root
 
-  # Example of regular route:
-  #   get 'products/:id' => 'catalog#view'
+  resources :prmats
 
-  # Example of named route that can be invoked with purchase_url(id: product.id)
-  #   get 'products/:id/purchase' => 'catalog#purchase', as: :purchase
+  resources :locations
+  
+  get '/locations/search', :to => 'locations#search'
 
-  # Example resource route (maps HTTP verbs to controller actions automatically):
-  #   resources :products
+  get '/simple_captcha/:action' => 'simple_captcha#index', :as => :simple_captcha
+  resources :pages, :except => "show" do
+    collection do
+      post :sort
+    end
+  end
 
-  # Example resource route with options:
-  #   resources :products do
-  #     member do
-  #       get 'short'
-  #       post 'toggle'
-  #     end
-  #
-  #     collection do
-  #       get 'sold'
-  #     end
-  #   end
+  get 'pages/:name' => 'pages#show'
+  resources :comments
+  resources :literatures_samples
+  resources :searches do
+    collection do
+  post :edit_multiple
+  end
+  
+  
+  end
 
-  # Example resource route with sub-resources:
-  #   resources :products do
-  #     resources :comments, :sales
-  #     resource :seller
-  #   end
+  resources :rights do
+    collection do
+  post :sort
+  end
+  
+  end
+  
+#  get '/mapping/search', :to => 'mapping#search'
+  
+  resources :roles
+  get 'signup' => 'users#new', :as => :signup
+  get 'logout' => 'user_sessions#destroy', :as => :logout
+  get 'login' => 'user_sessions#new', :as => :login
+#  match '/' => 'pages#show', :name => 'home' unless Page.where(:name => "home").blank?
+#  match '/' => 'samples#index'
+  resources :user_sessions
+  resources :users
+  resources :dating_methods do
+    collection do
+  post :sort
+  end
+  
+  
+  end
 
-  # Example resource route with more complex sub-resources:
-  #   resources :products do
-  #     resources :comments
-  #     resources :sales do
-  #       get 'recent', on: :collection
-  #     end
-  #   end
+  resources :prmats do
+    collection do
+  post :sort
+  end
+  
+  
+  end
 
-  # Example resource route with concerns:
-  #   concern :toggleable do
-  #     post 'toggle'
-  #   end
-  #   resources :posts, concerns: :toggleable
-  #   resources :photos, concerns: :toggleable
+  resources :feature_types do
+    collection do
+  post :sort
+  end
+  
+  
+  end
 
-  # Example resource route within a namespace:
-  #   namespace :admin do
-  #     # Directs /admin/products/* to Admin::ProductsController
-  #     # (app/controllers/admin/products_controller.rb)
-  #     resources :products
-  #   end
+  resources :literatures do
+   collection do
+     get :autocomplete
+     get :without_bibtex
+   end
+   get :un_api
+   get :un_api, on: :collection
+  end
+
+  resources :countries do
+    collection do
+      post :sort
+    end
+  end
+
+  resources :country_subdivisions do
+    collection do
+      post :get_country_subdivisions_by_country
+      post :sort
+    end
+  end
+
+  resources :sites do
+    collection do
+  post :get_sites_by_country_subdivision
+  get :without_geolocalisation
+  post :sort
+  get :with_geolocalisation
+  end
+  
+  
+  end
+
+  resources :labs do
+    collection do
+  post :sort
+  end
+  
+  
+  end
+
+  resources :samples do
+    collection do
+     get :calibrate_multi
+     get :calibrate
+     get :calibrate_sum
+     post :export_chart
+  end
+  
+  
+  end
+
+  resources :samples do
+  
+    member do
+  post :auto_complete_for_site_name
+  end
+      resources :sites do
+        collection do
+    get :site
+    end
+    
+    
+    end
+  end
+
+  resources :phases do
+    collection do
+  post :get_phases_by_culture
+  post :sort
+  end
+  
+  
+  end
+
+  resources :cultures do
+    collection do
+  post :sort
+  end
+  
+  
+  end
+
+#  match '/:controller(/:action(/:id))'
 end
