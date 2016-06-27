@@ -1,0 +1,34 @@
+<p id="notice"><%= notice %></p>
+
+<p>
+  <strong>Name:</strong>
+  <%= @lab.name %>
+</p>
+
+<p>
+  <strong>Dating method:</strong>
+  <%= @lab.dating_method %>
+</p>
+
+<p>
+  <strong>Lab code:</strong>
+  <%= @lab.lab_code %>
+</p>
+
+<p>
+  <strong>Country:</strong>
+  <%= @lab.country %>
+</p>
+
+<p>
+  <strong>Active:</strong>
+  <%= @lab.active %>
+</p>
+
+<p>
+  <strong>Position:</strong>
+  <%= @lab.position %>
+</p>
+
+<%= link_to 'Edit', edit_lab_path(@lab) %> |
+<%= link_to 'Back', labs_path %>

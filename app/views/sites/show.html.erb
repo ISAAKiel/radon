@@ -1,0 +1,34 @@
+<p id="notice"><%= notice %></p>
+
+<p>
+  <strong>Name:</strong>
+  <%= @site.name %>
+</p>
+
+<p>
+  <strong>Parish:</strong>
+  <%= @site.parish %>
+</p>
+
+<p>
+  <strong>District:</strong>
+  <%= @site.district %>
+</p>
+
+<p>
+  <strong>Country subdivision:</strong>
+  <%= @site.country_subdivision %>
+</p>
+
+<p>
+  <strong>Lat:</strong>
+  <%= @site.lat %>
+</p>
+
+<p>
+  <strong>Lng:</strong>
+  <%= @site.lng %>
+</p>
+
+<%= link_to 'Edit', edit_site_path(@site) %> |
+<%= link_to 'Back', sites_path %>

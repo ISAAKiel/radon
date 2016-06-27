@@ -1,0 +1,39 @@
+<p id="notice"><%= notice %></p>
+
+<h1>Listing Literatures</h1>
+
+<table>
+  <thead>
+    <tr>
+      <th>Short citation</th>
+      <th>Year</th>
+      <th>Author</th>
+      <th>Long citation</th>
+      <th>Url</th>
+      <th>Approved</th>
+      <th>Bibtex</th>
+      <th colspan="3"></th>
+    </tr>
+  </thead>
+
+  <tbody>
+    <% @literatures.each do |literature| %>
+      <tr>
+        <td><%= literature.short_citation %></td>
+        <td><%= literature.year %></td>
+        <td><%= literature.author %></td>
+        <td><%= literature.long_citation %></td>
+        <td><%= literature.url %></td>
+        <td><%= literature.approved %></td>
+        <td><%= literature.bibtex %></td>
+        <td><%= link_to 'Show', literature %></td>
+        <td><%= link_to 'Edit', edit_literature_path(literature) %></td>
+        <td><%= link_to 'Destroy', literature, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>
+
+<br>
+
+<%= link_to 'New Literature', new_literature_path %>

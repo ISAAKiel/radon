@@ -1,4 +1,17 @@
 Rails.application.routes.draw do
+  resources :sites
+  resources :rights
+  resources :prmats
+  resources :phases
+  resources :pages
+  resources :literatures
+  resources :labs
+  resources :cultures
+  resources :country_subdivisions
+  resources :announcements
+  resources :countries
+  resources :feature_types
+  resources :dating_methods
   # The priority is based upon order of creation: first created -> highest priority.
   # See how all your routes lay out with "rake routes".
 

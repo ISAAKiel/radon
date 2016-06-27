@@ -1,0 +1,29 @@
+<p id="notice"><%= notice %></p>
+
+<h1>Listing Prmats</h1>
+
+<table>
+  <thead>
+    <tr>
+      <th>Name</th>
+      <th>Position</th>
+      <th colspan="3"></th>
+    </tr>
+  </thead>
+
+  <tbody>
+    <% @prmats.each do |prmat| %>
+      <tr>
+        <td><%= prmat.name %></td>
+        <td><%= prmat.position %></td>
+        <td><%= link_to 'Show', prmat %></td>
+        <td><%= link_to 'Edit', edit_prmat_path(prmat) %></td>
+        <td><%= link_to 'Destroy', prmat, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>
+
+<br>
+
+<%= link_to 'New Prmat', new_prmat_path %>

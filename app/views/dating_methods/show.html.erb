@@ -1,0 +1,14 @@
+<p id="notice"><%= notice %></p>
+
+<p>
+  <strong>Name:</strong>
+  <%= @dating_method.name %>
+</p>
+
+<p>
+  <strong>Position:</strong>
+  <%= @dating_method.position %>
+</p>
+
+<%= link_to 'Edit', edit_dating_method_path(@dating_method) %> |
+<%= link_to 'Back', dating_methods_path %>

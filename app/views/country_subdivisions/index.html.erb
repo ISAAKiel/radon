@@ -1,0 +1,31 @@
+<p id="notice"><%= notice %></p>
+
+<h1>Listing Country Subdivisions</h1>
+
+<table>
+  <thead>
+    <tr>
+      <th>Name</th>
+      <th>Position</th>
+      <th>Country</th>
+      <th colspan="3"></th>
+    </tr>
+  </thead>
+
+  <tbody>
+    <% @country_subdivisions.each do |country_subdivision| %>
+      <tr>
+        <td><%= country_subdivision.name %></td>
+        <td><%= country_subdivision.position %></td>
+        <td><%= country_subdivision.country %></td>
+        <td><%= link_to 'Show', country_subdivision %></td>
+        <td><%= link_to 'Edit', edit_country_subdivision_path(country_subdivision) %></td>
+        <td><%= link_to 'Destroy', country_subdivision, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>
+
+<br>
+
+<%= link_to 'New Country subdivision', new_country_subdivision_path %>

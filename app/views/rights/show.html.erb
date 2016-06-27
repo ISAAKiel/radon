@@ -1,0 +1,14 @@
+<p id="notice"><%= notice %></p>
+
+<p>
+  <strong>Name:</strong>
+  <%= @right.name %>
+</p>
+
+<p>
+  <strong>Position:</strong>
+  <%= @right.position %>
+</p>
+
+<%= link_to 'Edit', edit_right_path(@right) %> |
+<%= link_to 'Back', rights_path %>

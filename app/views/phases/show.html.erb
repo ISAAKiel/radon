@@ -1,0 +1,24 @@
+<p id="notice"><%= notice %></p>
+
+<p>
+  <strong>Name:</strong>
+  <%= @phase.name %>
+</p>
+
+<p>
+  <strong>Culture:</strong>
+  <%= @phase.culture %>
+</p>
+
+<p>
+  <strong>Approved:</strong>
+  <%= @phase.approved %>
+</p>
+
+<p>
+  <strong>Position:</strong>
+  <%= @phase.position %>
+</p>
+
+<%= link_to 'Edit', edit_phase_path(@phase) %> |
+<%= link_to 'Back', phases_path %>
