@@ -1,0 +1,70 @@
+  <%= grid(@samples_grid, :show_filters => :when_filtered) do |g|
+
+    g.row_attributes do |sample|
+      {id: "sample_" + sample.id.to_s}
+    end
+
+    g.action_column :param_name => :handle_multiple, :html => {:class => 'handle_multiple'}, :object_property => :id
+
+  
+    g.column  :name => 'ID', :attribute => 'id' do |sample|
+      sample.id
+    end
+
+    g.column :name => 'Lab Code', :model => 'Lab', :attribute => 'lab_code' do |sample|
+      sample.lab.lab_code  if sample.lab
+    end
+    
+    g.column :name => 'Lab Nr.', :attribute => 'lab_nr' do |sample|
+      sample.lab_nr
+    end
+
+    g.column :name => 'BP', :attribute => 'bp' do |sample|
+      sample.bp
+    end
+    
+    g.column :name => 'Std', :attribute => 'std' do |sample|
+      sample.std
+    end
+    
+    g.column :name => 'δ 13C', :attribute => 'delta_13_c' do |sample|
+      sample.delta_13_c
+    end
+    
+    g.column  :name => 'Sample Mat.', :model => 'Prmat', :attribute => 'name'  do |sample|
+      sample.prmat.name if sample.prmat
+    end
+
+    g.column  :name => 'Feature Type', :model => 'FeatureType', :attribute => 'name'  do |sample|
+      sample.feature_type.name if sample.feature_type
+    end
+    
+    g.column  :name => 'Culture', :model => 'Culture', :attribute => 'name'  do |sample|
+      sample.culture.name if sample.culture
+    end
+
+    g.column  :name => 'Phase', :model => 'Phase', :attribute => 'name'  do |sample|
+      sample.phase.name if sample.phase
+    end
+    
+    g.column  :name => 'Site', :model => 'Site', :attribute => 'name'  do |sample|
+      sample.site.name if sample.site
+    end
+    
+    g.column  :name => 'Lat', :model => 'Site', :attribute => 'lat', :in_html => false  do |sample|
+      sample.site.lat if sample.site
+    end
+    
+    g.column  :name => 'Lng', :model => 'Site', :attribute => 'lng', :in_html => false  do |sample|
+      sample.site.lng if sample.site
+    end
+
+    g.column  :name => 'literature', :model => 'Literature', :attribute => 'long_citation', :in_html => false  do |sample|
+      sample.literatures.collect(&:long_citation).join("; ") unless sample.literatures.blank?
+    end
+   
+    g.column :in_csv => false do |sample|
+      index_table_links(sample).html_safe
+    end
+  end
+  %>

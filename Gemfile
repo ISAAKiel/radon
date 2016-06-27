@@ -46,7 +46,8 @@ gem 'formtastic-bootstrap', '~> 3.0.0'
 
 gem 'authlogic', '~> 3.4.0'
 gem 'scrypt'
-gem 'declarative_authorization'
+#gem 'declarative_authorization'
+gem 'declarative_authorization', github: "stffn/declarative_authorization"
 
 gem 'kaminari'
 gem 'geonames'
@@ -66,6 +67,9 @@ gem 'bibtex-ruby'
 gem 'twitter', '~> 5.0'
 
 gem 'redcarpet', '~> 3.1.1'
+
+# added gems to obtain original functionality
+gem 'jquery-ui-rails'
 
 group :development, :test do
   # Call 'byebug' anywhere in the code to stop execution and get a debugger console

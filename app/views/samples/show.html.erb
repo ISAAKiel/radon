@@ -1,94 +1,127 @@
-<p id="notice"><%= notice %></p>
+<script type="text/javascript" src="//maps.googleapis.com/maps/api/js?sensor=false"></script>
+<% present @sample do |sample_presenter| %>
 
-<p>
-  <strong>Lab:</strong>
-  <%= @sample.lab %>
-</p>
+  <%- model_class = Sample -%>
+    <div class="page-header">
+      <h1><%=sample_presenter.title%> </h1>
+    </div>
+  </div>
+    </div>
+  <div class="row-fluid">
+  <div class="col-md-6">
+  <p>
+    <strong>Laboratory:</strong>
+    <%= sample_presenter.lab_name  %>
+  </p>
+  <hr>
+  <p>
+    <strong>BP:</strong> <%= sample_presenter.bp %>
+    <strong>Std:</strong> <%= sample_presenter.std %>
+  </p>
+  <p>
+    <strong><%= Sample.human_attribute_name(:delta_13_c) %></strong>
+    <%= sample_presenter.delta_13_c %>
+    <strong><%= Sample.human_attribute_name(:delta_13_c_std) %></strong>
+    <%= sample_presenter.delta_13_c_std %>
+  </p>
+  <p>
+    <strong><%= Sample.human_attribute_name(:prmat) %>:</strong>
+    <%= sample_presenter.prmat_name  %>
+    <strong><%= Sample.human_attribute_name(:prmat_comment) %>:</strong>
+    <%= sample_presenter.prmat_comment %>
+  </p>
+  <p>
+    <strong>Feature Type:</strong>
+    <%= sample_presenter.feature_type_name %>
+    <strong>Feature:</strong>
+    <%= sample_presenter.feature %>
+  </p>
+  <p>
+    <strong>Culture:</strong>
+    <%= sample_presenter.culture_name  %>
+    <strong>Phase:</strong>
+    <%= sample_presenter.phase_name  %>
+  </p>
+  <hr>
+  <p>
+    <strong>Site:</strong>
+    <%= sample_presenter.linked_site  %>
+    <strong>Country Subdivision:</strong>
+    <%=h @sample.site.country_subdivision.name rescue nil %>
+    <strong>Country:</strong>
+    <%=h @sample.site.country_subdivision.country.name rescue nil %>
+  </p>
+  <hr>
+  <p>
+    <strong>Approved:</strong>
+    <%=h @sample.approved %>
+    <strong>Right:</strong>
+    <%=h @sample.right.name rescue nil %>
+  </p>
+  <hr>
+  <% unless @sample.literatures.blank? -%>
+    <p>
+      <strong>Literature:</strong>
+      <% @sample.literatures.each do |literature| -%>
+        <p>
+          <% link_title = (literature.long_citation rescue "no citation given") unless literature.long_citation.blank? -%>
+          <%=link_to link_title || "no citation given", literature %>
 
-<p>
-  <strong>Lab nr:</strong>
-  <%= @sample.lab_nr %>
-</p>
+          <link rel="unapi-server" type="application/xml" href="<%= literature_un_api_path(literature, :format => :xml) %>"/>
 
-<p>
-  <strong>Bp:</strong>
-  <%= @sample.bp %>
-</p>
+          <abbr class='unapi-id' title='<%=literature.id%>'/>
+        </p>
+      <% end -%>  
+    </p>
+  <% end -%>
+  <hr>
+  <p>
+    <strong>Comment:</strong>
+    <%=h @sample.comment %>
+  </p>
+  <hr>
+  <p>
+    <strong>User Comments:</strong>
+    <% unless @sample.comments.blank? -%>
+      <% @sample.comments.each do |comment| -%>
+        <p><%=h comment.comment %> -- <%= comment.user.login rescue "Guest" -%>
+        </p>
+        <%= if permitted_to? :edit, :comments then link_to "Edit", edit_comment_path(comment) end -%>
+        <%= if permitted_to? :destroy, :comments then link_to "Destroy", comment, :confirm => 'Are you sure?', :method => :delete end-%>
+      <% end -%>
+    <% end -%>
+  </p>
+  </div>
+  <div class="col-md-6">
+    <%= sample_presenter.map %>
+  </div>
+  </div>
+  <div class="row">
+    <div class="col-md-5">
+      <div class="form-actions well">
 
-<p>
-  <strong>Std:</strong>
-  <%= @sample.std %>
-</p>
+      <% if permitted_to? :new, :comments -%>
+          <%= semantic_form_for :comment, :url => comments_path do |builder| %>
+          <% builder.object = Comment.new -%>
+            <%= builder.inputs "Add User Comment" do %>
+              <%= builder.input :comment, :input_html => {:cols => '50', :rows => "5"} %>
+              <%= builder.input :user_id, as: :hidden, :input_html => { value: current_user ? current_user.id : nil }%>
+              <%= builder.input :sample_id, as: :hidden, :input_html => { value: @sample.id }%>
+              <%= recaptcha_tags %>
+            <%= builder.actions do %>
+              <%= builder.action :submit, :as => :button, :button_html => { class: "btn btn-primary" } %>
+              <%= builder.action :cancel, :as => :link, :button_html => { class: "btn btn-default" }  %>
+            <% end %>
+            <% end -%>
 
-<p>
-  <strong>Delta 13 c:</strong>
-  <%= @sample.delta_13_c %>
-</p>
-
-<p>
-  <strong>Delta 13 c std:</strong>
-  <%= @sample.delta_13_c_std %>
-</p>
-
-<p>
-  <strong>Prmat:</strong>
-  <%= @sample.prmat %>
-</p>
-
-<p>
-  <strong>Prmat comment:</strong>
-  <%= @sample.prmat_comment %>
-</p>
-
-<p>
-  <strong>Comment:</strong>
-  <%= @sample.comment %>
-</p>
-
-<p>
-  <strong>Feature:</strong>
-  <%= @sample.feature %>
-</p>
-
-<p>
-  <strong>Feature type:</strong>
-  <%= @sample.feature_type %>
-</p>
-
-<p>
-  <strong>Phase:</strong>
-  <%= @sample.phase %>
-</p>
-
-<p>
-  <strong>Site:</strong>
-  <%= @sample.site %>
-</p>
-
-<p>
-  <strong>Approved:</strong>
-  <%= @sample.approved %>
-</p>
-
-<p>
-  <strong>Right:</strong>
-  <%= @sample.right %>
-</p>
-
-<p>
-  <strong>Dating method:</strong>
-  <%= @sample.dating_method %>
-</p>
-
-<p>
-  <strong>Contact e mail:</strong>
-  <%= @sample.contact_e_mail %>
-</p>
-
-<p>
-  <strong>Creator ip:</strong>
-  <%= @sample.creator_ip %>
-</p>
-
-<%= link_to 'Edit', edit_sample_path(@sample) %> |
-<%= link_to 'Back', samples_path %>
+          <% end %>
+      <% end -%>
+      </div>
+    </div>
+  </div>
+  <div class="row">
+    <div class="col-md-4">
+      <%= show_view_links(@sample) %>
+    </div>
+  </div>
+<% end -%>

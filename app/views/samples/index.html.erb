@@ -1,61 +1,150 @@
-<p id="notice"><%= notice %></p>
+<script type="text/javascript" src="//maps.googleapis.com/maps/api/js?sensor=false"></script>
 
-<h1>Listing Samples</h1>
+<a href="javascript:toggleMap();"/>Show/Hide Map</a>
+<%= javascript_tag '
+function toggleMap(){
+    var el = $("#map_container");
+    el.toggle(400, function() {
+      setTimeout( function() { map.updateSize();}, 200);
+    });
+    if(el.is(":visible")) {
+      map.updateSize();
+    }
+}
+'%>
 
-<table>
-  <thead>
-    <tr>
-      <th>Lab</th>
-      <th>Lab nr</th>
-      <th>Bp</th>
-      <th>Std</th>
-      <th>Delta 13 c</th>
-      <th>Delta 13 c std</th>
-      <th>Prmat</th>
-      <th>Prmat comment</th>
-      <th>Comment</th>
-      <th>Feature</th>
-      <th>Feature type</th>
-      <th>Phase</th>
-      <th>Site</th>
-      <th>Approved</th>
-      <th>Right</th>
-      <th>Dating method</th>
-      <th>Contact e mail</th>
-      <th>Creator ip</th>
-      <th colspan="3"></th>
-    </tr>
-  </thead>
+<div id = "map_container">
+<div id="map" style="width: 100%; height: 512px"></div>
+  <br style="clear:both">
+  <%= raw @map %>
+  <%if params[:bbox]%>  
+    <%
+        pn=params.dup
+        pn=pn.except('bbox') %>
+      <% content_tag(:button, :type => "button", :onclick => "window.location.href = '#{url_for(pn)}'; ") do -%>
+        Remove Location Filter
+      <% end %>
+  <% end %>
+</div>
+<%#= include_wice_grid_assets %>
+  <% if params[:scope]%>
+    <% if params[:scope]['countries.id'] %>
+      Only Samples for Country <b><%=Country.find(params[:scope]['countries.id']).name%></b> shown.<br>
+      <%
+      pn=params.dup
+      pn[:scope]=pn[:scope].except('countries.id') %>
+      <%=link_to "Remove filter", pn%>
+    <% end -%>
+    <% if params[:scope]['country_subdivisions.id'] %>
+      Only Samples for Country Subdivision <b><%=CountrySubdivision.find(params[:scope]['country_subdivisions.id']).name%></b> shown.<br>
+      <%
+      pn=params.dup
+      pn[:scope]=pn[:scope].except('country_subdivisions.id') %>
+      <%=link_to "Remove filter", pn%>
+    <% end -%>
+    <% if params[:scope]['cultures.id'] %>
+      Only Samples for Culture <b><%=Culture.find(params[:scope]['cultures.id']).name%></b> shown.<br>
+      <%
+      pn=params.dup
+      pn[:scope]=pn[:scope].except('cultures.id') %>
+      <%=link_to "Remove filter", pn%>
+    <% end -%>
+    
+    <% if params[:scope]['feature_types.id'] %>
+      Only Samples for Feature Type <b><%=FeatureType.find(params[:scope]['feature_types.id']).name%></b> shown.<br>
+      <%
+      pn=params.dup
+      pn[:scope]=pn[:scope].except('feature_types.id') %>
+      <%=link_to "Remove filter", pn%>
+    <% end -%>
+    
+    <% if params[:scope]['labs.id'] %>
+      Only Samples for Laboratory <b><%=Lab.find(params[:scope]['labs.id']).name%></b> shown.<br>
+      <%
+      pn=params.dup
+      pn[:scope]=pn[:scope].except('labs.id') %>
+      <%=link_to "Remove filter", pn%>
+    <% end -%>
+    
+    <% if params[:scope]['literatures.id'] %>
+      Only Samples for Literature <b><%=Literature.find(params[:scope]['literatures.id']).name%></b> shown.<br>
+      <%
+      pn=params.dup
+      pn[:scope]=pn[:scope].except('literatures.id') %>
+      <%=link_to "Remove filter", pn%>
+    <% end -%>
+    
+    <% if params[:scope]['prmats.id'] %>
+      Only Samples for Material <b><%=Prmat.find(params[:scope]['prmats.id']).name%></b> shown.<br>
+      <%
+      pn=params.dup
+      pn[:scope]=pn[:scope].except('prmats.id') %>
+      <%=link_to "Remove filter", pn%>
+    <% end -%>
+    
+    <% if params[:scope]['sites.id'] %>
+      Only Samples for Site <b><%=Site.find(params[:scope]['sites.id']).name%></b> shown.<br>
+      <%
+      pn=params.dup
+      pn[:scope]=pn[:scope].except('sites.id') %>
+      <%=link_to "Remove filter", pn%>
+    <% end -%>
+    
+  <% end -%>
+<%#= render :partial => "layouts/standard_list_form",
+  :locals =>
+  {
+    :model_name => "Sample",
+    :human_name => "Samples",
+    :dnd => false
+  } %>
+  
+  <%= render :partial => 'samples_grid' %>
+<%# was button_to_function%>
+<%= button_to("Calibrate selected", "
+var values = '';
+$('input[name=\"samples[handle_multiple][]\"]:checked:enabled').each(
+  function(){
+    values = values + 'ids[]='+$(this).val()+'&';
+  }
+);
+if (values.length >1) {
+if (values.length >1950) {
+alert('Sorry, to many samples selected!');
+}
+else{
+newwindow=window.open('#{url_for(:controller => :samples, :action => :calibrate_multi)}?'+values, 'name','height=800,width=1000,resizable=yes,scrollbars=yes,status=yes');};
+}
+", class: "btn btn-info") %>
+<%# was button_to_function%>
+<%= button_to("Sum Calibration for selected", "
+var values = '';
+$('input[name=\"samples[handle_multiple][]\"]:checked:enabled').each(
+  function(){
+    values = values + 'ids[]='+$(this).val()+'&';
+  }
+);
+if (values.length >1) {
+if (values.length >1950) {
+alert('Sorry, to many samples selected!');
+}
+else{
+newwindow=window.open('#{url_for(:controller => :samples, :action => :calibrate_sum)}?'+values, 'name','height=800,width=1000,resizable=yes,scrollbars=yes,status=yes');};
+}
+", class: "btn btn-info") %>
 
-  <tbody>
-    <% @samples.each do |sample| %>
-      <tr>
-        <td><%= sample.lab %></td>
-        <td><%= sample.lab_nr %></td>
-        <td><%= sample.bp %></td>
-        <td><%= sample.std %></td>
-        <td><%= sample.delta_13_c %></td>
-        <td><%= sample.delta_13_c_std %></td>
-        <td><%= sample.prmat %></td>
-        <td><%= sample.prmat_comment %></td>
-        <td><%= sample.comment %></td>
-        <td><%= sample.feature %></td>
-        <td><%= sample.feature_type %></td>
-        <td><%= sample.phase %></td>
-        <td><%= sample.site %></td>
-        <td><%= sample.approved %></td>
-        <td><%= sample.right %></td>
-        <td><%= sample.dating_method %></td>
-        <td><%= sample.contact_e_mail %></td>
-        <td><%= sample.creator_ip %></td>
-        <td><%= link_to 'Show', sample %></td>
-        <td><%= link_to 'Edit', edit_sample_path(sample) %></td>
-        <td><%= link_to 'Destroy', sample, method: :delete, data: { confirm: 'Are you sure?' } %></td>
-      </tr>
-    <% end %>
-  </tbody>
-</table>
+    <% if permitted_to? :new, :samples %>
+    <%= link_to t('.new', :default => t("helpers.links.new")),
+                new_sample_path,
+                :class => 'btn btn-primary' %>
 
-<br>
-
-<%= link_to 'New Sample', new_sample_path %>
+    <%end %>
+  
+  
+<%unless params[:bbox]%>
+<%=javascript_tag '$(function() {
+  // initially hide all containers for tab content
+  $("#map_container").hide();
+});'
+%>
+<%end%>

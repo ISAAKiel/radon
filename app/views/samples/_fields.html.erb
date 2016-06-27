@@ -1,0 +1,74 @@
+    <% field_disabling=field_disabling|=false -%>
+    <%= f.input :lab, :hint => Sample.hint_text(:lab), :input_html => {:disabled => field_disabling}, :collection => Lab.all.map { |lab| [lab.lab_code + " ("+lab.name+")", lab.id] }.sort %>
+    <%= f.input :lab_nr, :hint => Sample.hint_text(:lab_nr), :input_html => {:disabled => field_disabling}  %>
+    <hr style = "clear:both;" />
+    <%= f.input :bp, :input_html => {:disabled => field_disabling}, :hint => Sample.hint_text(:bp)  %>
+    <%= f.input :std, :input_html => {:disabled => field_disabling}  %>
+    <%= f.input :delta_13_c, :input_html => {:disabled => field_disabling}  %>
+    <%= f.input :delta_13_c_std, :input_html => {:disabled => field_disabling}  %>
+    <hr style = "clear:both;" />
+    <%= f.input :prmat, :hint => Sample.hint_text(:prmat), :input_html => {:disabled => field_disabling}  %>
+    <%= f.input :prmat_comment, :hint => Sample.hint_text(:prmat_comment), :input_html => { :cols => 25, :rows => 4, :disabled => field_disabling }%>
+    <hr style = "clear:both;" />
+    <%= f.input :feature_type, :input_html => {:disabled => field_disabling}  %>
+    <%= f.input :feature, :input_html => {:disabled => field_disabling} , :hint => Sample.hint_text(:feature) %>
+    <br style = "clear:both;" />
+    <%= label "site", "Site (required)" -%>
+    Site associated in the Data Base: <span id="site_display_name"><%= ((@sample && @sample.site) ? @sample.site.name : nil ) || params[:site_name] || 'Not Set'%></span>
+
+    <% if session[:users_last_site] -%>
+      <%= link_to "Use last Site", "#", :'data-function'=> 'use_last_site', :'data_site_id' =>session[:users_last_site].id,:'data_site_name' =>session[:users_last_site].name  %>
+    <% end -%>
+    <%= f.semantic_errors :site %>
+    <hr style = "clear:both;" />
+    <%= f.semantic_fields_for :site do |h| %>
+      <%= render :partial => 'sites/fields', :locals => {:f => h} %>
+    <% end %>
+    <%= hidden_field_tag :hidden_site_id, value = params[:hidden_site_id] %>
+		<%#= f.input :hidden_site_id, :as=>:hidden %>
+
+    <hr style = "clear:both;" />
+    <%= label "culture", "Culture (required)" -%>
+    <% culture_select = nil -%>
+    <% unless (f.object==nil) || (f.object.phase==nil) -%>
+      <% unless f.object.phase.culture_id.blank? -%>
+        <% culture_select = f.object.phase.culture_id -%>
+      <% end -%>
+    <% end -%>
+    <div class="select input required form-group" id="sample_culture_input">
+    <label class="  control-label" for="sample_culture_id">Culture</label>
+    <span class="form-wrapper">
+    <%= select_tag "sample_culture_id", ("<option value = ''>k.A.</option>" + options_from_collection_for_select(Culture.all, 'id', 'name', culture_select.to_i)).html_safe, class: "form-control"%>
+    </span>
+    </div>
+    <%if f.semantic_errors :phase%>
+      <p class="inline-errors">Please select Culture and Phase</p>
+    <%end%>
+    <%= f.input :phase, :as => :select, :collection => option_groups_from_collection_for_select(Culture.order(:name), :phases, :name, :id, :name, f.object.phase ? f.object.phase.id : {} ) %>
+
+	<%= hidden_field_tag 'phases_cache' %>
+
+    <hr style ="clear:both;">
+    <% if (permitted_to? :edit, :literatures_samples) && !(f.object_name.include? "literatures_samples") -%>
+      <%= f.semantic_fields_for :literatures_samples do |builder| %>
+          <%= render "literatures_samples/literatures_sample_fields", :f => builder %>
+      <% end %>
+    <% end %>
+    <p>
+    <% if (permitted_to? :new, :literatures_samples)  && !(f.object_name.include? "literature") -%>  
+      <%= link_to_add_fields "Add Literature", f, :literatures_samples %>
+    <% end -%>
+
+
+    </p>
+    <hr style ="clear:both;">
+    <%= f.input :comment,      :input_html => { :cols => 25, :rows => 4,:disabled => field_disabling } %>
+    <% if f.object.new_record? -%>
+      <% f.object.creator_ip = request.remote_ip -%>
+      <%= f.input :creator_ip, :as => :hidden %>
+      <%= f.input :contact_e_mail, :hint => Sample.hint_text(:contact_e_mail) %>
+    <% end -%>
+    <%= f.input :right, :input_html => {:disabled => field_disabling} %>
+    <% if ((current_user) && (current_user.login == "admin")) -%>
+   	<%= f.input :approved,  :as => :radio, :input_html => {:disabled => field_disabling}  %>
+	 <% end -%>
