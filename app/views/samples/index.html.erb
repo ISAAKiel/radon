@@ -1,0 +1,61 @@
+<p id="notice"><%= notice %></p>
+
+<h1>Listing Samples</h1>
+
+<table>
+  <thead>
+    <tr>
+      <th>Lab</th>
+      <th>Lab nr</th>
+      <th>Bp</th>
+      <th>Std</th>
+      <th>Delta 13 c</th>
+      <th>Delta 13 c std</th>
+      <th>Prmat</th>
+      <th>Prmat comment</th>
+      <th>Comment</th>
+      <th>Feature</th>
+      <th>Feature type</th>
+      <th>Phase</th>
+      <th>Site</th>
+      <th>Approved</th>
+      <th>Right</th>
+      <th>Dating method</th>
+      <th>Contact e mail</th>
+      <th>Creator ip</th>
+      <th colspan="3"></th>
+    </tr>
+  </thead>
+
+  <tbody>
+    <% @samples.each do |sample| %>
+      <tr>
+        <td><%= sample.lab %></td>
+        <td><%= sample.lab_nr %></td>
+        <td><%= sample.bp %></td>
+        <td><%= sample.std %></td>
+        <td><%= sample.delta_13_c %></td>
+        <td><%= sample.delta_13_c_std %></td>
+        <td><%= sample.prmat %></td>
+        <td><%= sample.prmat_comment %></td>
+        <td><%= sample.comment %></td>
+        <td><%= sample.feature %></td>
+        <td><%= sample.feature_type %></td>
+        <td><%= sample.phase %></td>
+        <td><%= sample.site %></td>
+        <td><%= sample.approved %></td>
+        <td><%= sample.right %></td>
+        <td><%= sample.dating_method %></td>
+        <td><%= sample.contact_e_mail %></td>
+        <td><%= sample.creator_ip %></td>
+        <td><%= link_to 'Show', sample %></td>
+        <td><%= link_to 'Edit', edit_sample_path(sample) %></td>
+        <td><%= link_to 'Destroy', sample, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>
+
+<br>
+
+<%= link_to 'New Sample', new_sample_path %>

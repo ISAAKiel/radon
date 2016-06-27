@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20160627113834) do
+ActiveRecord::Schema.define(version: 20160627120404) do
 
   create_table "announcements", force: :cascade do |t|
     t.string   "title"
@@ -117,6 +117,37 @@ ActiveRecord::Schema.define(version: 20160627113834) do
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
   end
+
+  create_table "samples", force: :cascade do |t|
+    t.integer  "lab_id"
+    t.string   "lab_nr"
+    t.integer  "bp"
+    t.integer  "std"
+    t.float    "delta_13_c"
+    t.float    "delta_13_c_std"
+    t.integer  "prmat_id"
+    t.text     "prmat_comment"
+    t.text     "comment"
+    t.string   "feature"
+    t.integer  "feature_type_id"
+    t.integer  "phase_id"
+    t.integer  "site_id"
+    t.boolean  "approved"
+    t.integer  "right_id"
+    t.integer  "dating_method_id"
+    t.string   "contact_e_mail"
+    t.string   "creator_ip"
+    t.datetime "created_at",       null: false
+    t.datetime "updated_at",       null: false
+  end
+
+  add_index "samples", ["dating_method_id"], name: "index_samples_on_dating_method_id"
+  add_index "samples", ["feature_type_id"], name: "index_samples_on_feature_type_id"
+  add_index "samples", ["lab_id"], name: "index_samples_on_lab_id"
+  add_index "samples", ["phase_id"], name: "index_samples_on_phase_id"
+  add_index "samples", ["prmat_id"], name: "index_samples_on_prmat_id"
+  add_index "samples", ["right_id"], name: "index_samples_on_right_id"
+  add_index "samples", ["site_id"], name: "index_samples_on_site_id"
 
   create_table "sites", force: :cascade do |t|
     t.string   "name"

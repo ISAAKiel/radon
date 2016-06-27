@@ -1,4 +1,5 @@
 Rails.application.routes.draw do
+  resources :samples
   resources :sites
   resources :rights
   resources :prmats
