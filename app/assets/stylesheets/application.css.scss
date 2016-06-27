@@ -1,0 +1,236 @@
+/*
+ * This is a manifest file that'll automatically include all the stylesheets available in this directory
+ * and any sub-directories. You're free to add application-wide styles to this file and they'll appear at
+ * the top of the compiled file, but it's generally better to create a new file per style scope.
+ *= require_self
+ *= require_tree . 
+ *= require formtastic-bootstrap
+*/
+
+//@font-face {
+//  font-family: 'SourceSans';
+///*  src: url(font-path('SourceSans-Regular-webfont.eot') + "?#iefix") format('embedded-opentype'),
+//       url(font-path('SourceSans-Regular-webfont.woff')) format('woff'),
+//       url(font-path('SourceSans-Regular-webfont.ttf'))  format('truetype'),
+//       url(font-path('SourceSans-Regular-webfont.svg') + "#SourceSans-Regular") format('svg');*/
+//  src: url('SourceSans-Regular-webfont.eot' + "?#iefix") format('embedded-opentype'),
+//       url('SourceSans-Regular-webfont.woff') format('woff'),
+//       url('SourceSans-Regular-webfont.ttf')  format('truetype'),
+//       url('SourceSans-Regular-webfont.svg') + "#SourceSans-Regular" format('svg');
+//}
+
+//body {
+//  background: #7a90a1 url(background.gif) repeat-x; /*#4B7399*/
+//  font-family: SourceSans,Verdana, Helvetica, Arial;
+//  font-size: 10px;
+//  color: #11364C;
+//}
+
+a img {
+  border: none;
+}
+
+//a {
+//  color: #4B7399;
+//  font-weight: bold;
+//}
+
+.clear {
+  clear: both;
+  height: 0;
+  overflow: hidden;
+}
+
+#header {
+  display:block;
+  width: 90%;
+  margin: 0 auto;
+  background-color: #EDEDED;
+  padding: 20px 40px 0px 40px;
+  border: solid 1px black;
+  margin-top: 20px;
+  overflow: auto;
+  border-top-left-radius: 10px;
+  border-top-right-radius: 10px;
+  box-shadow: 5px 5px 5px #222;
+}
+
+#container {
+  width: 90%;
+  margin: 0 auto;
+  background-color: #E6E6E6;
+  padding: 20px 40px;
+  border: solid 1px black;
+  margin-top: 10px;
+  overflow: auto;
+  border-bottom-left-radius: 10px;
+  border-bottom-right-radius: 10px;
+  box-shadow: 5px 5px 5px #222;
+}
+
+#content {
+  clear:both;
+}
+
+#flash_notice, #flash_error {
+  padding: 5px 8px;
+  margin: 10px 0;
+}
+
+#flash_notice {
+  background-color: #CFC;
+  border: solid 1px #6C6;
+}
+
+#flash_error {
+  background-color: #FCC;
+  border: solid 1px #C66;
+}
+
+.fieldWithErrors {
+  display: inline;
+}
+
+#errorExplanation {
+  width: 400px;
+  border: 2px solid #CF0000;
+  padding: 0px;
+  padding-bottom: 12px;
+  margin-bottom: 20px;
+  background-color: #f0f0f0;
+}
+
+#errorExplanation h2 {
+  text-align: left;
+  font-weight: bold;
+  padding: 5px 5px 5px 15px;
+  font-size: 12px;
+  margin: 0;
+  background-color: #c00;
+  color: #fff;
+}
+
+#errorExplanation p {
+  color: #333;
+  margin-bottom: 0;
+  padding: 8px;
+}
+
+#errorExplanation ul {
+  margin: 2px 24px;
+}
+
+#errorExplanation ul li {
+  font-size: 12px;
+  list-style: disc;
+}
+
+/*list_sortierung*/
+li .handle {
+  font-size: 12px;
+  cursor: move;
+  color: #777;
+}
+
+///** Table */
+//table {
+//  border-collapse:collapse;
+//  background:#fff;
+//  position:relative;
+//}
+
+//td {
+///*border-left:1px solid #bbb;
+//border-right:1px solid #bbb;
+//border-collapse:collapse;
+//*/
+//}
+
+//caption {
+//	background: #ddd repeat-x scroll center left;
+//	border-bottom: 1px solid #CCC;
+//	border-top: 1px solid #CCC;
+//	display: none;
+//	padding: 5px
+//}
+
+//thead th, thead td {
+///*	background: #ddd;*/
+//	border-bottom: 1px solid #ddd;
+//	border-top: 1px solid #ddd;
+//	padding: 5px;
+//	position: relative;
+//	text-align: left
+//}
+
+//tbody tr {
+///*  border-left: 1px solid #ddd;
+//  border-right: 1px solid #ddd;*/
+//}
+
+//tbody tr th, tbody tr td {
+//	padding: 5px;
+//}
+
+//.odd { background: none repeat scroll 0 0 #ddd;
+//}
+
+//tbody tr a, tbody tr a:link, tbody tr a:visited {
+//	text-decoration: none
+//}
+
+
+//tbody tr:hover th a:hover, tbody tr:hover td a:hover, tbody tr.odd:hover th a:hover, tbody tr.odd:hover td a:hover {
+//	text-decoration: underline
+//}
+
+//tfoot th {
+//	border-top: 1px solid #CCC;
+//	border-bottom: 1px solid #CCC;
+//	padding: 5px;
+//	text-align: right;
+//	z-index: 1000000
+//}
+
+//tfoot td {
+//	border-top: 1px solid #CCC;
+//	border-bottom: 1px solid #CCC;
+//	border-left:0;
+//	border-right:0;
+//	font-style: italic;
+//	padding: 5px;
+//	z-index: 1000000
+//}
+
+//#footer
+//{
+//text-align:right;
+//margin-top:30px;
+//width:20%;
+//font-size:5pt;
+//float:right;
+//}
+
+.pagination{vertical-align:middle;}
+
+.pagination ul{display:inline}
+
+.pagination li{display:inline}
+
+.pagination a{color:#ccc;float:left;padding:3px}
+
+.pagination .active a{color:#fff;cursor:default;text-decoration:none;}
+
+.pagination .disabled span,.pagination .disabled a,.pagination .disabled a:hover{color:#bbb;background-color:transparent;cursor:default}
+
+.wg-show-all-link{color:#ccc}
+
+.location_proposal_list li
+{
+  clear:both;
+}
+
+#map_wrapper
+{
+  margin: 10px
+}

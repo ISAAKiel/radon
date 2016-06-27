@@ -1,5 +1,7 @@
 Radon::Application.routes.draw do
 
+  resources :roles
+  resources :users
   resources :announcements
 
   root to: "pages#show", :name => 'home'

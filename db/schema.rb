@@ -11,13 +11,20 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20160627120700) do
+ActiveRecord::Schema.define(version: 20160627141018) do
 
   create_table "announcements", force: :cascade do |t|
     t.string   "title"
     t.text     "content"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+  end
+
+  create_table "assignments", force: :cascade do |t|
+    t.integer  "role_id"
+    t.integer  "user_id"
+    t.datetime "created_at"
+    t.datetime "updated_at"
   end
 
   create_table "countries", force: :cascade do |t|
@@ -129,6 +136,12 @@ ActiveRecord::Schema.define(version: 20160627120700) do
     t.datetime "updated_at", null: false
   end
 
+  create_table "roles", force: :cascade do |t|
+    t.string   "name"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
   create_table "samples", force: :cascade do |t|
     t.integer  "lab_id"
     t.string   "lab_nr"
@@ -172,5 +185,17 @@ ActiveRecord::Schema.define(version: 20160627120700) do
   end
 
   add_index "sites", ["country_subdivision_id"], name: "index_sites_on_country_subdivision_id"
+
+  create_table "users", force: :cascade do |t|
+    t.string   "login",               null: false
+    t.string   "email",               null: false
+    t.string   "crypted_password",    null: false
+    t.string   "password_salt",       null: false
+    t.string   "persistence_token",   null: false
+    t.string   "single_access_token", null: false
+    t.string   "perishable_token",    null: false
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
 
 end
