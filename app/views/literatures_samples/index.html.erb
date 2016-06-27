@@ -1,0 +1,31 @@
+<p id="notice"><%= notice %></p>
+
+<h1>Listing Literatures Samples</h1>
+
+<table>
+  <thead>
+    <tr>
+      <th>Literature</th>
+      <th>Sample</th>
+      <th>Pages</th>
+      <th colspan="3"></th>
+    </tr>
+  </thead>
+
+  <tbody>
+    <% @literatures_samples.each do |literatures_sample| %>
+      <tr>
+        <td><%= literatures_sample.literature %></td>
+        <td><%= literatures_sample.sample %></td>
+        <td><%= literatures_sample.pages %></td>
+        <td><%= link_to 'Show', literatures_sample %></td>
+        <td><%= link_to 'Edit', edit_literatures_sample_path(literatures_sample) %></td>
+        <td><%= link_to 'Destroy', literatures_sample, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>
+
+<br>
+
+<%= link_to 'New Literatures sample', new_literatures_sample_path %>

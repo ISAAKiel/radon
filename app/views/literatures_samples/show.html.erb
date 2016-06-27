@@ -1,0 +1,19 @@
+<p id="notice"><%= notice %></p>
+
+<p>
+  <strong>Literature:</strong>
+  <%= @literatures_sample.literature %>
+</p>
+
+<p>
+  <strong>Sample:</strong>
+  <%= @literatures_sample.sample %>
+</p>
+
+<p>
+  <strong>Pages:</strong>
+  <%= @literatures_sample.pages %>
+</p>
+
+<%= link_to 'Edit', edit_literatures_sample_path(@literatures_sample) %> |
+<%= link_to 'Back', literatures_samples_path %>

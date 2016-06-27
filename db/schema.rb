@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20160627120404) do
+ActiveRecord::Schema.define(version: 20160627120700) do
 
   create_table "announcements", force: :cascade do |t|
     t.string   "title"
@@ -84,6 +84,17 @@ ActiveRecord::Schema.define(version: 20160627120404) do
     t.datetime "created_at",     null: false
     t.datetime "updated_at",     null: false
   end
+
+  create_table "literatures_samples", force: :cascade do |t|
+    t.integer  "literature_id"
+    t.integer  "sample_id"
+    t.string   "pages"
+    t.datetime "created_at",    null: false
+    t.datetime "updated_at",    null: false
+  end
+
+  add_index "literatures_samples", ["literature_id"], name: "index_literatures_samples_on_literature_id"
+  add_index "literatures_samples", ["sample_id"], name: "index_literatures_samples_on_sample_id"
 
   create_table "pages", force: :cascade do |t|
     t.string   "name"
