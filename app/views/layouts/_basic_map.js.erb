@@ -1,0 +1,56 @@
+<%=javascript_include_tag "//maps.googleapis.com/maps/api/js?sensor=false"%>
+
+<script defer="defer" type="text/javascript">
+
+var map;
+
+map = new OpenLayers.Map("map", {theme : false,projection : "new OpenLayers.Projection(\"EPSG:900913\")",displayProjection : "new OpenLayers.Projection(\"EPSG:4326\")"});
+
+function init() {
+
+   
+    // the SATELLITE layer has all 22 zoom level, so we add it first to
+    // become the internal base layer that determines the zoom levels of the
+    // map.
+    var gsat = new OpenLayers.Layer.Google(
+        "Google Satellite",
+        {type: google.maps.MapTypeId.SATELLITE}
+    );
+
+var ghyb = new OpenLayers.Layer.Google(
+              "Google Hybrid",{
+                type: google.maps.MapTypeId.HYBRID,
+                numZoomLevels: 20,
+                "sphericalMercator": true,
+                "maxExtent": new OpenLayers.Bounds(-20037508.34, -20037508.34, 20037508.34, 20037508.34)}
+              );
+
+    var lat            = <%=loc.lat%>;
+    var lon            = <%=loc.lng%>;
+    var zoom           = 15;
+
+    var fromProjection = new OpenLayers.Projection("EPSG:4326");   // Transform from WGS 1984
+    var toProjection   = new OpenLayers.Projection("EPSG:900913");//map.getProjectionObject();
+    var position       = new OpenLayers.LonLat(lon, lat).transform( fromProjection, toProjection);
+
+    var osm = new OpenLayers.Layer.OSM();
+
+    map.addLayers([gsat, ghyb]);
+    //map.setBaseLayer(ghyb);
+    // Google.v3 uses EPSG:900913 as projection, so we have to
+    // transform our coordinates
+//    map.setCenter(new OpenLayers.LonLat(10.2, 48.9).transform(
+//        new OpenLayers.Projection("EPSG:4326"),
+//        map.getProjectionObject()
+//    ), 5);
+    var markers = new OpenLayers.Layer.Markers( "Markers" );
+    markers.addMarker(new OpenLayers.Marker(position));
+    map.addLayer(markers); 
+    map.setCenter(position, zoom);
+    setTimeout(function () {map.setBaseLayer(ghyb);}, 1000);
+
+}
+init();
+</script>
+
+<div id="map" class="map"></div>

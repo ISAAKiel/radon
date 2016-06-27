@@ -1,0 +1,109 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN"
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <title><%= h("RADON :: " + (yield(:title) || "Untitled")) %></title>
+    <%= stylesheet_link_tag 'application' %>
+    <%#= stylesheet_link_tag 'popup' %>
+    <%= stylesheet_link_tag 'formtastic', 'formtastic_changes' %>
+    <%= javascript_include_tag "application" %>
+    <link rel="shortcut icon" href="/assets/favicon.ico" />
+    <%= yield(:head) %>
+  </head>
+  <body>
+    <div id="header">
+      <%#= link_to image_tag "c14_b.png", Page.find_by_name("Home") -%>
+      <div style="margin-left:51px;float:left;">
+      <%= image_tag "c14_s.png" -%>
+      </div>
+      <div id="user_nav">
+        <% pages_links = [] -%>
+        <% Page.all(:order => 'position ASC').each do |page| -%>
+          <%= link_to page.name.humanize, :action => 'show', :name => page.name, :controller => 'pages' -%>
+          | 
+        <% end -%>
+        <% if permitted_to? :new, :searches -%>
+          <%= link_to "Search", new_search_path %> |
+        <% end %>
+        <%= pages_links.join(" | ") %>
+        <% if current_user %>
+          <%= link_to "Edit Profile", edit_user_path(current_user) %> |
+          <%= link_to "Logout", logout_path %>
+        <% else %>
+          <%#= link_to "Register", new_user_path %>
+          <%= link_to "Login", login_path %>
+        <% end %>
+        <% if permitted_to? :index, :users -%>
+          | <%= link_to "Users", users_path %>
+        <% end -%>
+        <% if permitted_to? :index, :pages -%>
+          | <%= link_to "Pages", pages_path %>
+        <% end -%>
+        <% if permitted_to? :without_geolocalisation, :sites -%>
+          | <%= link_to "Sites without Geolocalisation", without_geolocalisation_sites_path %>
+        <% end %>
+        <% if permitted_to? :with_geolocalisation, :sites -%>
+          | <%= link_to "Sites with Geolocalisation", with_geolocalisation_sites_path %>
+        <% end %>
+      </div>
+
+      <div style="clear:both;float:left;margin-top:-43px;">
+      <%= link_to image_tag("c14_b.png", :border=>0), {:action => 'show', :name => Page.find_by_name("home").name, :controller => 'pages' } rescue "" %>
+      </div>
+      <div  style="float:left;">
+        <ul id = "db_navigation">
+          <% controllers = Dir.new("#{::Rails.root}/app/controllers").entries.sort %>
+          <% controllers.each do |controller| -%>
+            <% if controller =~ /_controller/ -%>
+              <% cont= controller.gsub("_controller.rb","") -%>
+              <% if permitted_to? :index, cont.to_sym -%>
+              <% cont_name = cont.classify.constantize.label.pluralize rescue cont.humanize %>
+                <li>
+                    <% if cont == "searches" -%>
+                      
+                    <% elsif (cont == "literatures_samples" || cont == "pages") -%>
+                    <% else -%>
+                      <%= link_to cont_name, eval(cont +"_path"), :class => if (params[:controller]==cont) then 'active' end unless cont=="application"-%>
+                  <% end -%>       
+                </li>
+              <% end -%>
+            <% end -%>
+          <% end -%>
+        </ul>
+      </div>
+    </div>
+    <div id="container">
+      <div id="content">
+        <%- flash.each do |name, msg| -%>
+          <%= content_tag :div, msg, :id => "flash_#{name}" %>
+        <%- end -%>
+        
+        <%- if show_title? -%>
+          <h1><%=h yield(:title) %></h1>
+        <%- end -%>
+        <%= yield %>
+      </div>
+      </div>
+      <div id="footer">
+      <a rel="license" href="http://creativecommons.org/licenses/by/3.0/"><img alt="Creative Commons Lizenzvertrag" style="border-width:0" src="http://i.creativecommons.org/l/by/3.0/80x15.png" /></a><br />Die Inhalte dieser Seite stehen unter einer <a rel="license" href="http://creativecommons.org/licenses/by/3.0/">Creative Commons Namensnennung 3.0 Unported Lizenz</a>.
+      </div>
+    <style>
+     .spinner {
+	      top:0%;
+	      left:0%;
+/*          background: #fff url('/images/spinner.gif') no-repeat center center;*/
+        background: url('<%=image_path("spinner.gif")%>') no-repeat center center;
+          position: fixed;
+          z-index:1234;
+          overflow: auto;
+          opacity: 0.75;
+          filter:alpha(opacity: 75);
+          -moz-opacity: 0.75;
+          -khtml-opacity: 0.75;
+          width: 100%;
+          height: 100%;
+        }
+	  </style>
+  <%=yield :javascript%>
+  </body>
+</html>

@@ -1,0 +1,173 @@
+<% table_name = model_name.underscore -%>
+<% unless model_name =="Search"  -%>
+  <% table_name_plural = model_name.constantize.table_name -%>
+  <% collection_to_page = instance_variable_get("@#{table_name_plural}") -%>
+<% else -%>
+  <% table_name_plural = "searches" -%>
+  <% collection_to_page = @end_result -%>
+<% end -%>
+<% title human_name+" :: list" %>
+<% session[:page] = params[:page] -%>
+<% show_all = params[:show_all]=='true' %>
+<!-- Standard usage -->
+<% sortable = @end_result.blank? && model_name!= 'Search' && model_name.constantize.column_names.any?{|e| e=="position"} ? true : false %>
+<% paged = collection_to_page.methods.any?{|e| e.to_s=="total_pages"} ? true : false %>
+ <div class="admin-form">
+  <% if @end_result.blank? -%>
+   <p> 
+   <div>
+     <%= render :partial => "#{table_name_plural}/list_search" rescue nil %>
+   </div>
+   </p>
+   <% end -%>
+   <p>    
+   <div style="clear:both;">
+     <table>
+       <thead>
+         <% if table_name_plural == "searches" && @end_result.first.class.name == 'Sample' %> <th></th> <% end %>
+         <%= render :partial => "#{table_name_plural}/list_header" %>
+         <% if ((defined? extra_column_names) && (!extra_column_names.blank?)) -%>
+           <% extra_column_names.each do |extra_column_name|-%>
+            <th>
+              <%= extra_column_name -%>
+            </th>
+           <% end -%>
+         <% end -%>
+         <th></th>
+       </thead>
+        <tbody id="<%=table_name_plural -%>">
+       <% for object in @end_result || instance_variable_get("@#{table_name_plural}") %>
+         <%= content_tag_for :tr, object, :class => cycle('','odd') do %>
+       <% if table_name_plural == "searches" && object.class.name=='Sample' %>
+         <td>
+         <%= check_box_tag "object_ids[]", object.id,false, :class => 'handle_multiple' %>
+         </td>
+       <% end %>
+           <%=
+             render :partial =>
+               "#{table_name_plural}/list_detail",
+                :locals => { :table_object => object }
+           %>
+         <% if ((defined? extra_column_names) && (!extra_column_names.blank?)) -%>
+             <% extra_columns.each do |extra_column|-%>
+               <td>
+               <% if extra_column == "id" -%>
+                 <%= link_to object.id, object -%>
+               <% else -%>
+                 <%= object.instance_eval(extra_column) rescue nil -%>
+               <% end -%>
+               </td>
+             <% end -%>
+           <% end -%>
+
+             <td class="list-actions">
+              <%= index_table_links(object).html_safe %>
+             </td>
+  
+
+         <% end -%>
+       <% end %>
+       <% if paged %>
+       <tfoot>
+<td style="text-align: right;" colspan=100><%= paginate collection_to_page %>   <%= page_entries_info collection_to_page %> <br> <%= link_to "Show_all",params.merge(:show_all => true) if table_name_plural == "searches" && @end_result.first.class.name == 'Sample' && paged %></td>
+</tfoot>
+<% end %>
+     </table>
+   </div>
+<%if (table_name_plural == "searches" && @end_result.first.class.name == 'Sample' && !paged)%>
+  <%= link_to "Show with Pagination", params.merge(:show_all => (!show_all || {}))%>
+<%end%>
+  </p>
+  <p> 
+    <%= render :partial => "#{table_name_plural}/#{table_name}_list_csv" rescue nil %> 
+  </p>
+  <% if @end_result.blank? -%>
+    <p> 
+      <%= if permitted_to? :new, object then link_to "New #{human_name.singularize}",send("new_#{table_name}_path") end %>
+    </p>
+  <% end -%>
+   
+</div>
+
+<% if (defined? dnd) && (dnd == true) -%>
+<%# if (defined? send("sort_"+table_name_plural+"_path")) -%>
+<%#= sortable_element(table_name_plural, :url => send("sort_"+table_name_plural+"_path"), :tag => 'tr', :complete => visual_effect(:highlight, table_name_plural), :with => "Sortable.serialize('#{table_name_plural}', {name:'#{table_name}'})", :onChange => "location.reload()") %>
+<%#= sortable_element(table_name_plural, :url => send("sort_"+table_name_plural+"_path"), :tag => 'tr', :before => "$('spinner').style.display= 'block';", :complete => "location.reload()", :with => "Sortable.serialize('#{table_name_plural}', {name:'#{table_name}'})") %>
+<% content_for :javascript do %>
+
+  <% javascript_tag do %>
+     $('#<%=table_name_plural%>').sortable(
+        {
+          axis: 'y',
+          dropOnEmpty:false,
+          handle: '.handle',
+          cursor: 'crosshair',
+          items: 'li',
+          opacity: 0.4,
+          scroll: true,
+          update: function(){
+            $.ajax({
+                type: 'post',
+                data: $('#<%=table_name_plural%>').sortable('serialize') + '&id=<%=object.id-%>',
+                dataType: 'script',
+                complete: function(request){
+                    $('#<%=table_name_plural%>').effect('highlight');
+                  },
+                url: '<%=send("sort_"+table_name_plural+"_path")%>'})
+            }
+          })
+    <% end %>
+  
+<% end %>
+<% end -%>
+
+<div id = "spinner" style = "
+z-index:1000;
+width:100px;
+height: 100px;
+position:fixed;
+top:50%;
+left:50%;
+background:url('assest/spinner.gif') no-repeat center #fff;
+text-align:center;
+padding: 10px;
+padding:10px;
+font:normal 16px Tahoma, Geneva, sans-serif;
+border:1px solid #666;
+margin-left: -50px;
+margin-top: -50px;
+z-index:2;
+overflow: auto;
+opacity:0.75;
+-moz-opacity:0.75;
+filter:alpha(opacity=75);
+align: center;
+display:none;">
+Bitte Warten!
+</div>
+
+<% if table_name_plural == "searches" && @end_result.first.class.name == 'Sample' %>
+<input type="checkbox" id="toggleAll" onclick="$('input.handle_multiple').attr('checked', this.checked);" style="display:inline;">
+<%= label_tag 'toggleAll', "Toggle select for all", :style=>"display:inline;" %>
+<%= button_to_function("Calibrate selected", "
+var values = '';
+$('input:checked[class=\"handle_multiple\"]').each(
+  function(){
+    values = values + 'ids[]='+$(this).val()+'&';
+  }
+);
+if (values.length >1) {
+newwindow=window.open('#{url_for(:controller => :samples, :action => :calibrate_multi)}?'+values, 'name','height=800,width=1000,resizable=yes,scrollbars=yes,status=yes');};
+") %><br>
+<%= button_to_function("Sum Calibration for selected", "
+var values = '';
+$('input:checked[class=\"handle_multiple\"]').each(
+  function(){
+    values = values + 'ids[]='+$(this).val()+'&';
+  }
+);
+if (values.length >1) {
+newwindow=window.open('#{url_for(:controller => :samples, :action => :calibrate_sum)}?'+values, 'name','height=800,width=1000,resizable=yes,scrollbars=yes,status=yes');};
+") %>
+<br>
+<% end -%>

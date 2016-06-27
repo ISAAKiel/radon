@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=Edge,chrome=1">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title><%= content_for?(:title) ? yield(:title) : "Radon" %></title>
+    <%= csrf_meta_tags %>
+
+    <!-- Le HTML5 shim, for IE6-8 support of HTML elements -->
+    <!--[if lt IE 9]>
+      <script src="//cdnjs.cloudflare.com/ajax/libs/html5shiv/3.6.1/html5shiv.js" type="text/javascript"></script>
+    <![endif]-->
+
+    <%= stylesheet_link_tag "application", :media => "all" %>
+
+    <!-- For third-generation iPad with high-resolution Retina display: -->
+    <!-- Size should be 144 x 144 pixels -->
+    <%= favicon_link_tag 'apple-touch-icon-144x144-precomposed.png', :rel => 'apple-touch-icon-precomposed', :type => 'image/png', :sizes => '144x144' %>
+
+    <!-- For iPhone with high-resolution Retina display: -->
+    <!-- Size should be 114 x 114 pixels -->
+    <%= favicon_link_tag 'apple-touch-icon-114x114-precomposed.png', :rel => 'apple-touch-icon-precomposed', :type => 'image/png', :sizes => '114x114' %>
+
+    <!-- For first- and second-generation iPad: -->
+    <!-- Size should be 72 x 72 pixels -->
+    <%= favicon_link_tag 'apple-touch-icon-72x72-precomposed.png', :rel => 'apple-touch-icon-precomposed', :type => 'image/png', :sizes => '72x72' %>
+
+    <!-- For non-Retina iPhone, iPod Touch, and Android 2.1+ devices: -->
+    <!-- Size should be 57 x 57 pixels -->
+    <%= favicon_link_tag 'apple-touch-icon-precomposed.png', :rel => 'apple-touch-icon-precomposed', :type => 'image/png' %>
+
+    <!-- For all other devices -->
+    <!-- Size should be 32 x 32 pixels -->
+    <%= favicon_link_tag 'favicon.ico', :rel => 'shortcut icon' %>
+
+    <%= javascript_include_tag "application" %>
+  </head>
+  <body>
+  <div class="row">
+
+  <%= nav_bar :fixed => :top, :brand => "RADON" do %>
+    <%= menu_group do%>
+      <%= drop_down "Tables" do %>
+        <% controllers = Dir.new("#{::Rails.root}/app/controllers").entries.sort %>
+        <% controllers.each do |controller| -%>
+          <% if controller =~ /_controller/ -%>
+            <% cont= controller.gsub("_controller.rb","") -%>
+            <% if permitted_to? :index, cont.to_sym -%>
+            <% cont_name = cont.classify.constantize.label.pluralize rescue cont.humanize %>
+                  <% if cont == "searches" -%>
+                  <% elsif (cont == "literatures_samples" || cont == "pages") -%>
+                  <% else -%>
+                    <%= menu_item cont_name, eval(cont +"_path")%>
+                <% end -%>       
+            <% end -%>
+          <% end -%>
+        <% end -%>
+      <% end -%>
+    <%end%>
+      <%= menu_group do %>
+        <% Page.all(:order => 'position ASC').each do |page| -%>
+          <%= menu_item page.name.humanize, url_for(:action => 'show', :name => page.name, :controller => 'pages') -%>
+        <% end -%>
+      <% end -%>
+      <%= menu_group :pull => :right do %>
+        <%= drop_down "User Options" do %>
+          <% if current_user %>
+            <%= menu_item "Edit Profile", edit_user_path(current_user) %>
+            <%= menu_item "Log Out", logout_path %>
+          <% else %>
+            <%= form_for UserSession.new do |f| -%>
+              <p>Login: <%= f.text_field :login %></p>
+              <p>Password: <%= f.password_field :password %></p>
+              <p><%= f.submit "Sign in" %></p>
+            <% end %>
+          <% end %>
+        <% end %>
+      <%end%>
+    <%end%>
+
+        <div class="span9">
+          <%= bootstrap_flash %>
+          <%= yield %>
+        </div>
+      </div><!--/row-->
+
+      <footer>
+        <a rel="license" href="http://creativecommons.org/licenses/by/3.0/"><img alt="Creative Commons Lizenzvertrag" style="border-width:0" src="http://i.creativecommons.org/l/by/3.0/80x15.png" /></a><br />Die Inhalte dieser Seite stehen unter einer <a rel="license" href="http://creativecommons.org/licenses/by/3.0/">Creative Commons Namensnennung 3.0 Unported Lizenz</a>.
+      </footer>
+
+    </div> <!-- /container -->
+
+  </body>
+</html>

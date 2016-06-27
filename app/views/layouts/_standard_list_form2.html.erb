@@ -1,0 +1,17 @@
+<% table_name = model_name.underscore -%>
+<% unless model_name =="Search"  -%>
+  <% table_name_plural = model_name.constantize.table_name -%>
+  <% collection_to_page = instance_variable_get("@#{table_name_plural}") -%>
+<% else -%>
+  <% table_name_plural = "searches" -%>
+  <% collection_to_page = @end_result -%>
+<% end -%>
+<% title human_name+" :: list" %>
+
+<%=render :partial => "#{table_name_plural}/list_columns"%>
+
+  <% if @end_result.blank? -%>
+    <p> 
+      <%= if permitted_to? :new, table_name_plural.to_sym then link_to "New #{human_name.singularize}",send("new_#{table_name}_path") end %>
+    </p>
+  <% end -%>
