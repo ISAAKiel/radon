@@ -3,7 +3,7 @@ class LiteraturesController < ApplicationController
   filter_resource_access  :additional_collection => [:autocomplete, :un_api, :without_bibtex]
 
   def without_bibtex
-    @literatures = Literature.find :all, :order => 'short_citation ASC', :conditions => {:bibtex => nil}
+    @literatures = Literature.where(:bibtex => nil).order('short_citation ASC').all
     @literatures_grid = initialize_grid(Literature.with_permissions_to(:show),
     :name => 'literatures',
     :conditions => {:bibtex => nil},
@@ -16,7 +16,7 @@ class LiteraturesController < ApplicationController
   end
   
   def index
-    @literatures = Literature.find :all, :order => 'short_citation ASC'
+    @literatures = Literature.order('short_citation ASC').all
     @literatures_grid = initialize_grid(Literature.with_permissions_to(:show),
     :name => 'literatures',
     :enable_export_to_csv => false,

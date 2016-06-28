@@ -3,7 +3,7 @@ class CountriesController < ApplicationController
   filter_access_to :index, :show, :edit, :new, :create, :update, :destroy 
   
   def index
-    @countries = Country.all(:order => "position ASC")
+    @countries = Country.order("position ASC").all
     @countries_grid = initialize_grid(Country.with_permissions_to(:show),
     :name => 'countries',
     :include => [{:country_subdivisions=>{:sites => :samples}}],

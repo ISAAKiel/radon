@@ -3,7 +3,7 @@ class RightsController < ApplicationController
   filter_access_to :index, :show, :edit, :new, :create, :update, :destroy 
 
   def index
-    @rights = Right.all(:order => "position ASC")
+    @rights = Right.order("position ASC").all
   end
 
   def sort

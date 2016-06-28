@@ -17,7 +17,7 @@ class PhasesController < ApplicationController
 
   
   def index
-    @phases = Phase.all(:order => "position ASC")
+    @phases = Phase.order("position ASC").all
   end
   
   def show
