@@ -28,7 +28,7 @@ function fill_hidden_field(source_field) {
 //     event.stop();
 //     });
 
-$('a[data-popup]').live('click', function(e) {
+$('a[data-popup]').on('click', function(e) {
      window.open($(this).attr('href'), 'popup','toolbar=no, location=no, directories=no, status=no, menubar=no, scrollbars=yes, resizable=yes, height=550, width=850');
      e.preventDefault();
   });

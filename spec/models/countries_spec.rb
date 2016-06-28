@@ -1,0 +1,29 @@
+require 'spec_helper'
+
+describe "Countries" do
+  it "has a valid factory" do
+    expect(FactoryGirl.build(:country)).to be_valid
+  end
+  it "should act_as_list" do
+    expect(FactoryGirl.build(:country)).to respond_to(:move_to_top)
+  end
+  it "should have accessible :name" do
+    expect { Country.new(name: 'name') }.not_to raise_error
+  end
+
+  it "should have many :country_subdivisions" do
+    t = Country.reflect_on_association(:country_subdivisions)
+    expect(t.macro).to eq(:has_many)
+  end
+
+  it "is invalid without :name" do
+    expect(FactoryGirl.build(:country, name: nil)).not_to be_valid
+  end
+
+  it "does not allow duplicate :name" do
+    FactoryGirl.create(:country, name: "1")
+    expect(FactoryGirl.build(:country, name: "1")).not_to be_valid
+  end
+
+  it "accepts nested attributes for CountrySubdivision"
+end
