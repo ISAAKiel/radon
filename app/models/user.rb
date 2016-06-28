@@ -4,13 +4,13 @@ class User < ActiveRecord::Base
   acts_as_authentic do |c|
     c.logged_in_timeout = 30.minutes # default is 10.minutes
   end
-
+  
   has_many :articles
   has_many :comments
   has_many :assignments
   has_many :roles, :through => :assignments
   has_many :comments
-
+  
   def role_symbols
     (roles || []).map {|r| r.name.to_sym}
   end

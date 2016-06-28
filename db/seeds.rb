@@ -11,8 +11,16 @@ roles = Role.create([
   {name: 'user'}
 ]) if Role.count == 0
 
-User.create!(login:  "admin",
+admin_role = Role.where(name: 'admin')
+
+admin_user = User.new(login:  "admin",
              email: "noone@nowhere.com",
              password:              "changeme",
              password_confirmation: "changeme")
+
+admin_user.roles << admin_role
+
+admin_user.save
+
+
 Page.create(name: "home", content: "fill me")
