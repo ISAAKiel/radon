@@ -1,6 +1,6 @@
 class LiteraturesController < ApplicationController
 
-  filter_resource_access  :collection => [:autocomplete, :un_api, :without_bibtex]
+  filter_resource_access :collection => [:autocomplete, :un_api, :without_bibtex]
 
   def without_bibtex
     @literatures = Literature.with_permissions_to(:show).where(:bibtex => nil).order('short_citation ASC')

@@ -1,19 +1,18 @@
 class SitesController < ApplicationController
 
-  filter_access_to :index, :show, :edit, :new, :create, :update, :destroy, :without_geolocalisation
+  filter_access_to :index, :show, :edit, :new, :create, :update, :destroy, :without_geolocalisation, :collection => [:without_geolocalisation, :with_geolocalisation]
     
   def get_sites_by_country_subdivision
     @sites=Site.where(:country_subdivision_id => params[:country_subdivision_id]) unless params[:country_subdivision_id].blank?
   end
   
   def without_geolocalisation
-    @sites = Site.find :all, :conditions => {:lat => nil, :lng => nil }
+    @sites = Site.with_permissions_to(:show).where(:lat => nil, :lng => nil )
 #    @sites = Site.find(:all, :conditions => {:lat => nil, :lng => nil })
 #    render :template => 'sites/index', :locals => {:sites => @sites}
-    @sites_grid = initialize_grid(Site.with_permissions_to(:show),
+    @sites_grid = initialize_grid(@sites,
     :name => 'sites',
     :enable_export_to_csv => false,
-    :conditions => {:lat => nil, :lng => nil },
     :include => [{:country_subdivision => :country}],
     :csv_file_name => 'sites'
     )
@@ -23,14 +22,13 @@ class SitesController < ApplicationController
   end
 
   def with_geolocalisation
-    @sites = Site.find :all, :conditions => ['lat is not null and lng is not null'], :order => :name
+    @sites = Site.with_permissions_to(:show).where('lat is not null and lng is not null').order(:name)
 #    @sites = Site.find(:all, :conditions => {:lat => nil, :lng => nil })
 #    render :template => 'sites/index', :locals => {:sites => @sites}
 
-    @sites_grid = initialize_grid(Site.with_permissions_to(:show),
+    @sites_grid = initialize_grid(@sites,
     :name => 'sites',
     :enable_export_to_csv => false,
-    :conditions => ['lat is not null and lng is not null'],
     :include => [{:country_subdivision => :country}],
     :csv_file_name => 'sites'
     )
