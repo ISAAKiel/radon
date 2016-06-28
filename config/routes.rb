@@ -1,5 +1,6 @@
 Radon::Application.routes.draw do
 
+  resources :comments
   resources :roles
   resources :users
   resources :announcements
