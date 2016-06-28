@@ -101,7 +101,7 @@ function toggleMap(){
   
   <%= render :partial => 'samples_grid' %>
 
-<%= button_to_function("Calibrate selected", "
+<%= link_to("Calibrate selected", "#", onclick: "
 var values = '';
 $('input[name=\"samples[handle_multiple][]\"]:checked:enabled').each(
   function(){
@@ -116,7 +116,7 @@ else{
 newwindow=window.open('#{url_for(:controller => :samples, :action => :calibrate_multi)}?'+values, 'name','height=800,width=1000,resizable=yes,scrollbars=yes,status=yes');};
 }
 ", class: "btn btn-info") %>
-<%= button_to_function("Sum Calibration for selected", "
+<%= link_to("Sum Calibration for selected", "#", onclick: "
 var values = '';
 $('input[name=\"samples[handle_multiple][]\"]:checked:enabled').each(
   function(){
