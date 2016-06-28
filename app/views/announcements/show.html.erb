@@ -1,14 +1,16 @@
-<p id="notice"><%= notice %></p>
+<div class="container-fluid">
+  <div class="row">
+    <div class="col-md-2"></div>
+    <div class="col-md-8">
+    <h1><%= @announcement.title %></h1>
 
-<p>
-  <strong>Title:</strong>
-  <%= @announcement.title %>
-</p>
+    <div class="info">
+      on <%= @announcement.created_at.strftime('%b %d, %Y') %>
+    </div>
+    <div class="content"><%= markdown @announcement.content %></div>
 
-<p>
-  <strong>Content:</strong>
-  <%= @announcement.content %>
-</p>
+    <p><%=show_view_links(@announcement)%></p>
 
-<%= link_to 'Edit', edit_announcement_path(@announcement) %> |
-<%= link_to 'Back', announcements_path %>
+    </div>
+  </div>
+</div>

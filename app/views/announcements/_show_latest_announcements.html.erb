@@ -1,0 +1,26 @@
+<% content_for :head, auto_discovery_link_tag(:atom, announcements_url(format: "atom")) %>
+
+<div class="col-md-3 pull-right">
+  <div class="panel panel-info">
+    <div class="panel-heading">
+        <div class="pull-right">
+          <%= link_to image_tag("feed-icon-14x14.png"), announcements_url(format: "atom") %>
+        </div>
+        <h3 class="panel-title">Latest Radon Announcements</h3>
+    </div>
+
+    <ul id="announcements" class="list-group">
+      <% Announcement.order("created_at desc").limit(4).each do |announcement| %>
+        <li class="list-group-item">
+          <div class="info pull-right">
+            on <%= announcement.created_at.strftime('%b %d, %Y') %>
+          </div>
+          <h1 class="panel-title"><%= link_to announcement.title, announcement %></h2>
+          <div class="content" style="clear:both"><%= markdown announcement.content %></div>
+        </li>
+      <% end %>
+    </ul>
+    <div class="panel-footer"><%=link_to "See all Announcements", announcements_path%> </div>
+  </div>
+</div>
+

@@ -1,25 +1,10 @@
-<%= form_for(@announcement) do |f| %>
-  <% if @announcement.errors.any? %>
-    <div id="error_explanation">
-      <h2><%= pluralize(@announcement.errors.count, "error") %> prohibited this announcement from being saved:</h2>
-
-      <ul>
-      <% @announcement.errors.full_messages.each do |message| %>
-        <li><%= message %></li>
-      <% end %>
-      </ul>
-    </div>
+<%= semantic_form_for @announcement do |f| %>
+  <%= f.inputs do %>
+    <%= f.input :title %>
+    <%= f.input :content %>
   <% end %>
 
-  <div class="field">
-    <%= f.label :title %><br>
-    <%= f.text_field :title %>
-  </div>
-  <div class="field">
-    <%= f.label :content %><br>
-    <%= f.text_area :content %>
-  </div>
-  <div class="actions">
-    <%= f.submit %>
-  </div>
+  <%= f.actions do %>
+    <%= f.action :submit, :as => :input %>
+  <% end %>
 <% end %>

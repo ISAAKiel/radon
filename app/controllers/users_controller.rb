@@ -1,74 +1,57 @@
 class UsersController < ApplicationController
-  before_action :set_user, only: [:show, :edit, :update, :destroy]
 
-  # GET /users
-  # GET /users.json
+  filter_resource_access
+  
   def index
     @users = User.all
   end
 
-  # GET /users/1
-  # GET /users/1.json
-  def show
-  end
-
-  # GET /users/new
   def new
     @user = User.new
   end
-
-  # GET /users/1/edit
-  def edit
-  end
-
-  # POST /users
-  # POST /users.json
+  
   def create
-    @user = User.new(user_params)
-
-    respond_to do |format|
-      if @user.save
-        format.html { redirect_to @user, notice: 'User was successfully created.' }
-        format.json { render :show, status: :created, location: @user }
-      else
-        format.html { render :new }
-        format.json { render json: @user.errors, status: :unprocessable_entity }
-      end
+    @user = User.new(params[:user])
+    if @user.save
+      flash[:notice] = "Thank you for signing up! You are now logged in."
+      redirect_to root_url
+    else
+      render :action => 'new'
     end
   end
 
-  # PATCH/PUT /users/1
-  # PATCH/PUT /users/1.json
-  def update
-    respond_to do |format|
-      if @user.update(user_params)
-        format.html { redirect_to @user, notice: 'User was successfully updated.' }
-        format.json { render :show, status: :ok, location: @user }
-      else
-        format.html { render :edit }
-        format.json { render json: @user.errors, status: :unprocessable_entity }
-      end
+  def show
+    if current_user && current_user.is_admin?
+      @user = User.find(params[:id])      
+    else
+      @user = @current_user
     end
   end
 
-  # DELETE /users/1
-  # DELETE /users/1.json
-  def destroy
-    @user.destroy
-    respond_to do |format|
-      format.html { redirect_to users_url, notice: 'User was successfully destroyed.' }
-      format.json { head :no_content }
-    end
-  end
-
-  private
-    # Use callbacks to share common setup or constraints between actions.
-    def set_user
+  def edit
+    if current_user && current_user.is_admin?
       @user = User.find(params[:id])
+    else
+      @user = @current_user
     end
-
-    # Never trust parameters from the scary internet, only allow the white list through.
-    def user_params
-      params.fetch(:user, {})
+    @roles = @user.roles
+  end
+  
+  def update
+    if current_user && current_user.is_admin?
+      @user = User.find(params[:id])      
+    else
+      @user = @current_user
     end
+    if @user.update_attributes(params[:user])
+      flash[:notice] = "Account updated!"
+      unless @user.id == current_user.id
+        redirect_to @user
+      else
+        redirect_to root_url
+      end
+    else
+      render :action => :edit
+    end
+  end
 end

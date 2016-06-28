@@ -1,6 +1,8 @@
-<h1>Editing Page</h1>
+<% title "Edit Page" %>
 
-<%= render 'form' %>
+<%= render :partial => 'form' %>
 
-<%= link_to 'Show', @page %> |
-<%= link_to 'Back', pages_path %>
+<p>
+  <%= link_to "Show", @page %> |
+  <%= link_to "View All", pages_path %>
+</p>

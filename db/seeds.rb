@@ -5,3 +5,14 @@
 #
 #   cities = City.create([{ name: 'Chicago' }, { name: 'Copenhagen' }])
 #   Mayor.create(name: 'Emanuel', city: cities.first)
+
+roles = Role.create([
+  {name: 'admin'},
+  {name: 'user'}
+]) if Role.count == 0
+
+User.create!(login:  "admin",
+             email: "noone@nowhere.com",
+             password:              "changeme",
+             password_confirmation: "changeme")
+Page.create(name: "home", content: "fill me")

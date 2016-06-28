@@ -1,29 +1,21 @@
-<%= form_for(@page) do |f| %>
-  <% if @page.errors.any? %>
-    <div id="error_explanation">
-      <h2><%= pluralize(@page.errors.count, "error") %> prohibited this page from being saved:</h2>
-
-      <ul>
-      <% @page.errors.full_messages.each do |message| %>
-        <li><%= message %></li>
-      <% end %>
-      </ul>
-    </div>
-  <% end %>
-
-  <div class="field">
-    <%= f.label :name %><br>
+<%= form_for @page do |f| %>
+	<% if @page.errors.any? %>
+	  <ul>
+		 <% @page.errors.full_messages.each do |msg| %>
+		   <li><%= msg %></li>
+		 <% end %>
+	  </ul>
+	<% end %>
+  <p>
+    <%= f.label :name %><br />
     <%= f.text_field :name %>
-  </div>
-  <div class="field">
-    <%= f.label :content %><br>
-    <%= f.text_area :content %>
-  </div>
-  <div class="field">
-    <%= f.label :position %><br>
-    <%= f.number_field :position %>
-  </div>
-  <div class="actions">
-    <%= f.submit %>
-  </div>
+    <span style ="color:darkred; background: salmon;">
+      this name will be used as url! if you change it, routing will possibly be malfunction!
+    </span>
+  </p>
+  <p>
+    <%= f.label :content %><br />
+    <%= f.text_area :content, {:cols => 100, :rows => 50} %>
+  </p>
+  <p><%= f.submit %></p>
 <% end %>

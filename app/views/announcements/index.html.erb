@@ -1,29 +1,26 @@
-<p id="notice"><%= notice %></p>
+<% content_for :head, auto_discovery_link_tag(:atom, announcements_url(format: "atom")) %>
 
-<h1>Listing Announcements</h1>
+<div class="container-fluid">
+  <div class="row">
+    <div class="col-md-2"></div>
+    <div class="col-md-8">
 
-<table>
-  <thead>
-    <tr>
-      <th>Title</th>
-      <th>Content</th>
-      <th colspan="3"></th>
-    </tr>
-  </thead>
+      <h1>Radon Announcements <%= link_to image_tag("feed-icon-28x28.png"), announcements_url(format: "atom") %></h1>
 
-  <tbody>
-    <% @announcements.each do |announcement| %>
-      <tr>
-        <td><%= announcement.title %></td>
-        <td><%= announcement.content %></td>
-        <td><%= link_to 'Show', announcement %></td>
-        <td><%= link_to 'Edit', edit_announcement_path(announcement) %></td>
-        <td><%= link_to 'Destroy', announcement, method: :delete, data: { confirm: 'Are you sure?' } %></td>
-      </tr>
-    <% end %>
-  </tbody>
-</table>
+      <div id="announcements">
+        <% @announcements.each do |announcement| %>
+          <h2><%= link_to announcement.title, announcement %></h2>
+          <div class="info">
+            on <%= announcement.created_at.strftime('%b %d, %Y') %>
+          </div>
+          <div class="content"><%= markdown announcement.content %></div>
+          <p>
+            <%=index_table_links(announcement)%>
+          </p>
+          <hr/>
+        <% end %>
+      </div>
 
-<br>
-
-<%= link_to 'New Announcement', new_announcement_path %>
+    </div>
+  </div>
+</div>

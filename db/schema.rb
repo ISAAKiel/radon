@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20160627141018) do
+ActiveRecord::Schema.define(version: 20160627161259) do
 
   create_table "announcements", force: :cascade do |t|
     t.string   "title"
@@ -142,6 +142,11 @@ ActiveRecord::Schema.define(version: 20160627141018) do
     t.datetime "updated_at"
   end
 
+  create_table "roles_users", id: false, force: :cascade do |t|
+    t.integer "user_id"
+    t.integer "role_id"
+  end
+
   create_table "samples", force: :cascade do |t|
     t.integer  "lab_id"
     t.string   "lab_nr"
@@ -196,6 +201,9 @@ ActiveRecord::Schema.define(version: 20160627141018) do
     t.string   "perishable_token",    null: false
     t.datetime "created_at"
     t.datetime "updated_at"
+    t.datetime "last_request_at"
+    t.datetime "last_login_at"
+    t.float    "total_online_time"
   end
 
 end
