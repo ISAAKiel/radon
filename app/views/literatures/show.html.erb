@@ -1,39 +1,25 @@
-<p id="notice"><%= notice %></p>
+<% title "Literature" %>
 
+<%= render @literature %>
+
+<%if @literature.bibtex.present?%>
+<button type="button" class="btn btn-default btn-sm" data-toggle="collapse" data-target="#bibtex">
+  Show Bibtex
+</button>
+
+<div id="bibtex" class="collapse">
+  <pre>
+  <%=@literature.bibtex%>
+  </pre>
+</div>
+<%end%>
+
+  <%= link_to "Show all dates for " + @literature.short_citation, samples_path(:scope => {"literatures.id"=>@literature.id} ), :class => 'btn btn-info btn-sm' %>
+<hr>
 <p>
-  <strong>Short citation:</strong>
-  <%= @literature.short_citation %>
+  <%= show_view_links(@literature) %>
 </p>
 
-<p>
-  <strong>Year:</strong>
-  <%= @literature.year %>
-</p>
+<link rel="unapi-server" type="application/xml" href="<%= literature_un_api_path(@literature, :format => :xml) %>"/>
 
-<p>
-  <strong>Author:</strong>
-  <%= @literature.author %>
-</p>
-
-<p>
-  <strong>Long citation:</strong>
-  <%= @literature.long_citation %>
-</p>
-
-<p>
-  <strong>Url:</strong>
-  <%= @literature.url %>
-</p>
-
-<p>
-  <strong>Approved:</strong>
-  <%= @literature.approved %>
-</p>
-
-<p>
-  <strong>Bibtex:</strong>
-  <%= @literature.bibtex %>
-</p>
-
-<%= link_to 'Edit', edit_literature_path(@literature) %> |
-<%= link_to 'Back', literatures_path %>
+<abbr class='unapi-id' title='<%=@literature.id%>'/>

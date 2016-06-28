@@ -1,34 +1,26 @@
-<p id="notice"><%= notice %></p>
+<% title Lab.label %>
 
+<p>
+  <strong>Lab Code:</strong>
+  <%=h @lab.lab_code %>
+</p>
 <p>
   <strong>Name:</strong>
-  <%= @lab.name %>
+  <%=h @lab.name %>
+</p>
+<p>
+  <strong>Dating Method:</strong>
+  <%=h @lab.dating_method.name rescue nil %>
+</p>
+<p>
+  <strong>Active?:</strong>
+  <%=h @lab.active %>
 </p>
 
 <p>
-  <strong>Dating method:</strong>
-  <%= @lab.dating_method %>
+  <%= link_to "Show all dates for " + @lab.name, samples_path(:scope => {"labs.id"=>@lab.id} ) %>
 </p>
 
 <p>
-  <strong>Lab code:</strong>
-  <%= @lab.lab_code %>
+  <%= show_view_links(@lab) %>
 </p>
-
-<p>
-  <strong>Country:</strong>
-  <%= @lab.country %>
-</p>
-
-<p>
-  <strong>Active:</strong>
-  <%= @lab.active %>
-</p>
-
-<p>
-  <strong>Position:</strong>
-  <%= @lab.position %>
-</p>
-
-<%= link_to 'Edit', edit_lab_path(@lab) %> |
-<%= link_to 'Back', labs_path %>

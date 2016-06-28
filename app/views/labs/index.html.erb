@@ -1,37 +1,7 @@
-<p id="notice"><%= notice %></p>
-
-<h1>Listing Labs</h1>
-
-<table>
-  <thead>
-    <tr>
-      <th>Name</th>
-      <th>Dating method</th>
-      <th>Lab code</th>
-      <th>Country</th>
-      <th>Active</th>
-      <th>Position</th>
-      <th colspan="3"></th>
-    </tr>
-  </thead>
-
-  <tbody>
-    <% @labs.each do |lab| %>
-      <tr>
-        <td><%= lab.name %></td>
-        <td><%= lab.dating_method %></td>
-        <td><%= lab.lab_code %></td>
-        <td><%= lab.country %></td>
-        <td><%= lab.active %></td>
-        <td><%= lab.position %></td>
-        <td><%= link_to 'Show', lab %></td>
-        <td><%= link_to 'Edit', edit_lab_path(lab) %></td>
-        <td><%= link_to 'Destroy', lab, method: :delete, data: { confirm: 'Are you sure?' } %></td>
-      </tr>
-    <% end %>
-  </tbody>
-</table>
-
-<br>
-
-<%= link_to 'New Lab', new_lab_path %>
+<%= render :partial => "layouts/standard_list_form2",
+  :locals =>
+  {
+    :model_name => "Lab",
+    :human_name => Lab.label.pluralize,
+    :dnd => true
+  } %>

@@ -1,29 +1,24 @@
-<%= form_for(@country) do |f| %>
-  <% if @country.errors.any? %>
-    <div id="error_explanation">
-      <h2><%= pluralize(@country.errors.count, "error") %> prohibited this country from being saved:</h2>
-
-      <ul>
-      <% @country.errors.full_messages.each do |message| %>
-        <li><%= message %></li>
+<%= semantic_form_for @country do |f| %>
+  <%= f.inputs do %>
+    <%= f.input :name %>
+    <div class="form-actions well">
+    <% if permitted_to? :edit, :country_subdivisions -%>
+      <%= f.semantic_fields_for :country_subdivisions do |builder| %>
+        <% builder.inputs "Country Subdivision" do %>
+          <%= render "country_subdivisions/country_subdivision_fields", :f => builder %>
+          <hr style ="clear:both;">
+        <%= builder.hidden_field :_destroy %>
+        <%= link_to "remove", '#', class: "remove_fields" %>
+        <% end -%>
       <% end %>
-      </ul>
-    </div>
-  <% end %>
+    <% end %>
 
-  <div class="field">
-    <%= f.label :name %><br>
-    <%= f.text_field :name %>
-  </div>
-  <div class="field">
-    <%= f.label :position %><br>
-    <%= f.number_field :position %>
-  </div>
-  <div class="field">
-    <%= f.label :abreviation %><br>
-    <%= f.text_field :abreviation %>
-  </div>
-  <div class="actions">
-    <%= f.submit %>
-  </div>
+      <%= f.inputs "Country Subdivisions", class: "well" do %>
+        <% if permitted_to? :new, :country_subdivisions -%>  
+          <p><%= link_to_add_fields "Add Country Subdivision", f, :country_subdivisions %></p>
+        <% end %>  
+      <% end -%>
+    </div>
+  <% end -%>
+  <%= f.action :submit, :as => :button, label: 'Submit' , :button_html => { :class => 'btn btn-primary'} %>
 <% end %>

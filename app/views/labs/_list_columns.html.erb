@@ -1,0 +1,28 @@
+<%= grid(@labs_grid, :show_filters => :when_filtered) do |g|
+
+  g.row_attributes do |lab|
+    {id: "lab_" + lab.id.to_s}
+  end
+
+  g.column  :name => 'Lab_Code', :attribute => 'lab_code' do |object|
+    object.lab_code
+  end
+
+  g.column  :name => 'Name', :attribute => 'name' do |object|
+    object.name
+  end
+  
+  g.column  :name => 'Active?', :attribute => 'active' do |object|
+    object.active
+  end
+  
+  g.column  :name => '14C dates' do |object|
+    link_to object.samples.with_permissions_to(:show).length,
+            samples_path(:scope => {"labs.id"=>object.id} )
+  end
+  
+  g.column do |object|
+    index_table_links(object).html_safe
+  end
+end -%>
+

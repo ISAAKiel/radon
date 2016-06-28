@@ -1,0 +1,19 @@
+    <% field_disabling=field_disabling|=false -%>
+    <%= f.input :short_citation, :input_html => {:disabled => field_disabling}-%>
+    <%= f.input :year, :input_html => {:disabled => field_disabling}-%>
+    <%= f.input :author, :input_html => {:disabled => field_disabling}-%>
+    <%= f.input :long_citation, :input_html => {:disabled => field_disabling}-%>
+    <%= f.input :url, :input_html => {:disabled => field_disabling}-%>
+    <%= f.input :bibtex, :input_html => {:disabled => field_disabling}-%>
+
+    <%# if (permitted_to? :edit, :literatures_samples) && !(f.method(:sanitized_object_name).call().include? "literatures_samples") -%>
+      <%# f.semantic_fields_for :literatures_samples do |builder| %>
+        <%# builder.inputs "Samples" do %>
+          <%#= render "literatures_samples/fields", :f => builder %>
+        <%#= link_to_remove_fields "remove", builder %>
+        <%# end -%>
+      <%# end %>
+    <%# end %>
+    <%# if (permitted_to? :new, :literatures_samples)  && !(f.method(:sanitized_object_name).call().include? "sample") -%>  
+      <%#= link_to_add_fields "Add Sample", f, :literatures_samples %>
+    <%# end -%>

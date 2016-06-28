@@ -1,74 +1,61 @@
 class PhasesController < ApplicationController
-  before_action :set_phase, only: [:show, :edit, :update, :destroy]
 
-  # GET /phases
-  # GET /phases.json
+  filter_access_to :index, :show, :edit, :new, :create, :update, :destroy 
+
+  def get_phases_by_culture
+    @phases=Phase.find(:all, :conditions => {:culture_id => params[:culture_id]}) unless params[:culture_id].blank?
+  end
+
+  def sort
+    if (defined? current_user.roles) && (current_user.roles.map(&:name).detect {|role| role == "admin"}) 
+      params[:phases].each_with_index do |id, index|
+        Phase.update_all(['position=?', index+1], ['id=?', id])
+      end
+    end
+    render :nothing => true
+  end
+
+  
   def index
-    @phases = Phase.all
+    @phases = Phase.all(:order => "position ASC")
   end
-
-  # GET /phases/1
-  # GET /phases/1.json
+  
   def show
+    @phase = Phase.find(params[:id])
   end
-
-  # GET /phases/new
+  
   def new
     @phase = Phase.new
   end
-
-  # GET /phases/1/edit
-  def edit
-  end
-
-  # POST /phases
-  # POST /phases.json
+  
   def create
-    @phase = Phase.new(phase_params)
-
-    respond_to do |format|
-      if @phase.save
-        format.html { redirect_to @phase, notice: 'Phase was successfully created.' }
-        format.json { render :show, status: :created, location: @phase }
-      else
-        format.html { render :new }
-        format.json { render json: @phase.errors, status: :unprocessable_entity }
-      end
+    @phase = Phase.new(params[:phase])
+    if @phase.save
+      flash[:notice] = "Successfully created phase."
+      redirect_to @phase
+    else
+      render :action => 'new'
     end
   end
-
-  # PATCH/PUT /phases/1
-  # PATCH/PUT /phases/1.json
+  
+  def edit
+    @phase = Phase.find(params[:id])
+  end
+  
   def update
-    respond_to do |format|
-      if @phase.update(phase_params)
-        format.html { redirect_to @phase, notice: 'Phase was successfully updated.' }
-        format.json { render :show, status: :ok, location: @phase }
-      else
-        format.html { render :edit }
-        format.json { render json: @phase.errors, status: :unprocessable_entity }
-      end
+    @phase = Phase.find(params[:id])
+    if @phase.update_attributes(params[:phase])
+      flash[:notice] = "Successfully updated phase."
+      redirect_to @phase
+    else
+      render :action => 'edit'
     end
   end
-
-  # DELETE /phases/1
-  # DELETE /phases/1.json
+  
   def destroy
+    @phase = Phase.find(params[:id])
     @phase.destroy
-    respond_to do |format|
-      format.html { redirect_to phases_url, notice: 'Phase was successfully destroyed.' }
-      format.json { head :no_content }
-    end
+    flash[:notice] = "Successfully destroyed phase."
+    redirect_to phases_url
   end
-
-  private
-    # Use callbacks to share common setup or constraints between actions.
-    def set_phase
-      @phase = Phase.find(params[:id])
-    end
-
-    # Never trust parameters from the scary internet, only allow the white list through.
-    def phase_params
-      params.require(:phase).permit(:name, :culture_id, :approved, :position)
-    end
 end

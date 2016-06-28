@@ -1,19 +1,32 @@
-<p id="notice"><%= notice %></p>
+<%- model_class = CountrySubdivision -%>
+<div class="page-header">
+  <h1><%=t '.title', :default => model_class.model_name.human.titleize%>: <%=@country_subdivision.name%> </h1>
+</div>
+
+<dl class="dl">
+  <dt><%= model_class.human_attribute_name(:country) %>:</dt>
+  <dd><%= @country_subdivision.country.name rescue nil %></dd>
+  <hr>
+  <dt>Sites:</dt>
+  <dd>
+  <ul class="list-unstyled">
+    <% unless @country_subdivision.sites.blank? -%>
+      <% @country_subdivision.sites.sort! { |a,b| a.name <=> b.name }.each do |site| -%>
+        <li>
+          <%= link_to site.name, site -%>
+        </li>
+      <% end -%> 
+    <% else -%>
+      none
+    <% end -%>
+  </ul>
+  </dd>
+</dl>
 
 <p>
-  <strong>Name:</strong>
-  <%= @country_subdivision.name %>
+  <%= link_to "Show all dates for " + @country_subdivision.name, samples_path(:scope => {"country_subdivisions.id"=>@country_subdivision.id} ) %>
 </p>
 
 <p>
-  <strong>Position:</strong>
-  <%= @country_subdivision.position %>
+  <%= show_view_links(@country_subdivision) %>
 </p>
-
-<p>
-  <strong>Country:</strong>
-  <%= @country_subdivision.country %>
-</p>
-
-<%= link_to 'Edit', edit_country_subdivision_path(@country_subdivision) %> |
-<%= link_to 'Back', country_subdivisions_path %>

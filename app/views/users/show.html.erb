@@ -1,4 +1,24 @@
-<p id="notice"><%= notice %></p>
+<% title "User" %>
 
-<%= link_to 'Edit', edit_user_path(@user) %> |
-<%= link_to 'Back', users_path %>
+<p>
+  <strong>Login:</strong>
+  <%=h @user.login %>
+</p>
+<p>
+  <strong>email:</strong>
+  <%=h @user.email %>
+</p>
+<p>
+  <strong>Total online Time:</strong>
+  <% online_time = (@user.total_online_time + (@user.last_request_at - @user.last_login_at)).seconds rescue 0 %>
+  <%=h   [ (online_time / 3600).floor, (online_time / 60 % 60).floor, (online_time % 60).floor ].map{ |t| t.to_s.rjust(2, '0') }.join(':')  %>
+</p>
+<p>
+  <strong>Mean monthly online time:</strong>
+  <%monthly_online_time = online_time / ((Time.now.to_f - Time.at(@user.created_at.to_f).to_f) / 1.month) rescue 0 %>
+  <%=h   [ (monthly_online_time / 3600).floor, (monthly_online_time / 60 % 60).floor, (monthly_online_time % 60).floor ].map{ |t| t.to_s.rjust(2, '0') }.join(':') %>
+</p>
+
+<p>
+  <%= show_view_links(@user) %>
+</p>

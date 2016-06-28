@@ -1,6 +1,7 @@
-<h1>Editing Right</h1>
+<% title "Edit Right" %>
 
-<%= render 'form' %>
+<%= render :partial => 'form' %>
 
-<%= link_to 'Show', @right %> |
-<%= link_to 'Back', rights_path %>
+<p>
+  <%= edit_view_links(@right) -%>
+</p>

@@ -1,5 +1,5 @@
-<h1>New Prmat</h1>
+<% title "New " + Prmat.label %>
 
-<%= render 'form' %>
+<%= render :partial => 'form' %>
 
-<%= link_to 'Back', prmats_path %>
+<p><%= link_to "Back to List", prmats_path %></p>

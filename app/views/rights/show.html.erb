@@ -1,14 +1,14 @@
-<p id="notice"><%= notice %></p>
+<% title "Right" %>
 
 <p>
   <strong>Name:</strong>
-  <%= @right.name %>
+  <%=h @right.name %>
 </p>
 
 <p>
-  <strong>Position:</strong>
-  <%= @right.position %>
+  <%= link_to "Show all dates for " + @right.name, search_path(:params => {"combine_option"=>"and", "commit"=>"Search", "action"=>"show", "search_0.samples.right_id.id"=>@right.id, "haupttabelle_id"=>"samples", "controller"=>"searches",  "operator_0.samples.right_id.id"=>"="}) %>
 </p>
 
-<%= link_to 'Edit', edit_right_path(@right) %> |
-<%= link_to 'Back', rights_path %>
+<p>
+  <%= show_view_links(@right) %>
+</p>

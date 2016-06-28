@@ -1,0 +1,2 @@
+    <%= f.input :name %>
+    <%= f.input :country unless (f.object_name.include? "country[") %>

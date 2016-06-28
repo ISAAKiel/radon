@@ -1,14 +1,14 @@
-<p id="notice"><%= notice %></p>
+<% title "Dating Method" %>
 
 <p>
   <strong>Name:</strong>
-  <%= @dating_method.name %>
+  <%=h @dating_method.name %>
 </p>
 
 <p>
-  <strong>Position:</strong>
-  <%= @dating_method.position %>
+  <%= link_to "Show all dates for " + @dating_method.name, search_path(:params => {"combine_option"=>"and", "commit"=>"Search", "action"=>"show", "search_0.samples.dating_method_id.id"=>@dating_method.id, "haupttabelle_id"=>"samples", "controller"=>"searches",  "operator_0.samples.dating_method_id.id"=>"="}) %>
 </p>
 
-<%= link_to 'Edit', edit_dating_method_path(@dating_method) %> |
-<%= link_to 'Back', dating_methods_path %>
+<p>
+  <%= show_view_links(@dating_method) %>
+</p>

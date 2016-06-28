@@ -1,0 +1,25 @@
+<%= grid(@country_subdivisions_grid, :show_filters => :when_filtered) do |g|
+
+  g.row_attributes do |country_subdivision|
+    {id: "country_subdivision_" + country_subdivision.id.to_s}
+  end
+
+  g.column  :name => 'Name', :attribute => 'name' do |object|
+    object.name
+  end
+
+  g.column  :name => 'Country', :model => 'Country', :attribute => 'name' do |object|
+    object.country.name if object.country
+  end
+
+  g.column  :name => '14C dates' do |object|
+
+  link_to Sample.includes(:site=>:country_subdivision).with_permissions_to(:show).where(country_subdivisions: {id: object.id}).count, samples_path(:scope => {"country_subdivisions.id"=>object.id} )
+  end
+
+  g.column do |object|
+    index_table_links(object).html_safe
+  end
+  
+end -%>
+

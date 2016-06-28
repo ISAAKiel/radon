@@ -1,14 +1,14 @@
-<p id="notice"><%= notice %></p>
+<% title Prmat.label %>
 
 <p>
   <strong>Name:</strong>
-  <%= @prmat.name %>
+  <%=h @prmat.name %>
 </p>
 
 <p>
-  <strong>Position:</strong>
-  <%= @prmat.position %>
+  <%= link_to "Show all dates for " + @prmat.name, samples_path(:scope => {"prmats.id"=>@prmat.id} ) %>
 </p>
 
-<%= link_to 'Edit', edit_prmat_path(@prmat) %> |
-<%= link_to 'Back', prmats_path %>
+<p>
+  <%= show_view_links(@prmat) %>
+</p>

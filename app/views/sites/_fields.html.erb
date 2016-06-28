@@ -1,0 +1,24 @@
+  <div class="row-fluid">
+<%= f.inputs "Site Location" do %>
+  <%= render :partial => 'sites/find_or_create_site', :locals => {:f => f} %>
+<% end -%>
+</div>
+<%= f.inputs "Site Data" do %>
+  <%= f.input :name, input_html: {:'data-input' => 'site_name'} %>
+
+  <% country_select = nil -%>
+  <% unless f.object.country_subdivision==nil -%>
+    <% unless f.object.country_subdivision.country_id.blank? -%>
+      <% country_select = f.object.country_subdivision.country_id -%>
+    <% end -%>
+  <% end -%>
+<div class="select input optional form-group" id="site_country_input">
+  <label class="  control-label" for="site_country_subdivision_id">Country</label>
+  <span class="form-wrapper" style="display: inline;">
+  <%= select_tag "site_country_id", ("<option value = ''>k.A.</option>" + options_from_collection_for_select(Country.all, 'id', 'name', country_select.to_i)).html_safe, :'data-input' => 'site_country', class: "form-control" %>
+  </span>
+</div>
+  <%= f.input :country_subdivision, :as => :select, :collection => option_groups_from_collection_for_select(Country.order(:name), :country_subdivisions, :name, :id, :name, f.object.country_subdivision ? f.object.country_subdivision.id : {} ), input_html: {:'data-input' => 'site_country_subdivision'} %>
+  <%= f.input :parish %>
+  <%= f.input :district %>
+<% end -%>

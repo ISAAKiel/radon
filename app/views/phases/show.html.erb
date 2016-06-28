@@ -1,24 +1,16 @@
-<p id="notice"><%= notice %></p>
+<% title "Phase" %>
 
 <p>
   <strong>Name:</strong>
-  <%= @phase.name %>
+  <%=h @phase.name %>
 </p>
-
 <p>
   <strong>Culture:</strong>
-  <%= @phase.culture %>
+  <%=h @phase.culture.name rescue nil %>
 </p>
-
 <p>
-  <strong>Approved:</strong>
-  <%= @phase.approved %>
+  <%= link_to "Show all dates for " + @phase.name, samples_path(:scope => {"phases.id"=>@phase.id} ) %>
 </p>
-
 <p>
-  <strong>Position:</strong>
-  <%= @phase.position %>
+  <%= show_view_links(@phase) %>
 </p>
-
-<%= link_to 'Edit', edit_phase_path(@phase) %> |
-<%= link_to 'Back', phases_path %>

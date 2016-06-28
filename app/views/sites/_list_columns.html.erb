@@ -1,0 +1,45 @@
+<%= grid(@sites_grid, :show_filters => :when_filtered) do |g|
+
+  g.row_attributes do |site|
+    {id: "site_" + site.id.to_s}
+  end
+
+  g.column  :name => 'Name', :attribute => 'name' do |object|
+    object.name if object.name
+  end
+  
+  g.column  :name => 'Parish', :attribute => 'parish' do |object|
+    object.parish if object.parish
+  end
+  
+  g.column  :name => 'District', :attribute => 'district' do |object|
+    object.district if object.district
+  end
+  
+  g.column  :name => 'Country Subdivision', :model => 'CountrySubdivision', :attribute => 'name' do |object|
+    object.country_subdivision.name if object.country_subdivision
+  end
+
+  g.column  :name => 'Country', :model => 'Country', :attribute => 'name' do |object|
+    object.country_subdivision.country.name if object.country_subdivision && object.country_subdivision.country
+  end
+  
+  g.column  :name => 'Lat', :attribute => 'lat' do |object|
+    object.lat if object.lat
+  end
+  
+  g.column  :name => 'Lng', :attribute => 'lng' do |object|
+    object.lng if object.lng
+  end
+  
+  g.column  :name => '14C dates' do |object|
+    link_to object.samples.with_permissions_to(:show).length,
+            samples_path(:scope => {"sites.id"=>object.id} )
+  end
+  
+  g.column do |object|
+    index_table_links(object).html_safe
+  end
+  
+end -%>
+

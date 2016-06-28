@@ -1,0 +1,23 @@
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
+<head>
+    <title>Search Result :: Oxcal Code</title>
+</head>
+<pre>
+/*
+The result is formatted for Oxcal input.
+If you want to use the dates as model, just uncomment the lines
+by deleting the // before the entries.
+*/
+
+//Sequence()
+//{
+//  Boundary("Start");
+//  Phase()
+//  {
+<% @end_result_all.each do |result| %>
+    R_Date("<%= result.name.to_s rescue "no_name" -%>", <%= result.bp %>, <%= result.std %>);<% end %>
+    
+//  };
+//  Boundary("End");
+//};
+</pre>

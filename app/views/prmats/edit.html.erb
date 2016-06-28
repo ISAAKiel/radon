@@ -1,6 +1,7 @@
-<h1>Editing Prmat</h1>
+<% title "Edit " + Prmat.label %>
 
-<%= render 'form' %>
+<%= render :partial => 'form' %>
 
-<%= link_to 'Show', @prmat %> |
-<%= link_to 'Back', prmats_path %>
+<p>
+  <%= edit_view_links(@prmat) -%>
+</p>

@@ -1,0 +1,24 @@
+<div style="text-align:center; float:right;">
+<%= link_to 'New Search', new_search_path %> | 
+<%= link_to "Show all entries of table #{params[:haupttabelle_id].singularize.humanize}", send("#{params[:haupttabelle_id]}_path") -%>
+<hr>
+<%= render :partial => "search_result_alternatives" -%>
+</div>
+<h1>Search results</h1>
+
+<p><b>Result:</b> <%= @end_result.total_entries -%> rows<br/>
+<%= render :partial => "search_query" -%>
+<% unless @end_result.blank? -%>
+  <%# if params[:show_list] -%>
+    <h2> Results as list </h2>
+    Samples with the following IDs met your search:<br/>
+    <% @end_result.each do |end_result| -%>
+      <%= link_to end_result.id, end_result  %>
+      <br/>
+    <% end -%>
+  <%# end -%>
+<% end -%>
+</p>
+<p>
+<%= link_to 'New Search', new_search_path %>
+</p>

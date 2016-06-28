@@ -1,0 +1,4 @@
+<% for country_subdivision in @country_subdivisions %>
+    <option value="<%= country_subdivision.id %>"><%= country_subdivision.name %></option>
+<% end if @country_subdivisions%>
+

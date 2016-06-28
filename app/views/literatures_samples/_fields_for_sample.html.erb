@@ -1,0 +1,27 @@
+<%= link_to "Toggle Literature Fields", '#', class: "toggle_literature_fields", data: {:'lit-status' => f.object.literature.present?} %>
+
+<% div_name = generate_html_id -%>
+
+<div id="<%= div_name %>_existing_literature" class="existing_literature">
+<% if !f.object_name.include? "literature_" -%>
+  <div class="show_literature_div"><%=render f.object.literature if f.object.literature.present? %></div>
+  <strong>Choose existing Literature (search by short citation):</strong>
+  <%= f.text_field :literature_short_citation_autocomplete, data: {autocomplete_source: autocomplete_literatures_path, autocomplete: 'literature'} %>
+  <%= f.input :literature_id, as: :hidden, input_html: {:'data-hidden_field_for' => 'literature'} %>
+<% end -%>
+</div>
+
+<div id="<%= div_name %>_new_literature" class="new_literature">
+  <%# unless (permitted_to? :edit, :literatures) -%>
+      <%# if (f.object.new_record?) && (permitted_to? :create, :literatures) %>
+      <%# f.object.build_literature if f.object.literature.blank? -%>
+  <% field_disabling=true -%>
+  <%# end -%>
+    <%f.object.build_literature%>
+    <%= f.semantic_fields_for :literature do |builder| %>
+      <%#= builder.inputs "Literature" do %>
+        <%= render "literatures/fields", include_id: false, :f => builder, :field_disabling => field_disabling %>
+      <%# end -%>
+    <% end %>
+  <%# end %>
+</div>

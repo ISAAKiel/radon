@@ -1,25 +1,6 @@
-<%= form_for(@prmat) do |f| %>
-  <% if @prmat.errors.any? %>
-    <div id="error_explanation">
-      <h2><%= pluralize(@prmat.errors.count, "error") %> prohibited this prmat from being saved:</h2>
-
-      <ul>
-      <% @prmat.errors.full_messages.each do |message| %>
-        <li><%= message %></li>
-      <% end %>
-      </ul>
-    </div>
-  <% end %>
-
-  <div class="field">
-    <%= f.label :name %><br>
-    <%= f.text_field :name %>
-  </div>
-  <div class="field">
-    <%= f.label :position %><br>
-    <%= f.number_field :position %>
-  </div>
-  <div class="actions">
-    <%= f.submit %>
-  </div>
+<%= semantic_form_for @prmat do |f| %>
+  <%= f.inputs do %>
+    <%= f.input :name %>
+  <% end -%>
+  <%= f.actions %>
 <% end %>

@@ -1,74 +1,119 @@
 class LiteraturesController < ApplicationController
-  before_action :set_literature, only: [:show, :edit, :update, :destroy]
 
-  # GET /literatures
-  # GET /literatures.json
+  filter_resource_access  :additional_collection => [:autocomplete, :un_api, :without_bibtex]
+
+  def without_bibtex
+    @literatures = Literature.find :all, :order => 'short_citation ASC', :conditions => {:bibtex => nil}
+    @literatures_grid = initialize_grid(Literature.with_permissions_to(:show),
+    :name => 'literatures',
+    :conditions => {:bibtex => nil},
+    :enable_export_to_csv => false,
+    :csv_file_name => 'literatures'
+    )
+    export_grid_if_requested
+
+    render :action => 'index'
+  end
+  
   def index
-    @literatures = Literature.all
+    @literatures = Literature.find :all, :order => 'short_citation ASC'
+    @literatures_grid = initialize_grid(Literature.with_permissions_to(:show),
+    :name => 'literatures',
+    :enable_export_to_csv => false,
+    :csv_file_name => 'literatures'
+    )
+    export_grid_if_requested
   end
 
-  # GET /literatures/1
-  # GET /literatures/1.json
+  def autocomplete
+    @literatures = Literature.order(:short_citation).where("lower(short_citation) like ?", "%#{params[:term].downcase}%")
+    render json: @literatures.map {|u| Hash[id: u.id, literature_short_citation: u.short_citation, label: u.short_citation]}
+  end
+  
+  def search
+    @literatures = Literature.order(:name).where("name like ?", "%#{params[:term]}%")
+    render json: @literatures.map(&:short_citation)
+  end
+  
   def show
+    @literature = Literature.find(params[:id])
+    if params[:pure]
+      render @literature
+    end
   end
-
-  # GET /literatures/new
+  
   def new
     @literature = Literature.new
   end
-
-  # GET /literatures/1/edit
-  def edit
-  end
-
-  # POST /literatures
-  # POST /literatures.json
+  
   def create
-    @literature = Literature.new(literature_params)
-
-    respond_to do |format|
-      if @literature.save
-        format.html { redirect_to @literature, notice: 'Literature was successfully created.' }
-        format.json { render :show, status: :created, location: @literature }
-      else
-        format.html { render :new }
-        format.json { render json: @literature.errors, status: :unprocessable_entity }
-      end
+    @literature = Literature.new(params[:literature])
+    if @literature.save
+      flash[:notice] = "Successfully created literature."
+      redirect_to @literature
+    else
+      render :action => 'new'
     end
   end
-
-  # PATCH/PUT /literatures/1
-  # PATCH/PUT /literatures/1.json
+  
+  def edit
+    @literature = Literature.find(params[:id])
+  end
+  
   def update
-    respond_to do |format|
-      if @literature.update(literature_params)
-        format.html { redirect_to @literature, notice: 'Literature was successfully updated.' }
-        format.json { render :show, status: :ok, location: @literature }
-      else
-        format.html { render :edit }
-        format.json { render json: @literature.errors, status: :unprocessable_entity }
-      end
+    @literature = Literature.find(params[:id])
+    if @literature.update_attributes(params[:literature])
+      flash[:notice] = "Successfully updated literature."
+      redirect_to @literature
+    else
+      render :action => 'edit'
     end
   end
-
-  # DELETE /literatures/1
-  # DELETE /literatures/1.json
+  
   def destroy
+    @literature = Literature.find(params[:id])
     @literature.destroy
-    respond_to do |format|
-      format.html { redirect_to literatures_url, notice: 'Literature was successfully destroyed.' }
-      format.json { head :no_content }
+    flash[:notice] = "Successfully destroyed literature."
+    redirect_to literatures_url
+  end
+
+  def un_api 
+    if params[:id].nil?
+      render :xml=>supported_formats(), 
+                          :content_type => Mime::XML, :status => '200'
+    else
+      identifier = params[:id]
+      if params[:format].nil?
+        respond_to do |format|
+          format.xml { render :xml=>supported_formats_for(identifier), 
+                            :content_type => Mime::XML, :status => '200' }
+        end
+      else
+        respond_to do |format|
+         @literature = Literature.find(params[:id])
+          unless @literature.to_bibtex.blank?
+            render :text => @literature.to_bibtex
+            return
+          end
+          return '404'
+        end
+      end
     end
   end
 
   private
-    # Use callbacks to share common setup or constraints between actions.
-    def set_literature
-      @literature = Literature.find(params[:id])
-    end
 
-    # Never trust parameters from the scary internet, only allow the white list through.
-    def literature_params
-      params.require(:literature).permit(:short_citation, :year, :author, :long_citation, :url, :approved, :bibtex)
-    end
+  def supported_formats_for(identifier)
+    @format ||= "<?xml version='1.0' encoding='UTF-8'?><formats>" +
+                    "<formats id=\""+identifier+"\">" +
+                    "<format name='bibtex' type='text/plain' />" +
+                    "</formats>"
+  end
+
+  def supported_formats
+    @format ||= "<?xml version='1.0' encoding='UTF-8'?><formats>" +
+                    "<format name='bibtex' type='text/plain' />" +
+                    "</formats>"
+  end
+
 end

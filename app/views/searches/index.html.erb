@@ -1,0 +1,46 @@
+<% searches = params.select {|k,v| k[0..6] == "search_"} -%>
+<% column_names = ["Id"] -%>
+<% columns = ["id"] -%>
+<% searches.each do |search| -%>
+    <% column_names.push(search[0].split(".")[2..-2].join(".").gsub("_id","").humanize) %>
+    <% columns.push(search[0].split(".")[2..-1].join(".").gsub("_id","")) %>
+<% end -%>
+<% if params[:specified_fields] -%>
+  <% params[:specified_fields].keys.each do |specified_field| -%>
+      <% column_names.push(specified_field.split(".").first.to_s.gsub("_id","").humanize) %>
+      <% columns.push(specified_field) %>
+  <% end -%>
+<% end -%>
+<div style="text-align:center; float:right;">
+<%= link_to 'New Search', new_search_path %> | 
+<%= link_to "Show all entries of table #{params[:haupttabelle_id].singularize.humanize}", send("#{params[:haupttabelle_id]}_path") -%>
+<hr>
+<%= render :partial => "search_result_alternatives" -%>
+</div>
+<div style="clear:both; float:left;">
+<%= render :partial => "search_list_specify_fields" rescue nil %>
+</div>
+<%# form_tag edit_multiple_searches_path do %>
+<%#= hidden_field_tag 'haupttabelle_id', params[:haupttabelle_id] %>
+<%= render :partial => "layouts/standard_list_form",
+  :locals =>
+  {
+#    :model_name => "#{params[:haupttabelle_id].classify.constantize.to_s}",
+    :model_name => "Search",
+    :human_name => "Search in #{params[:haupttabelle_id].singularize.humanize}, results as table",
+    :extra_column_names => column_names,
+    :extra_columns => columns
+  } %>
+<%#FIXME function edit_multipe not activated
+<#input type="checkbox" id="toggleAll" onclick="$$('input.handle_multiple').each(function(box) { box.checked = $('toggleAll').checked; });" style="display:inline;">
+%>
+<%#= label_tag 'toggleAll', "Toggle all", :style=>"display:inline;" %>
+<%#= submit_tag "delete marked", :name => "edit_multiple", :confirm => 'Are you sure?' %>
+<%#= submit_tag "edit marked", :name => "edit_multiple" %>
+<%# end -%>
+<%= render :partial => "search_query" -%>
+
+<p style="text-align:right;">
+<%= link_to 'New Search', new_search_path %> | 
+<%= link_to "Show all data from #{params[:haupttabelle_id].singularize.humanize}", send("#{params[:haupttabelle_id]}_path") -%>
+</p>

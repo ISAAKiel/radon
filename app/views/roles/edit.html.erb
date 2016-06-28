@@ -1,6 +1,7 @@
-<h1>Editing Role</h1>
+<% title "Edit Role" %>
 
-<%= render 'form' %>
+<%= render :partial => 'form' %>
 
-<%= link_to 'Show', @role %> |
-<%= link_to 'Back', roles_path %>
+<p>
+  <%= edit_view_links(@role) -%>
+</p>

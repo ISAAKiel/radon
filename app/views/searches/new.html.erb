@@ -1,0 +1,79 @@
+<h1>New Search</h1>
+
+<%= link_to "Toggle Simple Search/Expert Search", "#", :onclick=> "$('#simple_search').toggle(); $('#expert_search').toggle();"  %>
+<%= form_for :search, :url => { :action => "show" } do |f| %>
+  <fieldset id="simple_search">
+    <legend>Simple Search for Dates</legend>
+    <% option_array= [["Country", "country"], ['Culture', "culture"], ['Literatures',"literatures"], ['Rights',"rights"],['Phases',"phases"],['Country subdivisions',"country_subdivisions"],['Labs',"labs"],['Prmats',"prmats"],['Dating methods',"dating_methods"],['Sites',"sites"],["Feature types",'feature_types']]-%>
+    <% 4.times do |index| -%>
+      <%= select_tag "simple_search_#{index}", options_for_select(option_array,option_array[index+1][1]) %>
+      <%= text_field_tag "simple_value_#{index}" %>
+      <%= (select_tag "simple_operator_#{index+1}", options_for_select([["and","and"], ["or", "or"], ['and not', "and_not"]], "and")) unless index==3 %> 
+      <br>
+    <% end -%>
+    <%= hidden_field_tag "simple_search", 1 %>
+    <%= hidden_field_tag "haupttabelle_id", "samples", {:id => 'haupttabelle_id_simple'} %>
+
+    <%= f.submit "Search" %>
+  </fieldset>
+<% end -%>
+
+<%= form_for :search, :url => { :action => "show" } do |f| %>
+<fieldset id="expert_search" style="display:none;">
+<legend>Parameters</legend>
+  <p>with</p>
+  <%= select_tag "combine_option", "<option value='and' selected='selected'>and operator</option><option value='or'>or operator</option>".html_safe -%>
+  <p>
+    <%#= javascript 'dynamic_search_fields' %>  
+    <%= label_tag "search for:" %><br />
+    <%= select_tag "haupttabelle_id", options_for_select([["Choose...",""],["Samples", "samples"], ['Sites', "sites"], ['Literatures',"literatures"]],"Choose...") -%>
+  </p>
+  <%#= observe_field "haupttabelle_id", 
+    :url => { :action => :update_subfields },
+    :update => "subsearch",
+    :with => "id" %>
+
+<script type="text/javascript">
+// Append the function to the "document ready" chain
+$(function($) {
+  // when the #search field changes
+  $("#haupttabelle_id").change(function() {
+    // make a POST call and replace the content
+$.ajax({
+    type: 'POST',
+    dataType: "html",
+    url: '<%= url_for :action => :update_subfields%>',
+    data: 'id='+$("#haupttabelle_id").val(),
+    success: function(data){
+      $("#subsearch").html(data);
+    }});
+  });
+})
+</script>
+    <div id="subsearch">
+    </div>
+  <p>
+    <%= f.submit "Search" %>
+  </p>
+  <% cookies[:subsearch_count]="0" -%>
+<% end %>
+</fieldset>
+<%#= remote_function(:update => "subsearch",
+    :url => { :action => :update_subfields },
+    :update => "subsearch",
+    :with => "'id='+$('haupttabelle_id').value")
+    %>
+<script type="text/javascript">
+    $(function(){
+$.ajax({
+    type: 'POST',
+    dataType: "html",
+    url: '<%= url_for :action => :update_subfields%>',
+    data: 'id='+$("#haupttabelle_id").val(),
+    success: function(data){
+      $("#subsearch").html(data);
+    }});
+  });
+</script>
+
+<%= link_to 'Back', :back %>

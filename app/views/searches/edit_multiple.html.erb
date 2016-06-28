@@ -1,0 +1,74 @@
+
+<% form_for :searches, :url => update_multiple_searches_path, :html => { :method => :put } do |f| %>
+
+
+    <% for object in @objects %>
+
+        <%= hidden_field_tag "object_ids[]", object.id %>
+
+    <% end %>
+<div class="flash_warning">
+Folgende Datensätze werden Bearbeitet: <%= @objects.map(&:id).join(", ") %>
+</div>
+  <%= hidden_field_tag "haupttabelle_id", params[:haupttabelle_id] %>
+  <%= hidden_field_tag "referrer", request.env['HTTP_REFERER'] %>
+
+  <% object_class = params[:haupttabelle_id].classify.constantize -%>
+  <% instance_variable_set "@#{params[:haupttabelle_id].singularize}", object_class.new -%>
+
+  <%= render :partial => "#{params[:haupttabelle_id]}/form", :locals => {:bearbeiten => true, :submit_text => "Senden"} %>
+
+<% end -%>
+
+<%= javascript_tag "
+function getElementsAsArray(html_collection){
+  var i, tmp = [];
+  for(i = 0; i< html_collection.length; i++){
+    tmp.push(html_collection[i]);
+  }
+  return tmp;
+}
+
+function secure_checkboxes() {
+  $$('input').each(function(e){
+    if(e.type == 'checkbox') {
+      hiddens = document.getElementsByName(e.name);
+      getElementsAsArray(hiddens).each(function(f){
+        if(f.type == 'hidden') {
+          f.disable();
+        };
+      });
+      var change_button = new Element('input',{
+                            'type':'checkbox',
+                            'id': e.name + '_change',
+                            'style':'display:inline;',
+                            'value': e.value});
+
+//      change_button = '<input type=\\'checkbox\\' id=\\''+e.name+'_change\\' style=\\'display:inline;\\' /> &Auml;ndern? ';
+      change_element = Element.insert(e, {before: change_button});
+      Element.insert(change_button, {after: '&Auml;ndern?'});
+      
+      //    content = '<input type=\\'radio\\' id=\\''+e.name+'\\' name=\\''+e.name+'\\' value=\\''+e.value+'\\' style=\\'display:inline;\\' /> ja <input type=\\'radio\\' id=\\''+e.name+'\\' name=\\''+e.name+'\\' value=\\'0\\' style=\\'display:inline\\'/> nein <input type=\\'radio\\' id=\\''+e.name+'\\' name=\\''+e.name+'\\' value=\\'\\' checked=\\'checked\\' style=\\'display:inline\\' /> nicht &auml;ndern';
+
+      //    Element.replace(e, content);
+
+      e.disable();
+      change_button.observe('click', function(event){toggle_checkboxes (Event.element(event))});
+
+    };
+  });
+};
+Event.observe(window, 'load', function() {secure_checkboxes();});
+
+function toggle_checkboxes (element)
+{
+  name_of_to_toggle = element.identify().substring(0,element.identify().length-7)
+  to_toggle_collection = document.getElementsByName(name_of_to_toggle);
+  to_toggle = getElementsAsArray(to_toggle_collection)
+  to_toggle.each(function(el){
+      if (el.value==element.value)
+        {el[el.disabled ? 'enable' : 'disable']();}
+  });
+}
+"
+-%>

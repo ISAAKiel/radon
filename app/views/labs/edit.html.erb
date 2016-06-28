@@ -1,6 +1,7 @@
-<h1>Editing Lab</h1>
+<% title "Edit " + Lab.label %>
 
-<%= render 'form' %>
+<%= render :partial => 'form' %>
 
-<%= link_to 'Show', @lab %> |
-<%= link_to 'Back', labs_path %>
+<p>
+  <%= edit_view_links(@lab) -%>
+</p>

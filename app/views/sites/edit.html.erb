@@ -1,6 +1,6 @@
-<h1>Editing Site</h1>
+<% title "Edit Site" %>
 
-<%= render 'form' %>
-
-<%= link_to 'Show', @site %> |
-<%= link_to 'Back', sites_path %>
+<%= render :partial => 'form' %>
+<p>
+  <%= edit_view_links(@site) -%>
+</p>

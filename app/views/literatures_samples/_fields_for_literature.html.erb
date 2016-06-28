@@ -1,0 +1,30 @@
+    <% div_name = generate_html_id -%>
+    <div id="<%= div_name %>_new" <%= if !f.object.sample then "style='display:none;'" end %>>
+      <% if ((permitted_to? :edit, :samples) || (f.object.new_record?)) -%>
+        <% if (f.object.new_record?) && (permitted_to? :create, :samples) %>
+          <% (new_object = f.object.class.reflect_on_association(:sample).klass.new) -%>
+          Create new Sample
+          <% field_disabling=true -%>
+          <% end -%>
+
+        <%= f.semantic_fields_for :sample, f.object.sample || new_object do |builder| %>
+          <%= builder.inputs "Sample" do %>
+            <%= render "samples/fields", :f => builder, :field_disabling => field_disabling %>
+          <% end -%>
+        <% end %>
+      <% end %>
+      <% if (f.object.new_record?)  %>
+        <%#= link_to_function "or add existing",  "$('#{div_name}_existing').toggle(); Array.prototype.slice.call($('#{div_name}_new').down(0)).each(function(s) {Form.Element.disable(s);});"  %>
+        <%= link_to_function "or add existing",  "$('#{div_name}_new').toggle(); $('#{div_name}_existing').toggle(); $('#{div_name}_new').select('input').each(function(s) {Form.Element.disable(s);});$('#{div_name}_new').select('select').each(function(s) {Form.Element.disable(s);});$('#{div_name}_new').select('textarea').each(function(s) {Form.Element.disable(s);});  $('#{div_name}_existing').select('input').each(function(s) {Form.Element.enable(s);});"  %>
+      <% end -%>
+    </div>
+    <div id="<%= div_name %>_existing" <%= if f.object.sample then "style='display:none;'" end %>>
+    <% if !f.object_name.include? "sample_" -%>
+      <% if f.object.new_record? -%>
+        <%#= link_to_add_fields "Create Sample", f, :sample %>
+        <strong>Add existing Sample:</strong>
+        <%#= (auto_complete_with_hidden_field "Testfield", f, :sample).html_safe unless (f.object_name.include? "sample_")%>
+        <%= link_to_function "or create new",  "$('#{div_name}_new').toggle(); $('#{div_name}_existing').toggle(); $('#{div_name}_new').select('input').each(function(s) {Form.Element.enable(s);});$('#{div_name}_new').select('select').each(function(s) {Form.Element.enable(s);});$('#{div_name}_new').select('textarea').each(function(s) {Form.Element.enable(s);});  $('#{div_name}_existing').select('input').each(function(s) {Form.Element.disable(s);});"  %>
+      <% end -%>
+    <% end -%>
+    </div>

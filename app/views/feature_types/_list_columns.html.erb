@@ -1,0 +1,25 @@
+<%= grid(@feature_types_grid, :show_filters => :when_filtered) do |g|
+
+  g.row_attributes do |feature_type|
+    {id: "feature_type_" + feature_type.id.to_s}
+  end
+
+  g.column  :name => 'Name', :attribute => 'name' do |object|
+    object.name
+  end
+  
+  g.column  :name => 'Comment', :attribute => 'comment' do |object|
+    object.comment
+  end
+  
+  g.column  :name => '14C dates' do |object|
+    link_to object.samples.with_permissions_to(:show).length,
+            samples_path(:scope => {"feature_types.id"=>object.id} )
+  end
+  
+  g.column do |object|
+    index_table_links(object).html_safe
+  end
+  
+end -%>
+

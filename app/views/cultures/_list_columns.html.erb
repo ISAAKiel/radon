@@ -1,0 +1,33 @@
+<%= grid(@cultures_grid, :show_filters => :when_filtered) do |g|
+
+  g.column  :name => 'Name', :attribute => 'name' do |object|
+    object.name
+  end
+  
+  g.column  :name => 'Phases', :model => 'Phase', :attribute => 'name' do |object|
+    object.phases.map(&:name).to_sentence
+  end
+  
+  g.column  :name => '14C dates' do |object|
+    link_to  ActiveRecord::Base.connection.select_value( "
+SELECT 
+  count(*)
+FROM 
+  public.phases, 
+  public.samples
+WHERE 
+  phases.culture_id = #{object.id} AND
+  samples.phase_id = phases.id
+  ;
+"),
+    
+    #object.phases.map{|y| y.samples.with_permissions_to(:show).length}.sum,
+            samples_path(:scope => {"cultures.id"=>object.id} )
+  end
+
+  g.column do |object|
+    index_table_links(object).html_safe
+  end
+  
+end -%>
+

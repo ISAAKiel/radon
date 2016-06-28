@@ -1,6 +1,7 @@
-<h1>Editing Country Subdivision</h1>
+<% title "Edit Country Subdivision" %>
 
-<%= render 'form' %>
+<%= render :partial => 'form' %>
 
-<%= link_to 'Show', @country_subdivision %> |
-<%= link_to 'Back', country_subdivisions_path %>
+<p>
+  <%= edit_view_links(@country_subdivision) -%>
+</p>

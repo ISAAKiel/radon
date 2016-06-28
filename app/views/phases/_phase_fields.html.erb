@@ -1,0 +1,3 @@
+    <%= f.input :name %>
+    <%= f.input :culture unless (f.object_name.include? "culture[") -%>
+

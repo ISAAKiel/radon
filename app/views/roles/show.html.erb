@@ -1,4 +1,10 @@
-<p id="notice"><%= notice %></p>
+<% title "Role" %>
 
-<%= link_to 'Edit', edit_role_path(@role) %> |
-<%= link_to 'Back', roles_path %>
+<p>
+  <strong>Name:</strong>
+  <%=h @role.name %>
+</p>
+
+<p>
+  <%= show_view_links(@role) %>
+</p>

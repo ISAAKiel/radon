@@ -1,74 +1,63 @@
 class CulturesController < ApplicationController
-  before_action :set_culture, only: [:show, :edit, :update, :destroy]
 
-  # GET /cultures
-  # GET /cultures.json
+  filter_access_to :index, :show, :edit, :new, :create, :update, :destroy 
+  
   def index
     @cultures = Culture.all
+    @cultures_grid = initialize_grid(Culture.with_permissions_to(:show),
+    :include => [:phases],
+    :name => 'cultures',
+    :enable_export_to_csv => false,
+    :csv_file_name => 'cultures'
+    )
+    export_grid_if_requested
   end
 
-  # GET /cultures/1
-  # GET /cultures/1.json
+  def sort
+    if (defined? current_user.roles) && (current_user.roles.map(&:name).detect {|role| role == "admin"}) 
+      params[:cultures].each_with_index do |id, index|
+        Culture.update_all(['position=?', index+1], ['id=?', id])
+      end
+    end
+    render :nothing => true
+  end
+
   def show
+    @culture = Culture.find(params[:id])
   end
-
-  # GET /cultures/new
+  
   def new
     @culture = Culture.new
   end
-
-  # GET /cultures/1/edit
-  def edit
-  end
-
-  # POST /cultures
-  # POST /cultures.json
+  
   def create
-    @culture = Culture.new(culture_params)
-
-    respond_to do |format|
-      if @culture.save
-        format.html { redirect_to @culture, notice: 'Culture was successfully created.' }
-        format.json { render :show, status: :created, location: @culture }
-      else
-        format.html { render :new }
-        format.json { render json: @culture.errors, status: :unprocessable_entity }
-      end
+    @culture = Culture.new(params[:culture])
+    if @culture.save
+      flash[:notice] = "Successfully created culture."
+      redirect_to @culture
+    else
+      render :action => 'new'
     end
   end
-
-  # PATCH/PUT /cultures/1
-  # PATCH/PUT /cultures/1.json
+  
+  def edit
+    @culture = Culture.find(params[:id])
+  end
+  
   def update
-    respond_to do |format|
-      if @culture.update(culture_params)
-        format.html { redirect_to @culture, notice: 'Culture was successfully updated.' }
-        format.json { render :show, status: :ok, location: @culture }
-      else
-        format.html { render :edit }
-        format.json { render json: @culture.errors, status: :unprocessable_entity }
-      end
+    @culture = Culture.find(params[:id])
+    if @culture.update_attributes(params[:culture])
+      flash[:notice] = "Successfully updated culture."
+      redirect_to @culture
+    else
+      render :action => 'edit'
     end
   end
-
-  # DELETE /cultures/1
-  # DELETE /cultures/1.json
+  
   def destroy
+    @culture = Culture.find(params[:id])
     @culture.destroy
-    respond_to do |format|
-      format.html { redirect_to cultures_url, notice: 'Culture was successfully destroyed.' }
-      format.json { head :no_content }
-    end
+    flash[:notice] = "Successfully destroyed culture."
+    redirect_to cultures_url
   end
-
-  private
-    # Use callbacks to share common setup or constraints between actions.
-    def set_culture
-      @culture = Culture.find(params[:id])
-    end
-
-    # Never trust parameters from the scary internet, only allow the white list through.
-    def culture_params
-      params.require(:culture).permit(:name, :position)
-    end
 end

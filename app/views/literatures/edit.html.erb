@@ -1,6 +1,7 @@
-<h1>Editing Literature</h1>
+<% title "Edit Literature" %>
 
-<%= render 'form' %>
+<%= render :partial => 'form' %>
 
-<%= link_to 'Show', @literature %> |
-<%= link_to 'Back', literatures_path %>
+<p>
+  <%= edit_view_links(@literature) -%>
+</p>

@@ -1,0 +1,57 @@
+<div id="results" style="width: 512px; height: 256px;float:left;overflow:auto;margin: 10px">
+  <%counter=0%>
+  <%map_features=[]%>
+  <%unless @locations_from_sites.blank? %>
+    <h3>Locations already in RADON</h3>
+  <%end%>
+  <ul class="location_proposal_list" id='locations_from_site'>
+  <%@locations_from_sites.each do |place|
+
+    #      if place['fcode']=='PPL'
+  #    unless (place['lng'].to_f.blank? || place['lat'].to_f.blank?)
+  #        unless (place['lng'].blank? || place['lat'].blank?) || (known_sites.detect { |e| e.lat==place['lat'] && e.lng == place['lng']})# || place['fcode'][0..2]!='PPL')
+  #        if ((params[:BBOX].blank?) || ((bbox[0]<=place['lng']) && (place['lng']<=bbox[2]) &&  (bbox[1]<=place['lat']) && (place['lat']<=bbox[3]))) # Wenn lat und lng gegeben und noch nicht in DB
+    counter += 1
+
+    #mögliches Javascript in Namen maskieren
+    place_name=place.name
+    place_country_subdivision=place.country_subdivision.name if place.country_subdivision
+    place_countryName= place.country_subdivision.country.name if place.country_subdivision && place.country_subdivision.country
+    place_site_id = place.id
+    map_features << {lng: place.lng, lat: place.lat, adminName1: place_country_subdivision, countryName: place_countryName, id: counter, source: 'sites', site_id: place_site_id}
+  %>
+    <li>
+    <%=counter.to_s%>: <%=[place_name, place_country_subdivision, place_countryName].join(", ")%> | <%= link_to "Zoom", "#", :class => 'zoomToFeature', :data_id => counter%> | <%= link_to "Select", "#", :class => 'selectFeature siteFeature', :data_id => counter, :data_site_id => place.id %>
+    </li>
+  <%#end%>
+  <%#end%>
+  <%end%>
+  </ul>
+  <%unless @location_proposals.blank? %>
+    <h3 style="clear:both; margin-top:3em;">Locations Proposals from Geonames.org</h3>
+  <%end%>
+  <ul class="location_proposal_list" id='locations_from_geonames'>
+  <%@location_proposals.each do |place|
+
+    #      if place['fcode']=='PPL'
+  #    unless (place['lng'].to_f.blank? || place['lat'].to_f.blank?)
+  #        unless (place['lng'].blank? || place['lat'].blank?) || (known_sites.detect { |e| e.lat==place['lat'] && e.lng == place['lng']})# || place['fcode'][0..2]!='PPL')
+  #        if ((params[:BBOX].blank?) || ((bbox[0]<=place['lng']) && (place['lng']<=bbox[2]) &&  (bbox[1]<=place['lat']) && (place['lat']<=bbox[3]))) # Wenn lat und lng gegeben und noch nicht in DB
+            counter += 1
+
+            #mögliches Javascript in Namen maskieren
+            place['name']=escape_javascript(place['name'])
+            place['adminName1']=escape_javascript(place['adminName1'])
+            place['countryName']=escape_javascript(place['countryName'])
+    map_features << {lng: place['lng'].to_f, lat: place['lat'].to_f, adminName1: place['adminName1'], countryName: place['countryName'], id: counter, source: 'geonames'}
+  %>
+    <li>
+    <%=counter.to_s%>: <%=[place['name'], place['adminName1'], place['countryName']].join(", ")%> | <%= link_to "Zoom", "#", :class => 'zoomToFeature', :data_id => counter%> | <%= link_to "Select", "#", :class => 'selectFeature', :data_id => counter%>
+    </li>
+  <%#end%>
+  <%#end%>
+  <%end%>
+
+  </ul>
+</div>
+<%= javascript_tag "$(populateMap(#{map_features.to_json}))" %>

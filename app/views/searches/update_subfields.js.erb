@@ -1,0 +1,82 @@
+<% unless @field_type=="input" -%>
+<% cookies[:subsearch_count]=(cookies[:subsearch_count].to_i+1).to_s -%>
+  <% subfields=[] -%>
+  <% current_user_role_names = current_user.roles.map(&:name) rescue [] -%>
+  <% not_to_show = ["id", "created_at", "updated_at", "position"] -%>
+  <% @update_subfields.each do |update_subfield| %>
+    <% unless @update_associations.any?{|update_association| update_association.primary_key_name==update_subfield } -%>
+      <% if (current_user_role_names.detect {|role_name| role_name == "admin" }) || (!not_to_show.detect {|field| field == update_subfield}) -%>
+        <% subfields << [update_subfield, params[:id]+"."+update_subfield] -%>
+      <% end -%>
+    <% else -%>
+      <% table = @update_associations.detect {|update_association| update_association.primary_key_name==update_subfield}.association_foreign_key[0..-4] %>
+<% #weitergabe der assoziation statt des tabellennamens -%>
+      <% subfields << [update_subfield[0..-4].humanize , params[:id]+"."+update_subfield] -%>
+<% #bak -%>
+      <%# subfields << [update_subfield[0..-4].humanize , params[:id]+"."+table] -%>
+<% #ende -%>
+    <% end -%>
+  <% end -%>
+  <% #experiment hm_assocs in Auswahlliste -%>
+  
+  <% @hm_assocs.each do |hm_assoc| -%>
+    <% unless params[:id].split(".").detect {|table_name| table_name == hm_assoc.table_name} -%>
+      <% subfields << [hm_assoc.table_name.humanize, params[:id]+"."+hm_assoc.table_name] -%>
+    <% end -%>
+  <% end -%>
+
+  <% @ho_assocs.each do |ho_assoc| -%>
+    <% unless params[:id].split(".").detect {|table_name| table_name == ho_assoc.table_name} -%>
+      <% subfields << [ho_assoc.table_name.humanize, params[:id]+"."+ho_assoc.table_name] -%>
+    <% end -%>
+  <% end -%>
+  
+  <% #experiment ende -%>
+  <%= select_tag cookies[:subsearch_count], options_for_select([["Choose...",""]]+subfields,"Choose...") -%>
+
+  <div id="subfield_<%=cookies[:subsearch_count]%>">
+    <%#= observe_field cookies[:subsearch_count], 
+      :url => { :action => :update_subfields },
+      :update => params[:id]+"_subfield_"+cookies[:subsearch_count],
+      :with => "id" %>
+    <script type="text/javascript">
+    $(function($) {
+      // when the #search field changes
+      $("#<%=cookies[:subsearch_count]%>").change(function() {
+        // make a POST call and replace the content
+      $.ajax({
+          type: 'POST',
+          dataType: "html",
+          url: '<%= url_for :action => :update_subfields%>',
+          data: 'id='+$("#<%=cookies[:subsearch_count]%>").val(),
+          success: function(data){
+            $("#subfield_<%=cookies[:subsearch_count]%>").html(data);
+          }});
+        });
+    })
+    </script>
+  </div>
+
+
+<% else -%>
+  <% unless params[:id].blank? -%>
+    <% items = [] -%>
+    <%= select_tag "operator_"+cookies[:subsearch_count]+"."+params[:id], options_for_select([["smaller than","<"],["bigger than",">"],["equals","="],["similar","LIKE"]],"=") %>    
+    <% unless @update_subfields.blank? -%>
+      <% @update_subfields.each do |update_subfield| %>
+        <% items << update_subfield[params[:id].split(".").last.to_sym]  %>
+      <% end -%>
+      <%= select_tag "search_"+cookies[:subsearch_count]+"."+params[:id], options_for_select(items) -%>
+    <% else -%>
+      <% if @column_type == "boolean" -%>
+        <%= check_box_tag "search_"+cookies[:subsearch_count]+"."+params[:id]  %>
+        <%= hidden_field_tag "search_"+cookies[:subsearch_count]+"."+params[:id], 0 -%>
+      <% else -%>
+        <%= text_field_tag "search_"+cookies[:subsearch_count]+"."+params[:id] %>
+      <% end -%>      
+    <% end -%>
+  <% end -%>
+  <%#= link_to_remote "Add additional parameters", :url => { :action => :update_subfields}, :with => "'id=' + $('haupttabelle_id').value", :update => "subsearch_"+cookies[:subsearch_count] -%>
+  <div id="subsearch_<%= cookies[:subsearch_count]%>">
+  </div>
+<% end -%>

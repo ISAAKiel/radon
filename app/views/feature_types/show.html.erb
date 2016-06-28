@@ -1,19 +1,18 @@
-<p id="notice"><%= notice %></p>
+<% title "Feature Type" %>
 
 <p>
   <strong>Name:</strong>
-  <%= @feature_type.name %>
+  <%=h @feature_type.name %>
 </p>
-
 <p>
   <strong>Comment:</strong>
-  <%= @feature_type.comment %>
+  <%=h @feature_type.comment %>
 </p>
 
 <p>
-  <strong>Position:</strong>
-  <%= @feature_type.position %>
+  <%= link_to "Show all dates for " + @feature_type.name, samples_path(:scope => {"feature_types.id"=>@feature_type.id} ) %>
 </p>
 
-<%= link_to 'Edit', edit_feature_type_path(@feature_type) %> |
-<%= link_to 'Back', feature_types_path %>
+<p>
+  <%= show_view_links(@feature_type) %>
+</p>

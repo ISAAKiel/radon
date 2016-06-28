@@ -1,74 +1,165 @@
 class SitesController < ApplicationController
-  before_action :set_site, only: [:show, :edit, :update, :destroy]
 
-  # GET /sites
-  # GET /sites.json
+  filter_access_to :index, :show, :edit, :new, :create, :update, :destroy, :without_geolocalisation
+    
+  def get_sites_by_country_subdivision
+    @sites=Site.where(:country_subdivision_id => params[:country_subdivision_id]) unless params[:country_subdivision_id].blank?
+  end
+  
+  def without_geolocalisation
+    @sites = Site.find :all, :conditions => {:lat => nil, :lng => nil }
+#    @sites = Site.find(:all, :conditions => {:lat => nil, :lng => nil })
+#    render :template => 'sites/index', :locals => {:sites => @sites}
+    @sites_grid = initialize_grid(Site.with_permissions_to(:show),
+    :name => 'sites',
+    :enable_export_to_csv => false,
+    :conditions => {:lat => nil, :lng => nil },
+    :include => [{:country_subdivision => :country}],
+    :csv_file_name => 'sites'
+    )
+    export_grid_if_requested
+
+    render :action => 'index'
+  end
+
+  def with_geolocalisation
+    @sites = Site.find :all, :conditions => ['lat is not null and lng is not null'], :order => :name
+#    @sites = Site.find(:all, :conditions => {:lat => nil, :lng => nil })
+#    render :template => 'sites/index', :locals => {:sites => @sites}
+
+    @sites_grid = initialize_grid(Site.with_permissions_to(:show),
+    :name => 'sites',
+    :enable_export_to_csv => false,
+    :conditions => ['lat is not null and lng is not null'],
+    :include => [{:country_subdivision => :country}],
+    :csv_file_name => 'sites'
+    )
+    export_grid_if_requested
+    
+    render :action => 'index'
+  end
+
   def index
-    @sites = Site.all
-  end
+    if params[:search].blank?
+      @sites = Site.all
+    else
+#      @sites = Site.paginate :page => params[:page], :per_page => 20
+      @sites = Site.where([ 'lower(name) LIKE ?', "#{params[:search].downcase}%" ])
+    end
 
-  # GET /sites/1
-  # GET /sites/1.json
+    @sites_grid = initialize_grid(Site.with_permissions_to(:show),
+    :name => 'sites',
+    :enable_export_to_csv => false,
+    :include => [{:country_subdivision => :country}],
+    :csv_file_name => 'sites'
+    )
+    export_grid_if_requested
+    
+    respond_to do |format|
+      format.html # index.rhtml
+      format.js { render :layout => false }
+      format.xml  { render :xml => @sites.to_xml }
+    end
+  end
+  
   def show
+    @site = Site.find(params[:id])
   end
-
-  # GET /sites/new
+  
   def new
     @site = Site.new
   end
-
-  # GET /sites/1/edit
-  def edit
-  end
-
-  # POST /sites
-  # POST /sites.json
+  
   def create
-    @site = Site.new(site_params)
-
-    respond_to do |format|
-      if @site.save
-        format.html { redirect_to @site, notice: 'Site was successfully created.' }
-        format.json { render :show, status: :created, location: @site }
-      else
-        format.html { render :new }
-        format.json { render json: @site.errors, status: :unprocessable_entity }
-      end
+    if params[:site][:lat] && params[:site][:lng]
+#      enrich_site
+    end
+    @site = Site.new(params[:site])
+    if params[:commit]=="Search"
+#      @location_count = propose_locations
+      @location_proposals = Site.propose_locations(params[:search])["geonames"]
+      site_locations= Site.where( "lower(sites.name) LIKE ?", "%#{params[:search].downcase}%").includes(country_subdivision: :country)
+      @locations_from_sites = site_locations
+      render :action => 'new'       
+    elsif @site.save
+      flash[:notice] = "Successfully created site."
+      redirect_to @site
+    else
+      render :action => 'new'
     end
   end
-
-  # PATCH/PUT /sites/1
-  # PATCH/PUT /sites/1.json
+  
+  def edit
+    @site = Site.find(params[:id])
+    @location_proposals=[]
+    @locations_from_sites = [@site]
+  end
+  
   def update
-    respond_to do |format|
-      if @site.update(site_params)
-        format.html { redirect_to @site, notice: 'Site was successfully updated.' }
-        format.json { render :show, status: :ok, location: @site }
-      else
-        format.html { render :edit }
-        format.json { render json: @site.errors, status: :unprocessable_entity }
+    @site = Site.find(params[:id])
+    if params[:site][:lat] && params[:site][:lng]
+#      enrich_site
+    end
+    if params[:commit]=="Search"
+#      @location_count = propose_locations
+      @location_proposals = Site.propose_locations(params[:search])["geonames"]
+      site_locations= Site.where( "lower(sites.name) LIKE ?", "%#{params[:search].downcase}%").includes(country_subdivision: :country)
+      @locations_from_sites = site_locations
+      render :action => 'edit'       
+    elsif
+      @site.update_attributes(params[:site])
+      flash[:notice] = "Successfully updated site."
+      redirect_to @site
+    else
+      render :action => 'edit'
+    end
+  end
+  
+  def destroy
+    @site = Site.find(params[:id])
+    @site.destroy
+    flash[:notice] = "Successfully destroyed site."
+    redirect_to sites_url
+  end
+
+  protected
+
+  def enrich_site
+ 
+    url = "http://ws.geonames.org" + "/countrySubdivisionJSON?a=a"
+    url = url + "&lat=#{params[:site][:lat]}&lng=#{params[:site][:lng]}"
+    uri = URI.parse(url)
+    req = Net::HTTP::Get.new(uri.path + '?' + uri.query)
+    
+    answer_finished=false
+    answer_counter=0
+    until answer_finished
+    
+    res = Net::HTTP.start( uri.host, uri.port ) { |http|
+      http.request( req )
+    }
+    answer_counter=answer_counter+1
+      if ((res==Net::HTTPSuccess)||(answer_counter>10 ))
+        answer_finished=true
       end
     end
-  end
+    
+    doc = ActiveSupport::JSON.decode(res.body)
+    site_adm1_name=doc['adminName1'] || "n/a"
+    site_country_name=doc['countryName'] || "n/a"
 
-  # DELETE /sites/1
-  # DELETE /sites/1.json
-  def destroy
-    @site.destroy
-    respond_to do |format|
-      format.html { redirect_to sites_url, notice: 'Site was successfully destroyed.' }
-      format.json { head :no_content }
+    if params[:site_country_subdivision_id] && params[:site_country_subdivision_id]!='undefined'
+      params[:site][:country_subdivision_id]=params[:site_country_subdivision_id]
+    else
+        site_country=Country.find_or_initialize_by_name(site_country_name)
+        site_country.abreviation=doc['countryCode']
+        site_country.save #neue Abkürzungen übernehmen!
+        country_subdivison_conditions = { 
+                 :country_id => site_country.id,
+                 :name => site_adm1_name }
+        country_subdivison = CountrySubdivision.first(:conditions => country_subdivison_conditions) || CountrySubdivision.new(country_subdivison_conditions)
+        country_subdivison.save
+        params[:site][:country_subdivision_id]=country_subdivison.id
     end
   end
-
-  private
-    # Use callbacks to share common setup or constraints between actions.
-    def set_site
-      @site = Site.find(params[:id])
-    end
-
-    # Never trust parameters from the scary internet, only allow the white list through.
-    def site_params
-      params.require(:site).permit(:name, :parish, :district, :country_subdivision_id, :lat, :lng)
-    end
 end

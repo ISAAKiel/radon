@@ -1,0 +1,11 @@
+<% unless @result.blank? -%>
+  <ul>
+    <% @result.each do |result| %>
+      <li id="<%= result.id %>"><%= result.name %></li>
+    <% end -%>
+  </ul>
+<% else -%>
+  <ul>
+      <li>no matching record</li>
+  </ul>
+<% end -%>

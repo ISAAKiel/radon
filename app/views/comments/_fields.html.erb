@@ -1,0 +1,6 @@
+    <%= f.input :comment %>
+    <% if (current_user.roles rescue nil) && (current_user.roles.map(&:name).detect{|role| role == "admin"})  -%>
+      <%= f.input :user  %>
+    <% end -%>
+    <%= f.input :sample %>
+

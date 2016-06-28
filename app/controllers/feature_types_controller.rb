@@ -1,74 +1,62 @@
 class FeatureTypesController < ApplicationController
-  before_action :set_feature_type, only: [:show, :edit, :update, :destroy]
 
-  # GET /feature_types
-  # GET /feature_types.json
+  filter_access_to :index, :show, :edit, :new, :create, :update, :destroy 
+  
   def index
     @feature_types = FeatureType.all
+    @feature_types_grid = initialize_grid(FeatureType.with_permissions_to(:show),
+    :name => 'feature_types',
+    :enable_export_to_csv => false,
+    :csv_file_name => 'feature_types'
+    )
+    export_grid_if_requested
   end
 
-  # GET /feature_types/1
-  # GET /feature_types/1.json
+  def sort
+    if (defined? current_user.roles) && (current_user.roles.map(&:name).detect {|role| role == "admin"}) 
+      params[:feature_types].each_with_index do |id, index|
+        FeatureType.update_all(['position=?', index+1], ['id=?', id])
+      end
+    end
+    render :nothing => true
+  end
+  
   def show
+    @feature_type = FeatureType.find(params[:id])
   end
-
-  # GET /feature_types/new
+  
   def new
     @feature_type = FeatureType.new
   end
-
-  # GET /feature_types/1/edit
-  def edit
-  end
-
-  # POST /feature_types
-  # POST /feature_types.json
+  
   def create
-    @feature_type = FeatureType.new(feature_type_params)
-
-    respond_to do |format|
-      if @feature_type.save
-        format.html { redirect_to @feature_type, notice: 'Feature type was successfully created.' }
-        format.json { render :show, status: :created, location: @feature_type }
-      else
-        format.html { render :new }
-        format.json { render json: @feature_type.errors, status: :unprocessable_entity }
-      end
+    @feature_type = FeatureType.new(params[:feature_type])
+    if @feature_type.save
+      flash[:notice] = "Successfully created feature type."
+      redirect_to @feature_type
+    else
+      render :action => 'new'
     end
   end
-
-  # PATCH/PUT /feature_types/1
-  # PATCH/PUT /feature_types/1.json
+  
+  def edit
+    @feature_type = FeatureType.find(params[:id])
+  end
+  
   def update
-    respond_to do |format|
-      if @feature_type.update(feature_type_params)
-        format.html { redirect_to @feature_type, notice: 'Feature type was successfully updated.' }
-        format.json { render :show, status: :ok, location: @feature_type }
-      else
-        format.html { render :edit }
-        format.json { render json: @feature_type.errors, status: :unprocessable_entity }
-      end
+    @feature_type = FeatureType.find(params[:id])
+    if @feature_type.update_attributes(params[:feature_type])
+      flash[:notice] = "Successfully updated feature type."
+      redirect_to @feature_type
+    else
+      render :action => 'edit'
     end
   end
-
-  # DELETE /feature_types/1
-  # DELETE /feature_types/1.json
+  
   def destroy
+    @feature_type = FeatureType.find(params[:id])
     @feature_type.destroy
-    respond_to do |format|
-      format.html { redirect_to feature_types_url, notice: 'Feature type was successfully destroyed.' }
-      format.json { head :no_content }
-    end
+    flash[:notice] = "Successfully destroyed feature type."
+    redirect_to feature_types_url
   end
-
-  private
-    # Use callbacks to share common setup or constraints between actions.
-    def set_feature_type
-      @feature_type = FeatureType.find(params[:id])
-    end
-
-    # Never trust parameters from the scary internet, only allow the white list through.
-    def feature_type_params
-      params.require(:feature_type).permit(:name, :comment, :position)
-    end
 end

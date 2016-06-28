@@ -1,6 +1,7 @@
-<h1>Editing Feature Type</h1>
+<% title "Edit Feature Type" %>
 
-<%= render 'form' %>
+<%= render :partial => 'form' %>
 
-<%= link_to 'Show', @feature_type %> |
-<%= link_to 'Back', feature_types_path %>
+<p>
+  <%= edit_view_links(@feature_type) -%>
+</p>

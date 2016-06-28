@@ -1,0 +1,12 @@
+<div id="map_canvas"></div>
+
+<%= javascript_tag :defer => 'defer' do -%>
+  <%=raw render :partial => 'mapping/basemap.js.erb' %>
+  $(function() {
+      initializeMap();
+  });
+<% end -%>
+<%#= zoom_out %>
+  <%#= @map.to_html.html_safe %>
+  
+  

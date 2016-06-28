@@ -1,0 +1,20 @@
+<b> search was: </b> 
+
+<% if params[:simple_search] -%>
+  <% 4.times do |index| -%>
+  <% search_value=params[('simple_value_' + index.to_s ).to_sym] -%>
+  <% search_search=params[('simple_search_' + index.to_s ).to_sym] -%>
+  <% search_operator=params[('simple_operator_' + index.to_s ).to_sym] || '' -%>
+    <% unless (search_value.blank?)  -%>
+      <%= search_operator + ' ' + search_search + '=' + search_value %>
+    <% end -%>
+  <% end -%>
+<% else -%>
+    <% search_count=-1 -%>
+    <% searches = params.select {|k,v| k[0..6] == "search_"} -%>
+    <% operators= params.select {|k,v| k[0..8] == "operator_"}-%>
+  <% searches.each do |search| -%>
+    <% search_count+=1 -%>
+    <%= search.to_a[0].split(".")[1..-1].join(".") %> <%= operators.to_a[search_count][1] %> <%= search[1] %> <%= params[:combine_option] unless search_count == searches.length-1 %>
+  <% end -%>
+<% end -%>

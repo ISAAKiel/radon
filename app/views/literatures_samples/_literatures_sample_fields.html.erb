@@ -1,0 +1,14 @@
+<fieldset class="inputs">
+  <% if !((f.object_name.include? "literature[")||(f.object_name.include? "[literatures_attributes]")) -%>
+    <%= render "literatures_samples/fields_for_sample", :f => f %>
+  <% end -%>
+  
+  <% if !(f.object_name.include? "sample[") && !(f.object_name.include? "[samples_attributes]") -%>
+    <%= render "literatures_samples/fields_for_literature", :f => f %>
+  <% end -%>
+  
+  <%= f.input :pages, style: 'float:left;' %>
+  <hr style="clear:both;"/>
+  <%= f.hidden_field :_destroy %>
+  <%= link_to "remove", '#', class: "remove_fields" %>
+</fieldset>

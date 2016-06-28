@@ -1,0 +1,75 @@
+<style>
+        body { font-size: 62.5%; }
+        label, input { display:block; }
+        input.text { margin-bottom:12px; width:95%; padding: .4em; }
+        fieldset { padding:0; border:0; margin-top:25px; }
+        h1 { font-size: 1.2em; margin: .6em 0; }
+        div#users-contain { width: 350px; margin: 20px 0; }
+        div#users-contain table { margin: 1em 0; border-collapse: collapse; width: 100%; }
+        div#users-contain table td, div#users-contain table th { border: 1px solid #eee; padding: .6em 10px; text-align: left; }
+        .ui-dialog .ui-state-error { padding: .3em; }
+        .validateTips { border: 1px solid transparent; padding: 0.3em; }
+    </style>
+
+<% not_to_show = ["id", "created_at", "updated_at", "position"] -%>
+<script>
+    $(function() {
+        $( "#specify_fields" ).dialog({
+            modal: true,
+            autoOpen: false,
+            buttons: {
+                Ok: function() {
+                    $( this ).dialog( "close" );
+                },
+                Cancel: function() {
+                    $( this ).dialog( "close" );
+                }
+            }
+        });
+    $("#toggle_visible_fields_link")
+            .button()
+            .click(function() {
+                $( "#specify_fields" ).dialog( "open" );
+            });
+    });
+    </script>
+<% current_user_role_names = current_user.roles.map(&:name) rescue [] -%>
+    <div id="specify_fields" class="popup" >
+<%= form_tag searches_path, :method => 'get' do %>
+    <%#= link_to_function "Show/Hide",  "$('specify_fields').toggle()"  %>
+    <hr>
+      <% params[:haupttabelle_id].classify.constantize.column_names.each do |column| -%>
+        <% if (current_user_role_names.detect {|role_name| role_name == "admin" }) || !(not_to_show.detect{|e| e  == column }) -%>
+          <% if column.to_s[-3..-1] == "_id"-%>
+            <% subclass = params[:haupttabelle_id].classify.constantize.reflect_on_all_associations.detect {|e| e.primary_key_name == column} %>
+            <% subtable = subclass.table_name rescue nil -%>
+            <% if subtable -%>
+              <% name = ((subclass.class_name.constantize.column_names.detect{|e| e == "name"}) ? "name" : nil) -%>
+              <% name = ((subclass.class_name.constantize.column_names.detect{|e| e == subclass.class_name.underscore}) ? subclass.class_name.underscore : name)  -%>
+            <% end -%>
+            <% if name -%>
+              <% column = column.gsub("_id","") + "." + name %>
+            <% end -%>
+          <% end -%>
+
+          <% checked = params[:specified_fields][column.to_sym] rescue false -%>
+          <% searches = params.select {|k,v| k[0..6] == "search_"} -%>
+          <% searches.each do |search| -%>
+            <% if search[0].split(".")[2..-1].join(".").gsub("_id","")==column then checked=true end %>
+          <% end -%>
+
+         <div style = "float:left;">
+           <%= check_box_tag "specified_fields["+column+"]", column, checked , :style => "display:inline;" %>
+           <%= label_tag column, column.split(".").first.gsub("_id","").humanize, :style => "display:inline;" %>
+         </div>
+        <% end -%>
+      <% end -%>
+      <%= hash_as_hidden_fields(params.except(:specified_fields)).html_safe %>
+
+      <hr style ="clear:both;">
+      <%= submit_tag "Update", :name => nil, :style => "float:right;"-%>
+      <button type="button" id="close" onclick='$( "#specify_fields" ).dialog( "close" );'>Cancel</button>
+      <%#= tag :input, :type => 'button', :value => 'Cancel', :class => 'popup_closebox' %>
+<% end %>
+    </div>
+<p><button id="toggle_visible_fields_link">toggle visible fields</button></p>

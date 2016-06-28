@@ -1,0 +1,39 @@
+<%= grid(@countries_grid, :show_filters => :when_filtered) do |g|
+
+  g.row_attributes do |country|
+    {id: "country_" + country.id.to_s}
+  end
+
+  g.column  :name => 'Name', :attribute => 'name' do |object|
+    object.name
+  end
+
+  g.column  :name => '14C dates' do |object|
+=begin    				
+    link_to ActiveRecord::Base.connection.select_value( "
+SELECT 
+  count(*)
+FROM 
+  public.countries, 
+  public.country_subdivisions, 
+  public.samples, 
+  public.sites
+WHERE 
+  country_subdivisions.country_id = countries.id AND
+  samples.site_id = sites.id AND
+  sites.country_subdivision_id = country_subdivisions.id AND
+  countries.id=#{object.id}
+  ;
+"),
+=end  
+#    object.country_subdivisions.map{|x| x.sites.map{|y| y.samples.with_permissions_to(:show).count}.sum}.sum#,samples_path(:scope => {"countries.id"=>object.id} )
+#    object.country_subdivisions.sites.samples.with_permissions_to(:show).count
+    link_to Sample.includes(:site=>{:country_subdivision=>:country}).with_permissions_to(:show).where(countries: {id: object.id}).count, samples_path(:scope => {"countries.id"=>object.id} )
+  end
+
+  g.column do |object|
+    index_table_links(object).html_safe
+  end
+  
+end -%>
+

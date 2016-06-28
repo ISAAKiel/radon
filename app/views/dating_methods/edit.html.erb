@@ -1,6 +1,7 @@
-<h1>Editing Dating Method</h1>
+<% title "Edit Dating Method" %>
 
-<%= render 'form' %>
+<%= render :partial => 'form' %>
 
-<%= link_to 'Show', @dating_method %> |
-<%= link_to 'Back', dating_methods_path %>
+<p>
+  <%= edit_view_links(@dating_method) -%>
+</p>

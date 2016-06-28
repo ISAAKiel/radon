@@ -1,25 +1,23 @@
-<%= form_for(@culture) do |f| %>
-  <% if @culture.errors.any? %>
-    <div id="error_explanation">
-      <h2><%= pluralize(@culture.errors.count, "error") %> prohibited this culture from being saved:</h2>
-
-      <ul>
-      <% @culture.errors.full_messages.each do |message| %>
-        <li><%= message %></li>
+<%= semantic_form_for @culture do |f| %>
+  <%= f.inputs do %>
+    <%= f.input :name %>
+    <div class="form-actions well">
+    <% if permitted_to? :edit, :phases -%>
+      <%= f.semantic_fields_for :phases do |builder| %>
+        <% builder.inputs "Phases" do %>
+          <%= render "phases/phase_fields", :f => builder %>
+          <hr style ="clear:both;">
+        <%= builder.hidden_field :_destroy %>
+        <%= link_to "remove", '#', class: "remove_fields" %>
+        <% end -%>
       <% end %>
-      </ul>
+    <% end %>
+      <%= f.inputs "Phases", class: "well" do %>
+        <% if permitted_to? :new, :phases -%>  
+          <p><%= link_to_add_fields "Add Phase", f, :phases %></p>
+        <% end %>
+      <% end -%>
     </div>
-  <% end %>
-
-  <div class="field">
-    <%= f.label :name %><br>
-    <%= f.text_field :name %>
-  </div>
-  <div class="field">
-    <%= f.label :position %><br>
-    <%= f.number_field :position %>
-  </div>
-  <div class="actions">
-    <%= f.submit %>
-  </div>
+  <% end -%>
+  <%= f.action :submit, :as => :button, label: 'Submit' , :button_html => { :class => 'btn btn-primary'} %>
 <% end %>

@@ -1,0 +1,16 @@
+<%= grid(@dating_methods_grid, :show_filters => :when_filtered) do |g|
+
+  g.row_attributes do |dating_method|
+    {id: "dating_method_" + dating_method.id.to_s}
+  end
+
+  g.column  :name => 'Name', :attribute => 'name' do |object|
+    object.name
+  end
+  
+  g.column do |object|
+    index_table_links(object).html_safe
+  end
+  
+end -%>
+

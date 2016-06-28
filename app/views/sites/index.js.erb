@@ -1,0 +1,11 @@
+<% unless @sites.blank? -%>
+  <ul>
+    <% @sites.each do |site| %>
+      <li id="<%= site.id %>"><%= site.name %></li>
+    <% end -%>
+  </ul>
+<% else -%>
+  <ul>
+      <li>no matching record</li>
+  </ul>
+<% end -%>

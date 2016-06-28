@@ -1,0 +1,33 @@
+<script type="text/javascript" src="//maps.googleapis.com/maps/api/js?sensor=false"></script>
+
+<div id="mapping_div" style="clear:both; display:none" class="javascript_content">
+  <div class="row-fluid">
+    <div id="map" class="col-md-6" style="width: 512px; height: 256px;float:left;">
+    </div>
+    <div id="loc_prop" class="col-md-6">
+    <%= javascript_tag "initMap()" %>
+    <%= render "sites/location_proposals", locals: {location_proposals: @location_proposals, locations_from_sites: @locations_from_sites} unless (@location_proposals.blank? && @locations_from_sites.blank?)%>
+    </div>
+  </div>
+</div>
+
+  <div class="row-fluid">
+<div class="string input optional stringish form-group" id="draw_site_li">
+  <label class="  control-label" for="site_name">Set Location by Map</label>
+  <span class="form-wrapper">
+    <%= button_to_function "Draw Site", 'activateDraw();', :id =>'draw_site', class: "btn btn-default" %>
+  </span>
+</div>
+<div class="string input optional stringish form-group" id="draw_site_li">
+  <label class="  control-label" for="site_name">Search Location</label>
+  <span class="form-wrapper">
+    <%= text_field_tag :search, params[:search] %>
+    <%= submit_tag "Search", name: 'commit', class: "btn btn-default" %>
+  </span>
+</div>
+<fieldset><legend>Set Location by Coordinates</legend>
+  <%= f.input :lat, input_html: {:'data-input' => 'site_lat'} %>
+  <%= f.input :lng, input_html: {:'data-input' => 'site_lng'} %>
+</fieldset>
+
+</div>

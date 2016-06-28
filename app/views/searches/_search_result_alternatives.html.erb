@@ -1,0 +1,16 @@
+<% index_params=params.clone -%>
+<% show_params=params.clone -%>
+
+<p>
+<% unless @end_result.blank? -%>
+  <% index_params["action"]="index" -%>
+  <% index_params["id"]=nil -%>
+  <% show_params["action"]="show" -%>
+
+      <%#= link_to "Results as list", :params => show_params, :show_list => true   Rausgenommen, da Luise sagte, die Liste braucht keiner -%>
+
+      <%= link_to "Results as table", url_for(index_params) -%> |
+      <%= link_to "Results as csv", url_for(index_params.merge(:format=>"csv")) -%> |
+      <%= link_to "Results for Oxcal", url_for(index_params.merge(:format=>"oxcal")), {:popup => ['oxcal_code', 'height=300,width=600,resizable=yes,scrollbars=yes,status=yes']} -%>    <br/>
+<% end -%>
+</p>

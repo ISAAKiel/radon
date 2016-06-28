@@ -1,0 +1,33 @@
+<%= grid(@literatures_grid, :show_filters => :when_filtered) do |g|
+
+  g.column  :name => 'Short Citation', :attribute => 'short_citation' do |object|
+    object.short_citation
+  end
+
+  g.column  :name => 'Year', :attribute => 'year' do |object|
+    object.year
+  end
+
+  g.column  :name => 'Author', :attribute => 'author' do |object|
+    object.author
+  end
+
+  g.column  :name => 'Long Citation', :attribute => 'long_citation' do |object|
+    object.long_citation
+  end
+  
+  g.column  :name => 'URL', :attribute => 'url' do |object|
+    object.url
+  end
+  
+  g.column  :name => '14C dates' do |object|
+    link_to object.samples.with_permissions_to(:show).length,
+            samples_path(:scope => {"literatures.id"=>object.id} )
+  end
+
+  g.column do |object|
+    index_table_links(object).html_safe
+  end
+  
+end -%>
+
