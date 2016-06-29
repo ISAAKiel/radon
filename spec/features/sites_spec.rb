@@ -128,10 +128,8 @@ include Rails.application.routes.url_helpers
       visit sites_path
       expect{
         within "#site_#{@site.id}" do
-          click_link 'Delete'
+          page.accept_confirm { click_link "Delete" }
         end
-        alert = page.driver.browser.switch_to.alert
-        alert.accept
         expect(page).to have_css('div.alert-success')
       }.to change(Site,:count).by(-1)
       expect(page).to have_content "Successfully destroyed site."

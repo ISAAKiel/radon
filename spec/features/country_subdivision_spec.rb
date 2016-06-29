@@ -114,10 +114,8 @@ describe "CountrySubdivisions", type: :feature do
       visit country_subdivisions_path
       expect{
         within "#country_subdivision_#{@country_subdivision.id}" do
-          click_link 'Delete'
+          page.accept_confirm { click_link "Delete" }
         end
-        alert = page.driver.browser.switch_to.alert
-        alert.accept
         expect(page).to have_css('div.alert-success')
       }.to change(CountrySubdivision,:count).by(-1)
       expect(page).to have_content "Successfully destroyed country subdivision."
