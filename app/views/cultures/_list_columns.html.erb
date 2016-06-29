@@ -4,7 +4,7 @@
     object.name
   end
   
-  g.column  :name => 'Phases', :model => 'Phase', :attribute => 'name' do |object|
+  g.column  :name => 'Phases', assoc: :phases, :attribute => 'name' do |object|
     object.phases.map(&:name).to_sentence
   end
   

@@ -1,7 +1,5 @@
 require 'spec_helper'
 
-#save_and_open_page
-
 def fill_in_standard_sample(sample)
   select(sample.lab.lab_code, :from => 'sample_lab_id')
   fill_in 'Sample Number', with: sample.lab_nr
@@ -12,7 +10,6 @@ def fill_in_standard_sample(sample)
   select(sample.phase.culture.name, :from => 'sample_culture_id')
   select(sample.phase.name, :from => 'sample_phase_id')
   select(sample.right.name, :from => 'sample_right_id')
-  select(sample.tenants.first.name, :from => 'sample_tenant_ids')
 end
 
 def check_standard_sample(sample)
@@ -31,20 +28,19 @@ describe "Samples" do
 include Rails.application.routes.url_helpers
 
   before(:all) do
-#    FactoryGirl.create(:tenant, name: "Radon", subdomain: "radon")
     Capybara.app_host = 'http://radon.local:3000'
   end
 
   before(:each, :js=>true) do
-    @sample = FactoryGirl.create(:sample_for_radon)
+    @sample = FactoryGirl.create(:sample)
   end
 
   describe "GET /samples" do
 
     before(:each) do
       FactoryGirl.create(:right, id: 1)
-      FactoryGirl.create(:sample_for_radon, :lab_nr => '12345', right_id: 1)
-      FactoryGirl.create(:sample_for_radon, :lab_nr => '54321', right_id: 1)
+      FactoryGirl.create(:sample, :lab_nr => '12345', right_id: 1)
+      FactoryGirl.create(:sample, :lab_nr => '54321', right_id: 1)
       visit samples_path
     end
 
@@ -75,7 +71,7 @@ include Rails.application.routes.url_helpers
   describe "GET /sample" do
     it "displays the a sample" do
       # Run the generator again with the --webrat flag if you want to use webrat methods/matchers
-      sample = FactoryGirl.create(:sample_for_radon)
+      sample = FactoryGirl.create(:sample)
       visit samples_path
       find("#sample_#{sample.id}").click_link 'Show'
       expect(current_path).to eq(sample_path(sample))
@@ -96,13 +92,13 @@ include Rails.application.routes.url_helpers
       end
 
       it "do not display the Edit link" do
-        @sample = FactoryGirl.create(:sample_for_radon)
+        @sample = FactoryGirl.create(:sample)
         visit samples_path
         expect(page).not_to have_link('Edit', href: edit_sample_path(@sample))
       end
 
       it "do not display the Edit form" do
-        @sample = FactoryGirl.create(:sample_for_radon)
+        @sample = FactoryGirl.create(:sample)
         visit edit_sample_path(@sample)
         expect(current_path).not_to eq(edit_sample_path(@sample))
       end
@@ -119,7 +115,7 @@ include Rails.application.routes.url_helpers
 
       it "Adds a new Sample with new site lat lng and displays the results", js: true do
         user = FactoryGirl.create(:admin_user)
-        sample = FactoryGirl.create(:sample_for_radon)
+        sample = FactoryGirl.create(:sample)
         site=FactoryGirl.build(:site)
 
         login(user)
@@ -139,7 +135,7 @@ include Rails.application.routes.url_helpers
 
       it "Adds a new Sample with existing site and displays the results", js: true do
         user = FactoryGirl.create(:admin_user)
-        sample = FactoryGirl.create(:sample_for_radon)
+        sample = FactoryGirl.create(:sample)
         site=FactoryGirl.create(:site)
 
         login(user)
@@ -162,7 +158,7 @@ include Rails.application.routes.url_helpers
 
       it "creates a Sample with adding existing literature and displays the results", js: true do
         user = FactoryGirl.create(:admin_user)
-        sample = FactoryGirl.create(:sample_for_radon)
+        sample = FactoryGirl.create(:sample)
         literature_template = FactoryGirl.create(:literature)
         site=FactoryGirl.create(:site)
 
@@ -181,7 +177,7 @@ include Rails.application.routes.url_helpers
           find('.existing_literature').find('input').set(literature_template.short_citation)
           expect(page).to have_selector(:css, '.ui-autocomplete')
           within('.ui-autocomplete') do
-            find("a", :text => literature_template.short_citation).click
+            find(".ui-menu-item", :text => literature_template.short_citation).click
           end
           click_button "Submit"
         }.to change(Sample.unscoped,:count).by(1)
@@ -193,8 +189,8 @@ include Rails.application.routes.url_helpers
 
       it "Edits a Sample and displays the results", js: true do
         user = FactoryGirl.create(:admin_user)
-        sample = FactoryGirl.create(:sample_for_radon)
-        sample_template = FactoryGirl.create(:sample_for_radon)
+        sample = FactoryGirl.create(:sample)
+        sample_template = FactoryGirl.create(:sample)
         login(user)
         visit samples_path
         within "#sample_#{sample.id}" do
@@ -209,8 +205,8 @@ include Rails.application.routes.url_helpers
 
       it "edits a Sample with adding existing literature and displays the results", js: true do
         user = FactoryGirl.create(:admin_user)
-        sample = FactoryGirl.create(:sample_for_radon)
-        sample_template = FactoryGirl.create(:sample_for_radon)
+        sample = FactoryGirl.create(:sample)
+        sample_template = FactoryGirl.create(:sample)
         literature_template = FactoryGirl.create(:literature)
         login(user)
         visit samples_path
@@ -223,7 +219,7 @@ include Rails.application.routes.url_helpers
         find('.existing_literature').find('input').set(literature_template.short_citation)
         expect(page).to have_selector(:css, '.ui-autocomplete')
         within('.ui-autocomplete') do
-          find("a", :text => literature_template.short_citation).click
+          find(".ui-menu-item", :text => literature_template.short_citation).click
         end
         click_button "Submit"
         expect(page).to have_content "Successfully updated sample."

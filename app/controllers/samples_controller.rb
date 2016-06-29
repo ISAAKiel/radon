@@ -195,7 +195,7 @@ class SamplesController < ApplicationController
     end
 #    set_site
     if params[:commit]=="Search"
-      @location_proposals = Site.propose_locations(params[:search])["geonames"]
+      @location_proposals = Site.propose_locations(params[:search]).fetch(:geonames,[])
       site_locations= Site.where( "lower(sites.name) LIKE ?", "%#{params[:search].downcase}%").includes(country_subdivision: :country)
       @locations_from_sites = site_locations
       render :action => 'new'       

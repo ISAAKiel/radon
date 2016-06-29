@@ -8,7 +8,7 @@
     object.name
   end
 
-  g.column  :name => 'Country', :model => 'Country', :attribute => 'name' do |object|
+  g.column  :name => 'Country', assoc: :country, :attribute => 'name' do |object|
     object.country.name if object.country
   end
 

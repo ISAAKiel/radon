@@ -11,7 +11,10 @@
   <dd>
   <ul class="list-unstyled">
     <% unless @country_subdivision.sites.blank? -%>
-      <% @country_subdivision.sites.sort! { |a,b| a.name <=> b.name }.each do |site| -%>
+      <%# @country_subdivision.sites.sort! { |a,b| a.name <=> b.name }.each do |site| 
+-%>
+      <% @country_subdivision.sites.order(:name).each do |site| -%>
+
         <li>
           <%= link_to site.name, site -%>
         </li>

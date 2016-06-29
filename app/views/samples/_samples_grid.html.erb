@@ -11,7 +11,7 @@
       sample.id
     end
 
-    g.column :name => 'Lab Code', :model => 'Lab', :attribute => 'lab_code' do |sample|
+    g.column :name => 'Lab Code', assoc: :lab, :attribute => 'lab_code' do |sample|
       sample.lab.lab_code  if sample.lab
     end
     
@@ -31,35 +31,35 @@
       sample.delta_13_c
     end
     
-    g.column  :name => 'Sample Mat.', :model => 'Prmat', :attribute => 'name'  do |sample|
+    g.column  :name => 'Sample Mat.', assoc: :prmat, :attribute => 'name'  do |sample|
       sample.prmat.name if sample.prmat
     end
 
-    g.column  :name => 'Feature Type', :model => 'FeatureType', :attribute => 'name'  do |sample|
+    g.column  :name => 'Feature Type', assoc: :feature_type, :attribute => 'name'  do |sample|
       sample.feature_type.name if sample.feature_type
     end
     
-    g.column  :name => 'Culture', :model => 'Culture', :attribute => 'name'  do |sample|
+    g.column  :name => 'Culture', assoc: :culture, :attribute => 'name'  do |sample|
       sample.culture.name if sample.culture
     end
 
-    g.column  :name => 'Phase', :model => 'Phase', :attribute => 'name'  do |sample|
+    g.column  :name => 'Phase', assoc: :phase, :attribute => 'name'  do |sample|
       sample.phase.name if sample.phase
     end
     
-    g.column  :name => 'Site', :model => 'Site', :attribute => 'name'  do |sample|
+    g.column  :name => 'Site', assoc: :site, :attribute => 'name'  do |sample|
       sample.site.name if sample.site
     end
     
-    g.column  :name => 'Lat', :model => 'Site', :attribute => 'lat', :in_html => false  do |sample|
+    g.column  :name => 'Lat', assoc: :site, :attribute => 'lat', :in_html => false  do |sample|
       sample.site.lat if sample.site
     end
     
-    g.column  :name => 'Lng', :model => 'Site', :attribute => 'lng', :in_html => false  do |sample|
+    g.column  :name => 'Lng', assoc: :site, :attribute => 'lng', :in_html => false  do |sample|
       sample.site.lng if sample.site
     end
 
-    g.column  :name => 'literature', :model => 'Literature', :attribute => 'long_citation', :in_html => false  do |sample|
+    g.column  :name => 'literature', assoc: :literatures, :attribute => 'long_citation', :in_html => false  do |sample|
       sample.literatures.collect(&:long_citation).join("; ") unless sample.literatures.blank?
     end
    
