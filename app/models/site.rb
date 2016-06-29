@@ -5,6 +5,7 @@ class Site < ActiveRecord::Base
 
   belongs_to :country_subdivision
   has_many :samples
+  has_one :country, :through => :country_subdivision
 
   accepts_nested_attributes_for :samples, :allow_destroy => true
 
@@ -21,7 +22,8 @@ class Site < ActiveRecord::Base
         http.request( req )
       }
       doc = ActiveSupport::JSON.decode(res.body)
-      doc
     end
+    doc = {} if doc.nil?
+    doc
   end
 end

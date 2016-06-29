@@ -16,11 +16,11 @@
     object.district if object.district
   end
   
-  g.column  :name => 'Country Subdivision', :model => 'CountrySubdivision', :attribute => 'name' do |object|
+  g.column  :name => 'Country Subdivision', assoc: :country_subdivision, :attribute => 'name' do |object|
     object.country_subdivision.name if object.country_subdivision
   end
 
-  g.column  :name => 'Country', :model => 'Country', :attribute => 'name' do |object|
+  g.column  :name => 'Country', assoc: :country, :attribute => 'name' do |object|
     object.country_subdivision.country.name if object.country_subdivision && object.country_subdivision.country
   end
   

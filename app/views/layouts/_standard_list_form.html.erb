@@ -89,7 +89,7 @@
    
 </div>
 
-<% if (object) && (object.size > 0) && (defined? dnd) && (dnd == true) -%>
+<% if (collection_to_page) && (collection_to_page.length > 0) && (defined? dnd) && (dnd == true) -%>
 <%# if (defined? send("sort_"+table_name_plural+"_path")) -%>
 <%#= sortable_element(table_name_plural, :url => send("sort_"+table_name_plural+"_path"), :tag => 'tr', :complete => visual_effect(:highlight, table_name_plural), :with => "Sortable.serialize('#{table_name_plural}', {name:'#{table_name}'})", :onChange => "location.reload()") %>
 <%#= sortable_element(table_name_plural, :url => send("sort_"+table_name_plural+"_path"), :tag => 'tr', :before => "$('spinner').style.display= 'block';", :complete => "location.reload()", :with => "Sortable.serialize('#{table_name_plural}', {name:'#{table_name}'})") %>

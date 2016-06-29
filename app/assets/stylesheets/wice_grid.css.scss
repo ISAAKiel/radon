@@ -1,81 +1,19 @@
-@mixin icon-dimensions {
-  width: 16px;
-  height: 16px;
-}
+.wg-detached-filter, .wice-grid{
 
-.wg-detached-filter{
+  .text-filter-container {
+    input{
+      width:auto;
+      margin-right: 10px;
+      display: inline;
+    }
+  }
+
+  thead th select {
+    display: inline-block;
+  }
+
   a.date-label {text-decoration: none;}
   a.date-label:hover {text-decoration: line-through;}
-}
-
-.wice-grid{
-  border: 1px solid #E6E6E6;
-  border-collapse: separate;
-  border-spacing: 0px;
-  text-align:left;
-  background-color: transparent;
-  
-  thead tr th {
-    background-color: #6d94bf;
-    vertical-align: top;
-  }
-  
-  
- tfoot {
-  background-color: transparent;
-  color: #fff;
-    vertical-align: bottom;
-}
-
- 
-   tfoot tr td {
-    background-color: #6d94bf;
-  }
-  
-thead tr th:first-child {
-border-top-left-radius: 6px;
-}
-
-thead tr th:last-child {
-border-top-right-radius: 6px;
-}
-
-tfoot tr td:first-child { 
-border-bottom-left-radius: 6px;
-}
-tfoot tr td:last-child {
-border-bottom-right-radius: 6px;}
-
-th {
-  background-color: #dfdfdf; 
-  font-weight: bold; 
-/*  text-shadow: rgb(204, 204, 204) 0px 1px 0px; */
-  height: 2em;
-  padding: 0.5em 0.5em 0em 0.5em;
-  text-align: center;
-  
-}
-th a { 
-  color: #fff;
-  text-decoration:none;
-}
-th a:hover { 
-  color: #333; 
-}
-
-tr.odd {
-  background-color: #fff;
-}
-
-tr.even {
-  background-color: #eee;
-}
-
-td {
-  border-bottom: 1px dotted #9999CC;
-  height: 2.2em;
-  padding: 0 1em;
-}
 
   .clickable{
     cursor: pointer;
@@ -83,92 +21,32 @@ td {
     margin-right: 2px;
   }
 
-  a.date-label {text-decoration: none;}
-  a.date-label:hover {text-decoration: line-through;}
-
   .ui-datepicker-trigger, .wg-detached-filter .ui-datepicker-trigger{
     cursor: pointer;
   }
+
+  .custom-dropdown-container {
+
+    .expand-multi-select-icon, .collapse-multi-select-icon{
+      width: 10px;
+      height: 10px;
+      display: inline-block;
+      margin-left: 5px;
+      vertical-align: top;
+    }
+  }
+}
+
+.wice-grid{
 
   .desc,  .asc{
     padding-right: 18px;
     text-decoration:none;
   }
 
-  .desc {
-    background: transparent url(/assets/icons/grid/arrow_down.gif) right no-repeat
-  }
-  .asc  {
-    background: transparent url(/assets/icons/grid/arrow_up.gif)   right no-repeat
-  }
-
-  .submit.clickable{
-    background: transparent url(/assets/icons/grid/table_refresh.png) no-repeat;
-    @include icon-dimensions;
-  }
-
-  .reset.clickable{
-    background: transparent url(/assets/icons/grid/table.png) no-repeat;
-    @include icon-dimensions;
-  }
-
-
-  .wg-show-filter.clickable,
-  .wg-hide-filter.clickable{
-    background: transparent url(/assets/icons/grid/page_white_find.png) no-repeat;
-    @include icon-dimensions;
-  }
-
-
-  .export-to-csv-button.clickable{
-    background: transparent url(/assets/icons/grid/page_white_excel.png) no-repeat;
-    @include icon-dimensions;
-  }
-
-  .clickable.select-all{
-    background: transparent url(/assets/icons/grid/tick_all.png) no-repeat;
-    @include icon-dimensions;
+  .clickable.select-all, .clickable.deselect-all{
     float:left;
   }
-
-  .clickable.deselect-all{
-    background: transparent url(/assets/icons/grid/untick_all.png) no-repeat;
-    @include icon-dimensions;
-    float:left;
-  }
-
-  .custom-dropdown-container {
-    position: relative;
-    padding-right: 18px;
-
-
-    .collapse-multi-select-icon, .expand-multi-select-icon{
-      width: 12px;
-      height: 12px;
-      position:absolute;
-      top:0;
-      right:0;
-    }
-
-    .collapse-multi-select-icon{
-      background: transparent url(/assets/icons/grid/collapse.gif) no-repeat;
-    }
-
-    .expand-multi-select-icon{
-      background: transparent url(/assets/icons/grid/expand.gif) no-repeat;
-    }
-
-  }
-
-  .text-filter-container {
-    position: relative; padding-right: 13px;
-    .negation-checkbox {
-      position:absolute;
-      top:0;
-      right:0;
-    }
-  }
-
 
   /* in case of twitter bootstrap :) */
   thead th select{
@@ -180,26 +58,24 @@ td {
     float: left;
   }
 
-
   tr.wg-filter-row  input[type=text] {
-/*    width: 100px;*/
+    width: 100px;
   }
 
   .pagination_status {
     font-weight: bold;
     float: right;
   }
-
 }
 
 .wice-grid-query-panel{
   li {list-style-type: none; }
 
   ul {margin-left: 0 }
+}
 
-  a.wice-grid-delete-query .delete-icon{
-    background: transparent url(/assets/icons/grid/delete.png) no-repeat;
-    float: left;
-    @include icon-dimensions;
-  }
+input.wice-grid-save-query-field{
+  width: auto;
+  display: inline-block;
+  margin-right: 10px;
 }

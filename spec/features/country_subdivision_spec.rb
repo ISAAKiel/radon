@@ -75,7 +75,7 @@ describe "CountrySubdivisions", type: :feature do
           click_link 'New Country Subdivision'
           fill_in 'Name', with: country_subdivision.name
           select(country_subdivision.country.name, :from => 'country_subdivision_country_id')
-          click_button "Submit"
+          click_button "Create Country subdivision"
         }.to change(CountrySubdivision,:count).by(1)
         expect(page).to have_content "Successfully created country subdivision."
         expect(page).to have_content country_subdivision.name
@@ -95,7 +95,7 @@ describe "CountrySubdivisions", type: :feature do
         end
         fill_in 'Name', with: country_subdivision_template.name
         select(country_subdivision_template.country.name, :from => 'country_subdivision_country_id')
-        click_button "Submit"
+        click_button "Update Country subdivision"
         expect(page).to have_content "Successfully updated country subdivision."
         expect(page).to have_content country_subdivision_template.name
         expect(page).to have_content country_subdivision_template.country.name

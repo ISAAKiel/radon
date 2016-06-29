@@ -11,7 +11,7 @@
   <dd>
   <ul class="list-unstyled">
     <% unless @country.country_subdivisions.blank? -%>
-      <% @country.country_subdivisions.sort! { |a,b| a.name <=> b.name }.each do |country_subdivision| -%>
+      <% @country.country_subdivisions.order(:name).each do |country_subdivision| -%>
         <li>
           <%= link_to country_subdivision.name, country_subdivision -%>
         </li>
