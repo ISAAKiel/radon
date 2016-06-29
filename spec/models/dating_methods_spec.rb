@@ -1,4 +1,4 @@
-require 'spec_helper'
+require 'rails_helper'
 
 describe "DatingMethods" do
   it "has a valid factory" do

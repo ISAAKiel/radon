@@ -1,4 +1,4 @@
-require 'spec_helper'
+require 'rails_helper'
 
 def fill_in_standard_sample(sample)
   select(sample.lab.lab_code, :from => 'sample_lab_id')

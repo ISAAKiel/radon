@@ -1,4 +1,4 @@
-require 'spec_helper'
+require 'rails_helper'
 
 describe "Announcements", type: :request do
   describe "GET /announcements" do
