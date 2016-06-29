@@ -18,7 +18,8 @@ FactoryGirl.define do
     lab
     feature_type
     site
-    association :right, id: 1
+    association :right
+#    right { Right.where(id: 1).first || association(:right) }
     dating_method
   end
 end

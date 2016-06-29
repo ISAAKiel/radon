@@ -66,7 +66,7 @@ RSpec.configure do |config|
   end
 
   config.before(:each, :js => true) do
-    DatabaseCleaner.strategy = :truncation
+    DatabaseCleaner.strategy = :deletion
   end
 
   config.before(:each) do
@@ -82,8 +82,16 @@ RSpec.configure do |config|
   config.filter_run :focus => true
   config.run_all_when_everything_filtered = true
 
-  Capybara.register_driver :selenium do |app|
-    Capybara::Selenium::Driver.new(app, :browser => :chrome)
+#  Capybara.register_driver :selenium do |app|
+#    Capybara::Selenium::Driver.new(app, :browser => :chrome)
+#  end
+  Capybara.javascript_driver = :webkit
+
+  Capybara::Webkit.configure do |config|
+
+    # Allow pages to make requests to any URL without issuing a warning.
+    config.allow_unknown_urls
+
   end
 
   Capybara.server_port = 3000

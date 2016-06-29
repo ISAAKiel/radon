@@ -112,10 +112,8 @@ describe "FeatureTypes", type: :feature do
       visit feature_types_path
       expect{
         within "#feature_type_#{@feature_type.id}" do
-          click_link 'Delete'
+          page.accept_confirm { click_link "Delete" }
         end
-        alert = page.driver.browser.switch_to.alert
-        alert.accept
         expect(page).to have_css('div.alert-success')
       }.to change(FeatureType,:count).by(-1)
       expect(page).to have_content "Successfully destroyed feature type."

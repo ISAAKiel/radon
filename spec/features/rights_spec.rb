@@ -130,10 +130,8 @@ describe "Rights", type: :feature do
       visit rights_path
       expect{
         within "#right_#{@right.id}" do
-          click_link 'Delete'
+          page.accept_confirm { click_link "Delete" }
         end
-        alert = page.driver.browser.switch_to.alert
-        alert.accept
         expect(page).to have_css('div.alert-success')
       }.to change(Right,:count).by(-1)
       expect(page).to have_content "Successfully destroyed right."

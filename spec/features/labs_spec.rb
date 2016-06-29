@@ -134,10 +134,8 @@ describe "Labs", type: :feature do
       visit labs_path
       expect{
         within "#lab_#{@lab.id}" do
-          click_link 'Delete'
+          page.accept_confirm { click_link "Delete" }
         end
-        alert = page.driver.browser.switch_to.alert
-        alert.accept
         expect(page).to have_css('div.alert-success')
       }.to change(Lab,:count).by(-1)
       expect(page).to have_content "Successfully destroyed lab."

@@ -81,6 +81,7 @@ group :development, :test do
   # gems from current radon gemfile
   gem 'rspec-rails', '~> 3.4.2'
   gem 'capybara', '~> 2.7.1'
+  gem 'capybara-webkit'
   gem 'guard-rspec', '~> 4.7.2'
   gem 'launchy'
   gem 'factory_girl_rails'#, '~> 4.4.1', :require => false
