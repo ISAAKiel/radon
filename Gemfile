@@ -79,7 +79,7 @@ group :development, :test do
   gem 'byebug'
 
   # gems from current radon gemfile
-  gem 'rspec-rails', '~> 2.14.2'
+  gem 'rspec-rails'#, '~> 2.14.2'
   gem 'capybara', '~> 2.2.1'
   gem 'guard-rspec', '~> 4.2.8'
   gem 'launchy'
@@ -88,6 +88,7 @@ group :development, :test do
   gem 'spork', '~> 1.0rc'
   gem 'guard-spork'
   gem 'selenium-webdriver', '~> 2.40.0'
+  gem 'transpec'
 end
 
 group :development do
