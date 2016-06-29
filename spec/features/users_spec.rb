@@ -8,8 +8,7 @@ require 'spec_helper'
 
     background do
       @agent = FactoryGirl.create(:user)
-      FactoryGirl.create(:tenant, name: 'Radon', subdomain: "radon" )
-      FactoryGirl.create(:page_for_radon,:name => 'home' )
+      FactoryGirl.create(:page,:name => 'home' )
     end
 
     scenario 'User log in' do

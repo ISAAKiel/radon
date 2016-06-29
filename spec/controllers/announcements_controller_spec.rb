@@ -14,6 +14,7 @@ describe AnnouncementsController, type: :controller do
 
   describe "GET index" do
     it "assigns all announcements as @announcements" do
+      Announcement.delete_all
       announcements = FactoryGirl.create_list(:announcement,10)
       get :index, {}
       expect(assigns(:announcements)).to match_array(announcements)

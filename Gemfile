@@ -41,8 +41,8 @@ gem 'activerecord-session_store', github: 'rails/activerecord-session_store'
 
 gem 'acts_as_list'
 
-gem 'formtastic', '~> 2.3.0.rc2', branch: '2.3-stable', git: 'git://github.com/justinfrench/formtastic.git'
-gem 'formtastic-bootstrap', '~> 3.0.0'
+gem 'formtastic'#, '~> 2.3.0.rc2', branch: '2.3-stable', git: 'git://github.com/justinfrench/formtastic.git'
+gem 'formtastic-bootstrap'#, '~> 3.0.0'
 
 gem 'authlogic', '~> 3.4.0'
 gem 'scrypt'
@@ -55,12 +55,14 @@ gem 'pg', '~> 0.18'
 gem 'rmagick', '>=2.13.2'
 gem 'ruby_parser'
 
-gem 'wice_grid', '~> 3.4.10'
+gem 'wice_grid'
+gem 'font-awesome-sass',  '~> 4.3'
 
 gem 'unicorn' 
 
 gem 'openlayers-rails'
 
+gem 'dotenv-rails', :require => 'dotenv/rails-now'
 gem 'recaptcha', :require => 'recaptcha/rails'
 
 gem 'bibtex-ruby'
@@ -70,6 +72,7 @@ gem 'redcarpet', '~> 3.1.1'
 
 # added gems to obtain original functionality
 gem 'jquery-ui-rails'
+gem "iconv", "~> 1.0.4"
 
 group :development, :test do
   # Call 'byebug' anywhere in the code to stop execution and get a debugger console
