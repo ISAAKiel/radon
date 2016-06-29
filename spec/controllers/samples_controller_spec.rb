@@ -1,4 +1,4 @@
-require 'spec_helper'
+require 'rails_helper'
 require 'wice_grid'
 
 describe SamplesController, type: :controller do
