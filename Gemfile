@@ -89,6 +89,7 @@ group :development, :test do
   gem 'guard-spork'
   gem 'selenium-webdriver', '~> 2.52.0'
   gem 'transpec'
+  gem 'travis'
 end
 
 group :development do
