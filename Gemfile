@@ -80,14 +80,14 @@ group :development, :test do
 
   # gems from current radon gemfile
   gem 'rspec-rails', '~> 3.4.2'
-  gem 'capybara', '~> 2.2.1'
+  gem 'capybara', '~> 2.7.1'
   gem 'guard-rspec', '~> 4.7.2'
   gem 'launchy'
   gem 'factory_girl_rails'#, '~> 4.4.1', :require => false
   gem 'database_cleaner'
   gem 'spork', '~> 1.0rc'
   gem 'guard-spork'
-  gem 'selenium-webdriver', '~> 2.40.0'
+  gem 'selenium-webdriver', '~> 2.52.0'
   gem 'transpec'
 end
 
