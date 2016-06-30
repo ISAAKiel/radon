@@ -70,6 +70,7 @@ describe "FeatureTypes", type: :feature do
         feature_type = FactoryGirl.build(:feature_type)
         login(user)
         visit feature_types_url
+        assert_text "New Feature Type"
         expect{
           click_link 'New Feature Type'
           fill_in 'Name', with: feature_type.name
@@ -88,6 +89,7 @@ describe "FeatureTypes", type: :feature do
         feature_type_template = FactoryGirl.build(:feature_type)
         login(user)
         visit feature_types_url
+        assert_text "Feature Types"
         within "#feature_type_#{feature_type.id}" do
           click_link 'Edit'
         end
