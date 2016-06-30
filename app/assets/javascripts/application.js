@@ -21,34 +21,10 @@ function fill_hidden_field(source_field) {
   source_field.next('li').down(0).value=div_content;
 }
 
-//document.on("click", "a[popup]", function(event, element) {
-//     if (event.stopped) return;
-//     popup = $(element).getAttribute("popup").split(" ");
-//     window.open($(element).href, "mywindow",popup);
-//     event.stop();
-//     });
-
-$('a[data-popup]').on('click', function(e) {
+$(function() {
+  $('a[data-popup]').on('click', function(e) {
      window.open($(this).attr('href'), 'popup','toolbar=no, location=no, directories=no, status=no, menubar=no, scrollbars=yes, resizable=yes, height=550, width=850');
      e.preventDefault();
   });
+});
 
-//$.ajaxSetup({
-//  'beforeSend': function(xhr) {xhr.setRequestHeader("Accept", "text/javascript")}
-//})
-
-//$(document).ready(function() {
-
-//  // UJS authenticity token fix: add the authenticy_token parameter
-//  // expected by any Rails POST request.
-//  $(document).ajaxSend(function(event, request, settings) {
-//    // do nothing if this is a GET request. Rails doesn't need
-//    // the authenticity token, and IE converts the request method
-//    // to POST, just because - with love from redmond.
-//    if (settings.type == 'GET') return;
-//    if (typeof(AUTH_TOKEN) == "undefined") return;
-//    settings.data = settings.data || "";
-//    settings.data += (settings.data ? "&" : "") + "authenticity_token=" + encodeURIComponent(AUTH_TOKEN);
-//  });
-
-//});
