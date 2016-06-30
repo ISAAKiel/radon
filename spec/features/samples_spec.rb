@@ -27,9 +27,9 @@ end
 describe "Samples" do
 include Rails.application.routes.url_helpers
 
-  before(:all) do
-    Capybara.app_host = 'http://radon.local:3000'
-  end
+#  before(:all) do
+#    Capybara.app_host = 'http://radon.local:3000'
+#  end
 
   before(:each, :js=>true) do
     @sample = FactoryGirl.create(:sample)
