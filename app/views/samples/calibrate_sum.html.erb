@@ -184,4 +184,4 @@ else xAxis.setExtremes();
 useNarrowExtremes = !useNarrowExtremes;
 } 
 </script>
-min:<%=text_field_tag("min") %> max:<%=text_field_tag("max") %> <%= button_to_function "Set Min/Max", "setExtremes(true);"%> <%= button_to_function "Reset Zoom", "setExtremes(false);"%>
+min:<%=text_field_tag("min") %> max:<%=text_field_tag("max") %> <%= link_to "Set Min/Max", "#", onclick: "setExtremes(true);", class: "btn btn-info"%> <%= link_to "Reset Zoom", "#", onclick: "setExtremes(false);", class: "btn btn-info"%>
