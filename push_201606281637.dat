@@ -1,1 +1,0 @@
-{"klass":"Taps::Push","database_url":"postgres://radon:14Cdating@134.245.38.100/radon_production","remote_url":"http://martin:ver2felt@localhost:5000","session_uri":"/sessions/7903126127","stream_state":{},"completed_tables":[],"table_filter":"(^samples$)","local_tables_info":{"samples":14550}}

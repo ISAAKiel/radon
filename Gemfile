@@ -110,3 +110,6 @@ end
 #  gem 'rails-observers'
 #  gem 'actionpack-page_caching'
 #  gem 'actionpack-action_caching'
+
+# CI and Code Coverage
+gem 'codecov', :require => false, :group => :test
