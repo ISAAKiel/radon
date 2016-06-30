@@ -10,11 +10,11 @@
 	<% end %>
   <p>
     <%= f.label :login %><br />
-    <%= f.text_field :login %>
+    <%= f.text_field :login, id: "login_page_login_field" %>
   </p>
   <p>
     <%= f.label :password %><br />
-    <%= f.password_field :password %>
+    <%= f.password_field :password, id: "login_page_password_field" %>
   </p>
   <p><%= f.submit "Submit" %></p>
 <% end %>

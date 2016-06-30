@@ -24,3 +24,5 @@ admin_user.save
 
 
 Page.create(name: "home", content: "fill me")
+
+samples = FactoryGirl.create_list(:sample,10)

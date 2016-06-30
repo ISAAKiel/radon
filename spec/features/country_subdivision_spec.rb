@@ -90,6 +90,7 @@ describe "CountrySubdivisions", type: :feature do
         country_subdivision_template.name=country_subdivision_template.name + "new"
         login(user)
         visit country_subdivisions_url
+        save_and_open_page
         within "#country_subdivision_#{country_subdivision.id}" do
           click_link 'Edit'
         end
