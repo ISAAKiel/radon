@@ -16,16 +16,15 @@ describe SamplesController, type: :controller do
   describe "GET index" do
 
     it "assigns all samples with right_id 1 as @samples" do
-      FactoryGirl.create(:right, id: 1)
-      samples = FactoryGirl.create_list(:sample,2, right_id: 1)
+      samples = FactoryGirl.create_list(:public_sample,2)
       get :index, {}
       expect(assigns(:samples_grid).resultset).to match_array(samples)
     end
 
     it "not assigns all samples without right_id 1 as @samples" do
-      FactoryGirl.create(:right)
-      FactoryGirl.create(:right)
-      samples = FactoryGirl.create_list(:sample,2, right_id: 2)
+#      FactoryGirl.create(:right)
+#      FactoryGirl.create(:right)
+      samples = FactoryGirl.create_list(:private_sample,2)
       get :index, {}
       expect(assigns(:samples_grid).resultset).not_to match_array(samples)
     end

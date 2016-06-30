@@ -71,7 +71,7 @@ include Rails.application.routes.url_helpers
   describe "GET /sample" do
     it "displays the a sample" do
       # Run the generator again with the --webrat flag if you want to use webrat methods/matchers
-      sample = FactoryGirl.create(:sample)
+      sample = FactoryGirl.create(:public_sample)
       visit samples_path
       find("#sample_#{sample.id}").click_link 'Show'
       expect(current_path).to eq(sample_path(sample))
@@ -127,6 +127,7 @@ include Rails.application.routes.url_helpers
           fill_in 'sample_site_attributes_name', with: site.name
           fill_in_standard_sample(sample)
           click_button "Submit"
+          assert_text "Successfully created sample."
         }.to change(Sample.unscoped,:count).by(1)
 
         expect(page).to have_content site.name
@@ -135,7 +136,7 @@ include Rails.application.routes.url_helpers
 
       it "Adds a new Sample with existing site and displays the results", js: true do
         user = FactoryGirl.create(:admin_user)
-        sample = FactoryGirl.create(:sample)
+        sample = FactoryGirl.build(:public_sample)
         site=FactoryGirl.create(:site)
 
         login(user)
@@ -149,6 +150,7 @@ include Rails.application.routes.url_helpers
           end
           fill_in_standard_sample(sample)
           click_button "Submit"
+          assert_text "Successfully created sample."
         }.to change(Sample.unscoped,:count).by(1)
         expect(page).to have_content "Successfully created sample."
         check_standard_sample(sample)
@@ -180,6 +182,7 @@ include Rails.application.routes.url_helpers
             find(".ui-menu-item", :text => literature_template.short_citation).click
           end
           click_button "Submit"
+          assert_text "Successfully created sample."
         }.to change(Sample.unscoped,:count).by(1)
         expect(page).to have_content "Successfully created sample."
         check_standard_sample(sample)

@@ -10,6 +10,9 @@
 <% session[:page] = params[:page] -%>
 <% show_all = params[:show_all]=='true' %>
 <!-- Standard usage -->
+
+<h2><%=human_name%></h2>
+
 <% sortable = @end_result.blank? && model_name!= 'Search' && model_name.constantize.column_names.any?{|e| e=="position"} ? true : false %>
 <% paged = collection_to_page.methods.any?{|e| e.to_s=="total_pages"} ? true : false %>
  <div class="admin-form">

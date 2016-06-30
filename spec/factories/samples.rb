@@ -9,16 +9,22 @@ FactoryGirl.define do
 
     sequence(:comment) { |n| "comment_#{n}" }
     sequence(:feature) { |n| "feature_#{n}" }
-    approved { [true,false].sample }
+    approved true
     sequence(:contact_e_mail) { |n| "contact_e_mail#{n}@nowhere.com" }
     sequence(:creator_ip) { |n| "creator_ip_#{n}" }
     
-    prmat
+    prmat {FactoryGirl.create(:prmat)}
     phase
-    lab
-    feature_type
-    site
-    association :right
+    lab {FactoryGirl.create(:lab)}
+    feature_type {FactoryGirl.create(:feature_type)}
+    site {FactoryGirl.create(:site)}
+    right
+    factory :public_sample do |ps|
+      ps.right {FactoryGirl.create(:public_right)}
+    end
+    factory :private_sample do |ps|
+      ps.right {FactoryGirl.create(:private_right)}
+    end
 #    right { Right.where(id: 1).first || association(:right) }
     dating_method
   end

@@ -94,6 +94,7 @@ describe "DatingMethods", type: :feature do
         dating_method = FactoryGirl.build(:dating_method)
         login(user)
         visit dating_methods_path
+        assert_text "New Dating Method"
         expect{
           click_link 'New Dating Method'
           fill_in 'Name', with: dating_method.name
@@ -110,6 +111,7 @@ describe "DatingMethods", type: :feature do
         dating_method_template = FactoryGirl.build(:dating_method)
         login(user)
         visit dating_methods_url
+        assert_text "Dating Methods"
         within "#dating_method_#{dating_method.id}" do
           click_link 'Edit'
         end

@@ -74,6 +74,7 @@ describe "Countries", :type => :feature do
         country = FactoryGirl.build(:country)
         login(user)
         visit countries_url
+        assert_text "New Country"
         expect{
           click_link 'New Country'
           fill_in 'country_name', with: country.name + "new"
@@ -91,6 +92,7 @@ describe "Countries", :type => :feature do
         country_template.name = country_template.name + "new"
         login(user)
         visit countries_url
+        assert_text "Countries"
         within "#country_#{country.id}" do
           click_link 'Edit'
         end

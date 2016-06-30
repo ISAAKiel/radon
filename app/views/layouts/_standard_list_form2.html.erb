@@ -8,6 +8,8 @@
 <% end -%>
 <% title human_name+" :: list" %>
 
+<h2><%=human_name%></h2>
+
 <%=render :partial => "#{table_name_plural}/list_columns"%>
 
   <% if @end_result.blank? -%>

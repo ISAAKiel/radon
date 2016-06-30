@@ -71,6 +71,7 @@ describe "CountrySubdivisions", type: :feature do
         country_subdivision.name = country_subdivision.name + "new"
         login(user)
         visit country_subdivisions_url
+        assert_text "New Country Subdivision"
         expect{
           click_link 'New Country Subdivision'
           fill_in 'Name', with: country_subdivision.name
@@ -90,7 +91,7 @@ describe "CountrySubdivisions", type: :feature do
         country_subdivision_template.name=country_subdivision_template.name + "new"
         login(user)
         visit country_subdivisions_url
-        save_and_open_page
+        assert_text "Country Subdivisions"
         within "#country_subdivision_#{country_subdivision.id}" do
           click_link 'Edit'
         end

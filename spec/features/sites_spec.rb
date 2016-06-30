@@ -80,6 +80,7 @@ include Rails.application.routes.url_helpers
         fill_in 'Parish', with: site.parish
         fill_in 'District', with: site.district
           click_button "Create Site"
+          assert_text "Successfully created site."
         }.to change(Site,:count).by(1)
         expect(page).to have_content "Successfully created site."
         expect(page).to have_content site.name
