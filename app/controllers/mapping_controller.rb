@@ -1,7 +1,7 @@
 class MappingController < ApplicationController
   include ApplicationHelper
 
-  include MapHelper
+#  include MapHelper
 
   def index
     show_map
