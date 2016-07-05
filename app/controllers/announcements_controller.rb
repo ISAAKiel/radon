@@ -32,7 +32,7 @@ class AnnouncementsController < ApplicationController
         config.access_token        = ENV["TWITTER_ACCESS_TOKEN"]
         config.access_token_secret = ENV["TWITTER_ACCESS_TOKEN_SECRET"]
       end
-      client.update("New Announcement on RADON: " + url_for(@announcement))
+#      client.update("New Announcement on RADON: " + url_for(@announcement))
     
       redirect_to @announcement, notice: 'Announcement was successfully created.'
     else
