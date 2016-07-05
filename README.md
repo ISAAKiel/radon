@@ -91,6 +91,6 @@ time of a major release, support for that Ruby version may be dropped.
 
 
 ## Copyright
-Copyright (c) 2014 Code for America. See [LICENSE][] for details.
+Copyright (c) 2016 ISAAKiel. See [LICENSE][] for details.
 
 [license]: https://github.com/ISAAKiel/radon/blob/master/LICENSE
