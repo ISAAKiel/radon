@@ -1,0 +1,282 @@
+"id","name","dating_method_id","lab_code","created_at","updated_at","position","country","active"
+493,"Centre de Datation par le RadioCarbone",,"CRC","2010-11-04 12:55:02","2010-11-04 12:55:02",,"France",t
+247,"Arizona",,"A","2010-11-04 12:55:02","2010-11-04 12:55:02",,"USA",t
+248,"NSF",,"AA","2010-11-04 12:55:02","2010-11-04 12:55:02",,"USA",t
+249,"University of Aarhus",,"AAR","2010-11-04 12:55:02","2010-11-04 12:55:02",,"Denmark",t
+250,"Ingeis",,"AC","2010-11-04 12:55:02","2010-11-04 12:55:02",,"Argentina",t
+257,"ANU Accelerator",,"ANUA","2010-11-04 12:55:02","2010-11-04 12:55:02",,"Australia",t
+259,"Bern",,"B","2010-11-04 12:55:02","2010-11-04 12:55:02",,"Switzerland",t
+260,"Bratislava",,"Ba","2010-11-04 12:55:02","2010-11-04 12:55:02",,"Slovakia",t
+262,"Beta Analytic",,"Beta","2010-11-04 12:55:02","2010-11-04 12:55:02",,"USA",t
+266,"Berlin",,"Bln","2010-11-04 12:55:02","2010-11-04 12:55:02",,"Germany",t
+269,"Birbal Sahni Institute",,"BS","2010-11-04 12:55:02","2010-11-04 12:55:02",,"India",t
+270,"Brock University",,"BSG","2010-11-04 12:55:02","2010-11-04 12:55:02",,"Canada",t
+272,"Center for Accelerator Mass Spectrometry",,"CAMS","2010-11-04 12:55:02","2010-11-04 12:55:02",,"USA",t
+274,"Centro Energia Nuclear na Agricultura",,"CENA","2010-11-04 12:55:02","2010-11-04 12:55:02",,"Brazil",t
+275,"Institute of Geology",,"CG","2010-11-04 12:55:02","2010-11-04 12:55:02",,"China",t
+278,"Czech Radiocarbon Laboratory",,"CRL","2010-11-04 12:55:02","2010-11-04 12:55:02",,"Czech Republic",t
+279,"Geochronology Lab, IQFR-CSIC, Madrid",,"CSIC","2010-11-04 12:55:02","2010-11-04 12:55:02",,"Spain",t
+282,"Charles University",,"CU","2010-11-04 12:55:02","2010-11-04 12:55:02",,"Czech Republic",t
+287,"Debrecen",,"Deb","2010-11-04 12:55:02","2010-11-04 12:55:02",,"Hungary",t
+288,"Lab. of Archaeometry, NCSR Demokritos",,"DEM","2010-11-04 12:55:02","2010-11-04 12:55:02",,"Greece",t
+290,"Institut Fondamental d’Afrique Noire (IFAN)",,"DK","2010-11-04 12:55:02","2010-11-04 12:55:02",,"Senegal",t
+292,"ENEA, Bologna",,"ENEA","2010-11-04 12:55:02","2010-11-04 12:55:02",,"Italy",t
+293,"Erlangen AMS Facility",,"Erl","2010-11-04 12:55:02","2010-11-04 12:55:02",,"Germany",t
+294,"ETH/AMS Facility",,"ETH","2010-11-04 12:55:02","2010-11-04 12:55:02",,"Switzerland",t
+299,"Fortaleza",,"FZ","2010-11-04 12:55:02","2010-11-04 12:55:02",,"Brazil",t
+301,"Gakushuin University",,"GAK","2010-11-04 12:55:02","2010-11-04 12:55:02",,"Japan",t
+302,"Gliwice",,"Gd","2010-11-04 12:55:02","2010-11-04 12:55:02",,"Poland",t
+304,"Gif sur Yvette",,"Gif","2010-11-04 12:55:02","2010-11-04 12:55:02",,"France",t
+306,"Geological Institute",,"GIN","2010-11-04 12:55:02","2010-11-04 12:55:02",,"Russia",t
+308,"Groningen Accelerator",,"GrA","2010-11-04 12:55:02","2010-11-04 12:55:02",,"The Netherlands",t
+309,"Groningen",,"GrN","2010-11-04 12:55:02","2010-11-04 12:55:02",,"The Netherlands",t
+311,"Geological Survey",,"GSC","2010-11-04 12:55:02","2010-11-04 12:55:02",,"Canada",t
+312,"Scottish Universities Research & Reactor Centre",,"GU","2010-11-04 12:55:02","2010-11-04 12:55:02",,"Scotland",t
+313,"Geochron Laboratories",,"GX","2010-11-04 12:55:02","2010-11-04 12:55:02",,"USA",t
+315,"Hamburg",,"HAM","2010-11-04 12:55:02","2010-11-04 12:55:02",,"Germany",t
+317,"Heidelberg",,"Hd","2010-11-04 12:55:02","2010-11-04 12:55:02",,"Germany",t
+494,"Trondheim AMS",,"TUa","2011-10-19 11:51:10.615003","2011-10-19 11:51:10.615003",1,"",
+496,"Kopenhagen AMS",,"Ka","2011-10-19 12:50:28.84513","2011-10-19 12:50:28.84513",1,"",
+305,"Gif sur Yvette and Orsay",,"GifA","2010-11-04 12:55:02","2013-04-04 08:54:15.388106",,"France",t
+318,"Helsinki",,"Hel","2010-11-04 12:55:02","2010-11-04 12:55:02",,"Finland",t
+300,"Göteborg",,"G","2010-11-04 12:55:02","2010-11-04 12:55:02",,"Sweden",f
+320,"Second Institute of Oceanography",,"HL","2010-11-04 12:55:02","2010-11-04 12:55:02",,"China",t
+322,"Hannover",,"Hv","2010-11-04 12:55:02","2010-11-04 12:55:02",,"Germany",t
+323,"Teledyne Isotopes",,"I","2010-11-04 12:55:02","2010-11-04 12:55:02",,"USA",t
+324,"International Atomic Energy Agency",,"IAEA","2010-11-04 12:55:02","2010-11-04 12:55:02",,"Austria",t
+325,"Marine Environmental Laboratory",,"IAEA-MEL","2010-11-04 12:55:02","2010-11-04 12:55:02",,"Monaco",t
+327,"Institute of Evolutionary Morphology and Animal Ecology",,"IEMAE","2010-11-04 12:55:02","2010-11-04 12:55:02",,"Russia",t
+328,"Institute of Geography",,"IGAN","2010-11-04 12:55:02","2010-11-04 12:55:02",,"Russia",t
+330,"Inst. of Geological Sci.",,"IGSB","2010-11-04 12:55:02","2010-11-04 12:55:02",,"Belarus",t
+331,"The Marzeev Institute of Hygiene and Medical Ecology",,"IHME","2010-11-04 12:55:02","2010-11-04 12:55:02",,"Ukraine",t
+335,"Royal Institute of Cultural Heritage",,"IRPA","2010-11-04 12:55:02","2010-11-04 12:55:02",,"Belgium",t
+336,"Illinois State Geological Survey",,"ISGS","2010-11-04 12:55:02","2010-11-04 12:55:02",,"USA",t
+485,"University of Waikato",,"Wk","2010-11-04 12:55:02","2010-11-04 12:55:02",,"New Zealand",t
+340,"Max-Planck-Institut für Biogeochemie, Jena",,"J","2010-11-04 12:55:02","2010-11-04 12:55:02",,"Germany",t
+342,"Biren Roy Research Laboratory",,"JUBR","2010-11-04 12:55:02","2010-11-04 12:55:02",,"India",t
+343,"National Museum",,"K","2010-11-04 12:55:02","2010-11-04 12:55:02",,"Denmark",t
+345,"National Cultural Property Research Institute",,"KCP","2010-11-04 12:55:02","2010-11-04 12:55:02",,"Korea",t
+346,"Kyushu Environmental Evaluation Association",,"KEEA","2010-11-04 12:55:02","2010-11-04 12:55:02",,"Japan",t
+347,"Kiel",,"KI","2010-11-04 12:55:02","2010-11-04 12:55:02",,"Germany",t
+348,"Institute of Radio Geochemistry of the Environment",,"Ki (KIEV)","2010-11-04 12:55:02","2010-11-04 12:55:02",,"Ukraine",t
+349,"Kiel AMS",,"KIA","2010-11-04 12:55:02","2010-11-04 12:55:02",,"Germany",t
+350,"Royal Institute for Cultural Heritage",,"KIK","2010-11-04 12:55:02","2010-11-04 12:55:02",,"Belgium",t
+351,"Köln",,"KN","2010-11-04 12:55:02","2010-11-04 12:55:02",,"Germany",t
+352,"Krakow",,"KR","2010-11-04 12:55:02","2010-11-04 12:55:02",,"Poland",t
+357,"St. Petersburg",,"LE","2010-11-04 12:55:02","2010-11-04 12:55:02",,"Russia",t
+495,"University of Zurich",,"UZ","2011-10-19 12:06:25.768519","2011-11-02 13:50:34.269517",1,"",
+358,"Lab. of Isotope Hydrology, NCSR Demokritos",,"LIH","2010-11-04 12:55:02","2010-11-04 12:55:02",,"Greece",t
+360,"Lodz",,"LOD","2010-11-04 12:55:02","2010-11-04 12:55:02",,"Poland",t
+361,"La Plata",,"LP","2010-11-04 12:55:02","2010-11-04 12:55:02",,"Argentina",t
+362,"Lund",,"Lu","2010-11-04 12:55:02","2010-11-04 12:55:02",,"Sweden",t
+363,"St. Petersburg State Univesity",,"LU (Russia)","2010-11-04 12:55:02","2010-11-04 12:55:02",,"Russia",t
+365,"University of Lyon",,"Ly","2010-11-04 12:55:02","2010-11-04 12:55:02",,"France",t
+366,"Umweltforschungszentrum Leipzig-Halle",,"LZ","2010-11-04 12:55:02","2010-11-04 12:55:02",,"Germany",t
+369,"Quaternary Geology and Geochronology Laboratory",,"MAG","2010-11-04 12:55:02","2010-11-04 12:55:02",,"Russia",t
+371,"Middle East Technical University",,"METU","2010-11-04 12:55:02","2010-11-04 12:55:02",,"Turkey",t
+377,"Moscow State University",,"MSU","2010-11-04 12:55:02","2010-11-04 12:55:02",,"Russia",t
+378,"University of Tokyo",,"MTC","2010-11-04 12:55:02","2010-11-04 12:55:02",,"Japan",t
+380,"National Institute of Standards and Technology",,"NIST","2010-11-04 12:55:02","2010-11-04 12:55:02",,"USA",t
+383,"INSTAAR AMS Lab, U of Colorado",,"NSRL","2010-11-04 12:55:02","2010-11-04 12:55:02",,"USA",t
+386,"National Taiwan University",,"NTU","2010-11-04 12:55:02","2010-11-04 12:55:02",,"Republic of China",t
+387,"Nihon University",,"NU","2010-11-04 12:55:02","2010-11-04 12:55:02",,"Japan",t
+388,"Tandetron AMS Lab",,"NUTA","2010-11-04 12:55:02","2010-11-04 12:55:02",,"Japan",t
+391,"Rafter Radiocarbon Lab (AMS)",,"NZA","2010-11-04 12:55:02","2010-11-04 12:55:02",,"New Zealand",t
+394,"Research Center of Radioisotopes",,"OR","2010-11-04 12:55:02","2010-11-04 12:55:02",,"Japan",t
+398,"Oxford Radiocarbon Accelerator Unit",,"OxA","2010-11-04 12:55:02","2010-11-04 12:55:02",,"England",t
+399,"ANSTO-ANTARES",,"OZ","2010-11-04 12:55:02","2010-11-04 12:55:02",,"Australia",t
+405,"Peking University",,"PKU","2010-11-04 12:55:02","2010-11-04 12:55:02",,"China",t
+406,"Peking University AMS lab",,"PKUAMS","2010-11-04 12:55:02","2010-11-04 12:55:02",,"China",t
+407,"Purdue Rare Isotope Measurement Laboratory",,"PL","2010-11-04 12:55:02","2010-11-04 12:55:02",,"USA",t
+408,"Paleo Laboratory Co., Ltd.",,"PLD","2010-11-04 12:55:02","2010-11-04 12:55:02",,"Japan",t
+409,"Poznan Radiocarbon Laboratory",,"Poz","2010-11-04 12:55:02","2010-11-04 12:55:02",,"Poland",t
+411,"Physical Research Laboratory",,"PRL","2010-11-04 12:55:02","2010-11-04 12:55:02",,"India",t
+412,"Physical Research Laboratory (Chemistry Dept.)",,"PRLCH","2010-11-04 12:55:02","2010-11-04 12:55:02",,"India",t
+414,"Pretoria",,"Pta","2010-11-04 12:55:02","2010-11-04 12:55:02",,"South Africa",t
+415,"Cambridge",,"Q","2010-11-04 12:55:02","2010-11-04 12:55:02",,"England",t
+419,"Rome",,"R","2010-11-04 12:55:02","2010-11-04 12:55:02",,"Italy",t
+420,"Radiocarbon Dating",,"RCD","2010-11-04 12:55:02","2010-11-04 12:55:02",,"England",t
+423,"Institute of Science",,"Riga","2010-11-04 12:55:02","2010-11-04 12:55:02",,"Latvia",t
+425,"Department of Earth Sciences, Rome",,"Rome","2010-11-04 12:55:02","2010-11-04 12:55:02",,"Italy",t
+497,"Köln (I)",,"KN-I.","2011-10-25 14:00:52.467161","2011-10-25 14:09:23.725621",1,"",
+426,"Rehovot",,"RT","2010-11-04 12:55:02","2010-11-04 12:55:02",,"Israel",t
+430,"Instituto Tecnológico e Nuclear",,"Sac","2010-11-04 12:55:02","2010-11-04 12:55:02",,"Portugal",t
+431,"Gif sur Yvette (Saclay)",,"SacA","2010-11-04 12:55:02","2010-11-04 12:55:02",,"France",t
+438,"Seoul National Univ.",,"SNU","2010-11-04 12:55:02","2010-11-04 12:55:02",,"Korea",t
+439,"Institute of Geology and Geophysics",,"SOAN","2010-11-04 12:55:02","2010-11-04 12:55:02",,"Russia",t
+441,"NERC Radiocarbon Laboratory",,"SRR","2010-11-04 12:55:02","2010-11-04 12:55:02",,"Scotland",t
+444,"Sydney University",,"SUA","2010-11-04 12:55:02","2010-11-04 12:55:02",,"Australia",t
+445,"Scottish Universities Environmental Research Centre",,"SUERC","2010-11-04 12:55:02","2010-11-04 12:55:02",,"Scotland",t
+446,"Swansea",,"SWA","2010-11-04 12:55:02","2010-11-04 12:55:02",,"Wales",t
+447,"Trondheim",,"T","2010-11-04 12:55:02","2010-11-04 12:55:02",,"Norway",t
+448,"Tartu",,"Ta","2010-11-04 12:55:02","2010-11-04 12:55:02",,"Estonia",t
+450,"Tblisi",,"TB","2010-11-04 12:55:02","2010-11-04 12:55:02",,"Georgia",t
+454,"University of Tokyo",,"TK","2010-11-04 12:55:02","2010-11-04 12:55:02",,"Japan",t
+455,"University of Tokyo AMS",,"TKa","2010-11-04 12:55:02","2010-11-04 12:55:02",,"Japan",t
+456,"Turku",,"TKU","2010-11-04 12:55:02","2010-11-04 12:55:02",,"Finland",t
+457,"Tallinn",,"Tln","2010-11-04 12:55:02","2010-11-04 12:55:02",,"Estonia",t
+458,"IsoTrace Laboratory",,"TO","2010-11-04 12:55:02","2010-11-04 12:55:02",,"Canada",t
+461,"Uppsala",,"U","2010-11-04 12:55:02","2010-11-04 12:55:02",,"Sweden",t
+462,"Uppsala Accelerator",,"Ua","2010-11-04 12:55:02","2010-11-04 12:55:02",,"Sweden",t
+463,"Belfast",,"UB","2010-11-04 12:55:02","2010-11-04 12:55:02",,"Northern Ireland",t
+464,"University of Barcelona",,"UBAR","2010-11-04 12:55:02","2010-11-04 12:55:02",,"Spain",t
+465,"University College, Dublin",,"UCD","2010-11-04 12:55:02","2010-11-04 12:55:02",,"Ireland",t
+466,"University of California, Irvine",,"UCI","2010-11-04 12:55:02","2010-11-04 12:55:02",,"USA",t
+297,"Frankfurt",,"Fra","2010-11-04 12:55:02","2010-11-04 12:55:02",,"Germany",f
+298,"Florida State University",,"FSU","2010-11-04 12:55:02","2010-11-04 12:55:02",,"USA",f
+303,"Gdansk",,"GD","2010-11-04 12:55:02","2010-11-04 12:55:02",,"Poland",f
+307,"Geochronological Lab.",,"GL","2010-11-04 12:55:02","2010-11-04 12:55:02",,"England",f
+310,"Groningen",,"Gro","2010-11-04 12:55:02","2010-11-04 12:55:02",,"The Netherlands",f
+314,"Heidelberg",,"H","2010-11-04 12:55:02","2010-11-04 12:55:02",,"West Germany",f
+316,"Harwell",,"HAR","2010-11-04 12:55:02","2010-11-04 12:55:02",,"England",f
+319,"Hawaii Inst. of Geophys.",,"HIG","2010-11-04 12:55:02","2010-11-04 12:55:02",,"USA",f
+321,"Hasleton-Nuclear, Palo Alto, California",,"HNS","2010-11-04 12:55:02","2010-11-04 12:55:02",,"USA",f
+326,"Instituto Tecnológico e Nuclear",,"ICEN","2010-11-04 12:55:02","2010-11-04 12:55:02",,"Portugal",f
+329,"Inst. of Geological Sci.",,"IGS","2010-11-04 12:55:02","2010-11-04 12:55:02",,"Sweden",f
+332,"Isotopes, Inc., Palo Alto",,"II","2010-11-04 12:55:02","2010-11-04 12:55:02",,"USA",f
+333,"Institute of Oceanography",,"IOAN","2010-11-04 12:55:02","2010-11-04 12:55:02",,"Russia",f
+334,"Institute of Oceanology",,"IORAN","2010-11-04 12:55:02","2010-11-04 12:55:02",,"Russia",f
+337,"Institute of Volcanology",,"IVAN","2010-11-04 12:55:02","2010-11-04 12:55:02",,"Ukraine",f
+338,"Caracas",,"IVIC","2010-11-04 12:55:02","2010-11-04 12:55:02",,"Venezuela",f
+339,"Institute of Water Problems",,"IWP","2010-11-04 12:55:02","2010-11-04 12:55:02",,"Russia",f
+341,"Geological Survey of Japan",,"JGS","2010-11-04 12:55:02","2010-11-04 12:55:02",,"Japan",f
+344,"Korean Atomic Energy Research Institute",,"KAERI","2010-11-04 12:55:02","2010-11-04 12:55:02",,"Korea",f
+353,"Krasnoyarsk Institute",,"KRIL","2010-11-04 12:55:02","2010-11-04 12:55:02",,"Russia",f
+354,"Kyoto Sangyo University",,"KSU","2010-11-04 12:55:02","2010-11-04 12:55:02",,"Japan",f
+355,"Lamont-Doherty",,"L","2010-11-04 12:55:02","2010-11-04 12:55:02",,"USA",f
+356,"Liège State University",,"LAR","2010-11-04 12:55:02","2010-11-04 12:55:02",,"Belgium",f
+359,"Scripps (UCSD) La Jolla",,"LJ","2010-11-04 12:55:02","2010-11-04 12:55:02",,"USA",f
+364,"Louvain-la-Neuve",,"Lv","2010-11-04 12:55:02","2010-11-04 12:55:02",,"Belgium",f
+367,"University of Michigan",,"M","2010-11-04 12:55:02","2010-11-04 12:55:02",,"USA",f
+368,"University of Winnepeg",,"Ma","2010-11-04 12:55:02","2010-11-04 12:55:02",,"Canada",f
+370,"Centre Scientifique de Monaco",,"MC","2010-11-04 12:55:02","2010-11-04 12:55:02",,"Monaco",f
+372,"Miami",,"ML","2010-11-04 12:55:02","2010-11-04 12:55:02",,"USA",f
+373,"Verdanski Inst. of Geochemistry, Moscow",,"Mo","2010-11-04 12:55:02","2010-11-04 12:55:02",,"USSR",f
+435,"Sharp Laboratories",,"SL","2010-11-04 12:55:02","2010-11-04 12:55:02",,"USA",f
+374,"Archaeological Institute, Czechoslovak Acad. of Sci.",,"MOC","2010-11-04 12:55:02","2010-11-04 12:55:02",,"Czechoslovakia",f
+375,"Magnolia Petroleum",,"MP","2010-11-04 12:55:02","2010-11-04 12:55:02",,"USA",f
+376,"Marine Resources Research Institute",,"MRRI","2010-11-04 12:55:02","2010-11-04 12:55:02",,"USA",f
+379,"Nishina Memorial",,"N","2010-11-04 12:55:02","2010-11-04 12:55:02",,"Japan",f
+381,"National Physical Laboratory, Middlesex",,"NPL","2010-11-04 12:55:02","2010-11-04 12:55:02",,"England",f
+382,"Nova Scotia Research Foundation",,"NS","2010-11-04 12:55:02","2010-11-04 12:55:02",,"Canada",f
+384,"Nuclear Science and Technology Facility, State Univ. of New York",,"NSTF","2010-11-04 12:55:02","2010-11-04 12:55:02",,"USA",f
+385,"U. of New South Wales",,"NSW","2010-11-04 12:55:02","2010-11-04 12:55:02",,"Australia",f
+389,"Nancy, Centre de Recherches Radiogéologiques",,"Ny","2010-11-04 12:55:02","2010-11-04 12:55:02",,"France",f
+390,"Rafter Radiocarbon Lab",,"NZ","2010-11-04 12:55:02","2010-11-04 12:55:02",,"New Zealand",f
+392,"Humble Oil & Refining",,"O","2010-11-04 12:55:02","2010-11-04 12:55:02",,"USA",f
+393,"ORSTOM Bondy",,"OBDY","2010-11-04 12:55:02","2010-11-04 12:55:02",,"France",f
+395,"Oak Ridge Institute of Nuclear Studies",,"ORINS","2010-11-04 12:55:02","2010-11-04 12:55:02",,"USA",f
+396,"Ohio Wesleyan Univ.",,"OWU","2010-11-04 12:55:02","2010-11-04 12:55:02",,"USA",f
+397,"USDA Oxford, Mississippi",,"OX","2010-11-04 12:55:02","2010-11-04 12:55:02",,"USA",f
+400,"Univ. of Pennsylvania",,"P","2010-11-04 12:55:02","2010-11-04 12:55:02",,"USA",f
+401,"Permafrost Institute",,"PI (Russia)","2010-11-04 12:55:02","2010-11-04 12:55:02",,"Russia",f
+402,"Pisa",,"Pi","2010-11-04 12:55:02","2010-11-04 12:55:02",,"Italy",f
+403,"Packard",,"PIC","2010-11-04 12:55:02","2010-11-04 12:55:02",,"USA",f
+404,"University of Pittsburgh",,"PITT","2010-11-04 12:55:02","2010-11-04 12:55:02",,"USA",f
+410,"Prague",,"Pr","2010-11-04 12:55:02","2010-11-04 12:55:02",,"Czechoslovakia",f
+413,"Pennsylvania State Univ.",,"PSU","2010-11-04 12:55:02","2010-11-04 12:55:02",,"USA",f
+416,"Queens College",,"QC","2010-11-04 12:55:02","2010-11-04 12:55:02",,"USA",f
+417,"Quaternary Isotope Laboratory",,"QL","2010-11-04 12:55:02","2010-11-04 12:55:02",,"USA",f
+418,"Centre de Recherches Minérales, Québec",,"QU","2010-11-04 12:55:02","2010-11-04 12:55:02",,"Canada",f
+421,"Radiochemistry, Inc.",,"RI","2010-11-04 12:55:02","2010-11-04 12:55:02",,"USA",f
+422,"Simon Fraser Univ.",,"RIDDL","2010-11-04 12:55:02","2010-11-04 12:55:02",,"Canada",f
+424,"Radiocarbon, Ltd.",,"RL","2010-11-04 12:55:02","2010-11-04 12:55:02",,"USA",f
+427,"Rice University",,"RU","2010-11-04 12:55:02","2010-11-04 12:55:02",,"USA",f
+428,"Saskatchewan",,"S","2010-11-04 12:55:02","2010-11-04 12:55:02",,"Canada",f
+429,"Saclay, Gif-sur-Yvette",,"Sa","2010-11-04 12:55:02","2010-11-04 12:55:02",,"France",f
+432,"Simon Fraser Univ.",,"SFU","2010-11-04 12:55:02","2010-11-04 12:55:02",,"Canada",f
+433,"Shell Development Co.",,"Sh","2010-11-04 12:55:02","2010-11-04 12:55:02",,"USA",f
+434,"Smithsonian Institution",,"SI","2010-11-04 12:55:02","2010-11-04 12:55:02",,"USA",f
+436,"Mobil Oil Corp., Dallas",,"SM","2010-11-04 12:55:02","2010-11-04 12:55:02",,"USA",f
+437,"Southern Methodist Univ.",,"SMU","2010-11-04 12:55:02","2010-11-04 12:55:02",,"USA",f
+440,"Salisbury, Rhodesia",,"SR","2010-11-04 12:55:02","2010-11-04 12:55:02",,"Rhodesia",f
+442,"Stockholm",,"St","2010-11-04 12:55:02","2010-11-04 12:55:02",,"Sweden",f
+443,"Finland",,"Su","2010-11-04 12:55:02","2010-11-04 12:55:02",,"Finland",f
+449,"Texas A & M University",,"TAM","2010-11-04 12:55:02","2010-11-04 12:55:02",,"USA",f
+451,"Kaman Instruments (formerly Texas-Bio-Nuclear)",,"TBNC","2010-11-04 12:55:02","2010-11-04 12:55:02",,"USA",f
+452,"Temple University",,"TEM","2010-11-04 12:55:02","2010-11-04 12:55:02",,"USA",f
+453,"Tata Institute of Fundamental Research",,"TF","2010-11-04 12:55:02","2010-11-04 12:55:02",,"India",f
+459,"Tehran University Nuclear Centre",,"TUNC","2010-11-04 12:55:02","2010-11-04 12:55:02",,"Iran",f
+460,"Texas",,"Tx","2010-11-04 12:55:02","2010-11-04 12:55:02",,"USA",f
+467,"University of California, Los Angeles",,"UCLA","2010-11-04 12:55:02","2010-11-04 12:55:02",,"USA",f
+468,"University of California, Riverside",,"UCR","2010-11-04 12:55:02","2010-11-04 12:55:02",,"USA",f
+469,"Udine",,"UD","2010-11-04 12:55:02","2010-11-04 12:55:02",,"Italy",f
+251,"Alberta Environmental Center of Vegreville",,"AECV","2010-11-04 12:55:02","2010-11-04 12:55:02",,"Canada",f
+252,"Atomic Energy Res. Inst.",,"AERIK","2010-11-04 12:55:02","2010-11-04 12:55:02",,"Korea",f
+253,"Algiers",,"ALG","2010-11-04 12:55:02","2010-11-04 12:55:02",,"Algeria",f
+254,"Argonne Nat. Lab., Ill.",,"ANL","2010-11-04 12:55:02","2010-11-04 12:55:02",,"USA",f
+255,"Antwerp",,"ANTW","2010-11-04 12:55:02","2010-11-04 12:55:02",,"Belgium",f
+256,"Australian National University",,"ANU","2010-11-04 12:55:02","2010-11-04 12:55:02",,"Australia",f
+258,"University of Alaska",,"AU","2010-11-04 12:55:02","2010-11-04 12:55:02",,"USA",f
+261,"Brooklyn College",,"BC","2010-11-04 12:55:02","2010-11-04 12:55:02",,"USA",f
+263,"Brock University",,"BGS","2010-11-04 12:55:02","2010-11-04 12:55:02",,"Canada",f
+264,"BIOCAMS International",,"BIOCAMS","2010-11-04 12:55:02","2010-11-04 12:55:02",,"USA",f
+265,"Birmingham",,"Birm","2010-11-04 12:55:02","2010-11-04 12:55:02",,"USA",f
+267,"British Museum",,"BM","2010-11-04 12:55:02","2010-11-04 12:55:02",,"England",f
+268,"Universität Bonn",,"BONN","2010-11-04 12:55:02","2010-11-04 12:55:02",,"Germany",f
+271,"Chicago",,"C","2010-11-04 12:55:02","2010-11-04 12:55:02",,"USA",f
+273,"Univ. College, Cardiff",,"CAR","2010-11-04 12:55:02","2010-11-04 12:55:02",,"Wales",f
+276,"Chemistry Laboratory",,"CH","2010-11-04 12:55:02","2010-11-04 12:55:02",,"India",f
+277,"Cairo",,"CRCA ","2010-11-04 12:55:02","2010-11-04 12:55:02",,"Egypt",f
+280,"Cosmochemistry Lab. USSR Academy of Sciences",,"CSM","2010-11-04 12:55:02","2010-11-04 12:55:02",,"USSR",f
+281,"Caltech, Calif. Inst. Tech.",,"CT","2010-11-04 12:55:02","2010-11-04 12:55:02",,"USA",f
+283,"Dublin, Trinity College",,"D","2010-11-04 12:55:02","2010-11-04 12:55:02",,"Ireland",f
+284,"Univ. de Dakar",,"Dak","2010-11-04 12:55:02","2010-11-04 12:55:02",,"République du Sénégal",f
+285,"Dalhousie University",,"DAL","2010-11-04 12:55:02","2010-11-04 12:55:02",,"Canada",f
+286,"USGS, Denver",,"DE","2010-11-04 12:55:02","2010-11-04 12:55:02",,"USA",f
+289,"Dicar Corp and Dicarb Radioisotope Company",,"DIC","2010-11-04 12:55:02","2010-11-04 12:55:02",,"USA",f
+291,"Desert Research Institute",,"DRI","2010-11-04 12:55:02","2010-11-04 12:55:02",,"USA",f
+295,"Florence",,"F","2010-11-04 12:55:02","2010-11-04 12:55:02",,"Italy",f
+296,"Freiberg",,"Fr","2010-11-04 12:55:02","2010-11-04 12:55:02",,"Germany",f
+472,"University of Miami",,"UM","2010-11-04 12:55:02","2010-11-04 12:55:02",,"USA",f
+473,"University of Quebec at Montreal",,"UQ","2010-11-04 12:55:02","2010-11-04 12:55:02",,"Canada",f
+474,"Ukrainian Research Ctr. for Radiation Medicine",,"URCRM","2010-11-04 12:55:02","2010-11-04 12:55:02",,"Ukraine",f
+475,"USGS, Menlo Park",,"USGS","2010-11-04 12:55:02","2010-11-04 12:55:02",,"USA",f
+477,"University of Washington",,"UW","2010-11-04 12:55:02","2010-11-04 12:55:02",,"USA",f
+478,"Melbourne, Victoria",,"V","2010-11-04 12:55:02","2010-11-04 12:55:02",,"Australia",f
+480,"Vienna Radium Institute",,"VRI","2010-11-04 12:55:02","2010-11-04 12:55:02",,"Austria",f
+481,"USGS, National Center",,"W","2010-11-04 12:55:02","2010-11-04 12:55:02",,"USA",f
+482,"University of Waterloo",,"WAT","2010-11-04 12:55:02","2010-11-04 12:55:02",,"Canada",f
+484,"Wisconsin",,"WIS","2010-11-04 12:55:02","2010-11-04 12:55:02",,"USA",f
+486,"USGS Washington, D.C. Water Resources Division",,"WRD","2010-11-04 12:55:02","2010-11-04 12:55:02",,"USA",f
+487,"Washington State Univ.",,"WSU","2010-11-04 12:55:02","2010-11-04 12:55:02",,"USA",f
+488,"Whitworth College",,"X","2010-11-04 12:55:02","2010-11-04 12:55:02",,"USA",f
+490,"Yale University",,"Y","2010-11-04 12:55:02","2010-11-04 12:55:02",,"USA",f
+491,"Yale University",,"Ya","2010-11-04 12:55:02","2010-11-04 12:55:02",,"USA",f
+470,"University of Georgia",,"UGa","2010-11-04 12:55:02","2010-11-04 12:55:02",,"USA",t
+471,"University of Granada",,"UGRA","2010-11-04 12:55:02","2010-11-04 12:55:02",,"Spain",t
+476,"Utrecht van der Graaf Laboratorium",,"UtC","2010-11-04 12:55:02","2010-11-04 12:55:02",,"The Netherlands",t
+479,"Institut für Radiumforschung und Kernphysik",,"VERA","2010-11-04 12:55:02","2010-11-04 12:55:02",,"Austria",t
+483,"National Ocean Sciences AMS Facility",,"WHAMS","2010-11-04 12:55:02","2010-11-04 12:55:02",,"USA",t
+489,"Xian Laboratory of Loess and Quaternary Geology",,"XLLQ","2010-11-04 12:55:02","2010-11-04 12:55:02",,"China",t
+492,"Zagreb",,"Z","2010-11-04 12:55:02","2010-11-04 12:55:02",,"Croatia",t
+498,"Institute of Geology, Geophysics, and Mineralogy, Novosibirsk, Russia",,"COAH","2013-04-24 11:32:47.683078","2013-04-24 11:32:47.683078",1,"",
+499,"Radiocarbon Laboratory of the Institut of Archaeology of Leningrad",,"RUL","2013-04-24 11:33:10.178185","2013-04-24 11:33:10.178185",1,"",
+500,"Radiocarbon Laboratory, Centre National de la Recherche Scientifique Gif-sur-Yvette (Essonne)",,"GSY","2013-04-24 11:33:29.767264","2013-04-24 11:33:29.767264",1,"",
+501,"unknown",,"UPI","2013-04-24 11:33:42.211207","2013-04-24 11:33:42.211207",1,"",
+502,"Hacettepe University",,"HUR","2013-04-24 11:34:02.802428","2013-04-24 11:34:02.802428",1,"",
+503,"unknown",,"GXO","2013-04-24 11:34:15.102093","2013-04-24 11:34:15.102093",1,"",
+504,"unknown",,"HU","2013-04-24 11:34:23.892266","2013-04-24 11:34:23.892266",1,"",
+505,"unknown",,"NV","2013-04-24 11:34:31.81398","2013-04-24 11:34:31.81398",1,"",
+506,"unknown",,"FS","2013-04-24 11:34:42.49259","2013-04-24 11:34:42.49259",1,"",
+507,"unknown",,"Ph-TL","2013-04-24 11:34:50.869619","2013-04-24 11:34:50.869619",1,"",
+508,"unknown",,"Shell","2013-04-24 11:34:58.626706","2013-04-24 11:34:58.626706",1,"",
+509,"unknown",,"SPr","2013-04-24 11:35:05.215419","2013-04-24 11:35:05.215419",1,"",
+510,"unknown",,"MATJ","2013-04-24 11:35:18.582553","2013-04-24 11:35:18.582553",1,"",
+511,"unknown",,"SM(U)","2013-04-24 11:35:28.061515","2013-04-24 11:35:28.061515",1,"",
+512,"unknown",,"Hy","2013-04-24 11:35:35.694156","2013-04-24 11:35:35.694156",1,"",
+513,"unknown",,"KIGN","2013-04-24 11:35:43.199084","2013-04-24 11:35:43.199084",1,"",
+514,"Centre de Recherches Geodynamiques, Université Pierre et Marie Curie",,"CRG","2013-04-24 11:35:58.128645","2013-04-24 11:35:58.128645",1,"",
+515,"unknown",,"CZ","2013-04-24 11:36:08.818935","2013-04-24 11:36:08.818935",1,"",
+516,"Laboratoire de Geologie du Quatemaire, Luminy, France",,"LGQ","2013-04-24 11:36:20.797811","2013-04-24 11:36:20.797811",1,"",
+517,"unknown",,"Tan","2013-04-24 11:36:34.152824","2013-04-24 11:36:34.152824",1,"",
+518,"unknown",,"ARC","2013-04-24 11:36:48.688196","2013-04-24 11:36:48.688196",1,"",
+519,"unknown",,"GIFTAN","2013-04-24 11:36:57.109897","2013-04-24 11:36:57.109897",1,"",
+520,"Groningen?",,"GR","2014-06-17 08:30:32.308429","2014-06-17 08:30:32.308429",2,"",f
+521,"?",,"KB","2014-06-17 09:16:08.507162","2014-06-17 09:16:08.507162",3,"",f
+522,"KE?",,"KE","2014-06-17 09:16:41.464975","2014-06-17 09:16:41.464975",4,"",f
+523,"LGO?",,"LGO","2014-06-17 09:17:10.699047","2014-06-17 09:17:10.699047",5,"",f
+524,"IlY?",,"IlY","2014-06-17 09:17:33.184036","2014-06-17 09:17:33.184036",6,"",f
+525,"LMY?",,"LMY","2014-06-17 09:17:53.8477","2014-06-17 09:17:53.8477",7,"",f
+526,"LQG?",,"LQG","2014-06-17 09:18:10.90322","2014-06-17 09:18:10.90322",8,"",f
+527,"Lithuania",,"LT","2014-06-17 09:18:48.001803","2014-06-17 09:18:48.001803",9,"",f

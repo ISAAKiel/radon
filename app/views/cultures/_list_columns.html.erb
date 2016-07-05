@@ -13,8 +13,8 @@
 SELECT 
   count(*)
 FROM 
-  public.phases, 
-  public.samples
+  phases, 
+  samples
 WHERE 
   phases.culture_id = #{object.id} AND
   samples.phase_id = phases.id

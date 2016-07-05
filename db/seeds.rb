@@ -25,4 +25,6 @@ admin_user.save
 
 Page.create(name: "home", content: "fill me")
 
+Right.create(id: 1, name: "public", position: 1)
+
 samples = FactoryGirl.create_list(:sample,10)

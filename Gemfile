@@ -54,6 +54,7 @@ gem 'geonames'
 gem 'pg', '~> 0.18'
 gem 'rmagick', '>=2.13.2'
 gem 'ruby_parser'
+gem 'activerecord-import'
 
 gem 'wice_grid'
 gem 'font-awesome-sass',  '~> 4.3'
