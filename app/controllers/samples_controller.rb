@@ -4,6 +4,9 @@ class SamplesController < ApplicationController
   filter_access_to :new, :create, :edit, :update, :destroy, :calibrate_multi, :export_chart, :calibrate_sum
   filter_access_to :show, :show, :calibrate, :attribute_check => true
 
+  attr_reader :selected_tasks
+
+
 #  filter_resource_access
 
   def index
@@ -28,153 +31,25 @@ class SamplesController < ApplicationController
       scope.push(bbox[2].to_f,bbox[0].to_f,bbox[3].to_f,bbox[1].to_f)
     end
 
-    #@samples = Sample.with_permissions_to(:show).paginate :page => params[:page], :per_page => 20, :order => params[:sort]
+    @sites_for_samples = Sample.joins(:site).with_permissions_to(:show).where('sites.lat IS NOT NULL and sites.lng IS NOT NULL').select('sites.lat, sites.lng').to_a
 
     @samples_grid = initialize_grid(Sample.with_permissions_to(:show),
     :include => [:lab, :prmat, :feature_type, {:site=>{:country_subdivision => :country}}, {:phase => :culture}, :literatures],
     :name => 'samples',
     :conditions=>scope,
+#    with_resultset: :process_records,
     :enable_export_to_csv => true,
     :csv_field_separator => ';'#,
 #    :csv_file_name => 'samples'
     )
+
     export_grid_if_requested
-    
-@map='<script defer="defer" type="text/javascript">'
 
-@map << 'var map;'
+    @one_page_records = []
 
-@map << 'map = new OpenLayers.Map("map", {theme : false,projection : "new OpenLayers.Projection(\"EPSG:900913\")",displayProjection : "new OpenLayers.Projection(\"EPSG:4326\")"});'
-
-      @map << '
-              var gsat = new OpenLayers.Layer.Google(
-                  "Google Satellite",
-                  {type: google.maps.MapTypeId.SATELLITE}
-              );
-              var ghyb = new OpenLayers.Layer.Google(
-              "Google Hybrid",{
-                type: google.maps.MapTypeId.HYBRID,
-                numZoomLevels: 20,
-                "sphericalMercator": true,
-                "maxExtent": new OpenLayers.Bounds(-20037508.34, -20037508.34, 20037508.34, 20037508.34)}
-              );
-              var proj = new OpenLayers.Projection("EPSG:4326");'
-
-
-      @map << '
-            OpenLayers.Feature.Vector.style["default"]["strokeWidth"] = "2";
-
-            var cursors = ["sw-resize", "s-resize", "se-resize",
-                "e-resize", "ne-resize", "n-resize", "nw-resize", "w-resize"];
-            var context = {
-                getCursor: function(feature){
-                    var i = OpenLayers.Util.indexOf(controls["transform"].handles, feature);
-                    var cursor = "inherit";
-                    if(i !== -1) {
-                        i = (i + 8 + Math.round(controls["transform"].rotation / 90) * 2) % 8;
-                        cursor = cursors[i];
-                    }
-                    return cursor;
-                }
-            };
-            
-            // a nice style for the transformation box
-            var style = new OpenLayers.Style({
-                cursor: "${getCursor}",
-                pointRadius: 5,
-                fillColor: "white",
-                fillOpacity: 1,
-                strokeColor: "black"
-            }, {context: context});
-
-            var renderer = OpenLayers.Util.getParameters(window.location.href).renderer;
-            renderer = (renderer) ? [renderer] : OpenLayers.Layer.Vector.prototype.renderers;
-
-            var vectors = new OpenLayers.Layer.Vector("Simple Geometry", {
-                styleMap: new OpenLayers.StyleMap({
-                    "transform": style
-                })
-            });
-            map.addLayers([gsat, ghyb, vectors]);
-                var       controls = {
-                regular: new OpenLayers.Control.DrawFeature(vectors,
-                            OpenLayers.Handler.RegularPolygon,
-                            {handlerOptions: {sides: 4, irregular:true}})
-            };
-            
-            for(var key in controls) {
-                map.addControl(controls[key]);
-            };
-            
-            controls.regular.handler.irregular = true;
-            
-            controls["transform"] = new OpenLayers.Control.TransformFeature(vectors, {
-                renderIntent: "transform",
-                irregular: true
-            });
-            
-            function addedBox() {
-            controls["regular"].deactivate();
-            controls["transform"].setFeature(vectors.features[0]);
-            controls["transform"].activate();
-            }
-            
-            vectors.events.on({"featureadded": addedBox});
-            
-            map.addControl(controls["transform"]);
-
-            var button1 = new OpenLayers.Control.Button ({trigger: function() {vectors.removeFeatures(vectors.features);controls["regular"].activate();controls["transform"].deactivate();}, title: "Draw Selection Frame", text: "Draw Selection Frame"});
-
-            var button2 = new OpenLayers.Control.Button ({trigger: function() {var customer_url = "' + url_for(params.merge(:bbox => "nil")) + '";
-  customer_url = customer_url.replace("nil",encodeURIComponent(vectors.features[0].geometry.bounds.transform(map.getProjectionObject(),proj)));
-  window.location = customer_url;
-  }, title: "Enable filter", text: "Enable filter"});
-            panel = new OpenLayers.Control.Panel({defaultControl: button1, createControlMarkup: function(control) {
-            var button = $("<button class=\'btn btn-info btn-xs\'  style=\'margin-top: 5px;margin-left: 5px;\'>")[0],
-                iconSpan = document.createElement("span"),
-                textSpan = document.createElement("span");
-            iconSpan.innerHTML = "&nbsp;";
-            button.appendChild(iconSpan);
-            if (control.text) {
-                textSpan.innerHTML = control.text;
-            }
-            button.appendChild(textSpan);
-            return button;
-        }, class: "btn-group"
-});
-            panel.addControls([button1,button2]);
-            map.addControl (panel);
-            '
-            @map << 'map.setCenter(new OpenLayers.LonLat(7, 48.9).transform(proj,map.getProjectionObject()), 5);
-                     setTimeout(function () {map.setBaseLayer(ghyb);}, 1000);'
-            
-          if params[:bbox]
-
-            @map << "
-            var p1 = new OpenLayers.Geometry.Point(#{bbox[0]},#{bbox[1]}).transform(proj,map.getProjectionObject());
-            var p2 = new OpenLayers.Geometry.Point(#{bbox[0]},#{bbox[3]}).transform(proj,map.getProjectionObject());
-            var p3 = new OpenLayers.Geometry.Point(#{bbox[2]},#{bbox[3]}).transform(proj,map.getProjectionObject());
-            var p4 = new OpenLayers.Geometry.Point(#{bbox[2]},#{bbox[1]}).transform(proj,map.getProjectionObject());
-         
-            var points = [];
-            points.push(p1);
-            points.push(p2);
-            points.push(p3);
-            points.push(p4);
-         
-            // create a polygon feature from a list of points
-            var linearRing = new OpenLayers.Geometry.LinearRing(points);
-
-            
-            var polygonFeature = new OpenLayers.Feature.Vector(linearRing, null);
-
-            vectors.addFeatures([polygonFeature]);
-            
-            map.zoomToExtent(vectors.getDataExtent());
-            "
-          end
-@map << '</script>'
-#    end          
+    @samples_grid.with_paginated_resultset do |records|
+      records.each { |rec| @one_page_records << rec }
+    end
   end
   
   def show
@@ -694,7 +569,6 @@ render :layout => false
   end
 
   protected
-
 #  def set_site
 #    unless ((params[:sample][:site_id].blank?) || (params[:site_id]=='undefined') ) 
 #      @sample.site_id = params[:site_id]

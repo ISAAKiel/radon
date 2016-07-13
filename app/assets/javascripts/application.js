@@ -13,6 +13,7 @@
 //= require_tree ../../../vendor/assets/javascripts/.
 //= require leaflet
 //= require leaflet.draw
+//= require leaflet.markercluster
 //= require_tree .
 
 

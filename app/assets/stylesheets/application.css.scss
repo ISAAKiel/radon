@@ -5,6 +5,8 @@
  *= require_self
  *= require leaflet
  *= require leaflet.draw
+ *= require leaflet.markercluster.default
+ *= require leaflet.markercluster
  *= require_tree . 
  *= require formtastic-bootstrap
 */

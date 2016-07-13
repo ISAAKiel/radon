@@ -119,3 +119,4 @@ gem 'codecov', :require => false, :group => :test
 
 gem 'leaflet-rails'
 gem 'leaflet-draw-rails'
+gem 'leaflet-markercluster-rails'

@@ -55,16 +55,38 @@ jQuery ->
       [bbox_array[0], bbox_array[1]]
       [bbox_array[2], bbox_array[3]]
     ]
-    alert("nord" + bbox_array[3] + "o" + bbox_array[1] + "s" + bbox_array[2] + "w" + bbox_array[0])
     L.rectangle(bounds, {color: '#000000'}).addTo(drawnItems)
     map.addLayer drawnItems
     map.fitBounds(bounds)
 
   # create map
-  map = L.map('map').setView([
+  map = L.map('map', {maxZoom: 20}).setView([
     48.856
     2.35
-  ], 13)
+  ], 5)
+  data = $('#map').data('sites');
+  i = 0
+#  markers = L.markerClusterGroup()
+#  markers = L.layerGroup()
+#  while i < data.length
+#    ourLat = data[i].lat
+#    ourLong = data[i].lng
+    # create the markers
+#    L.marker([
+#    L.circleMarker([
+#      ourLat
+#      ourLong
+#    ], {radius: 4}).addTo markers
+#    ]).addTo markers
+#    i++
+#    markers.addTo map
+  addressPoints = data.map((p) ->
+    [
+      p['lat']
+      p['lng']
+    ]
+  )
+  heat = L.heatLayer(addressPoints, {minOpacity: 0.25, gradient: {0.4: 'blue', 0.65: 'lime', 1: 'red'}}).addTo(map);
 
   # add tile layer 
   tileurl = 'http://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png'
