@@ -82,7 +82,7 @@ class SamplePresenter < BasePresenter
     if sample.site.present? && sample.site.lat.present? && sample.site.lng.present?
       loc=sample.site
       out = content_tag(:div, nil, :id => "map", style: "width: 100%; height: 512px")
-      out << (render partial: 'layouts/basic_map', locals: {loc: loc}, formats: [:js])
+      #out << (render partial: 'layouts/basic_map', locals: {loc: loc}, formats: [:js])
       out
     else
       out = "No location available."

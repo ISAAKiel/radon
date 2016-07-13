@@ -1,7 +1,7 @@
 <script type="text/javascript" src="//maps.googleapis.com/maps/api/js?sensor=false"></script>
 
 <a href="javascript:toggleMap();"/>Show/Hide Map</a>
-<%= javascript_tag '
+<%#= javascript_tag '
 function toggleMap(){
     var el = $("#map_container");
     el.toggle(400, function() {
@@ -13,19 +13,19 @@ function toggleMap(){
 }
 '%>
 
-<div id = "map_container">
-<div id="map" style="width: 100%; height: 512px"></div>
+<!--<div id = "map_container">-->
+<div id="map" style="height: 360px" data-cloudmadekey="<%= ENV["CLOUDMADE_API_KEY"] %>"></div>
   <br style="clear:both">
-  <%= @map.html_safe %>
-  <%if params[:bbox]%>  
-    <%
+  <%#= @map.html_safe %>
+  <%#if params[:bbox]%>  
+    <%#
         pn=params.dup
         pn=pn.except('bbox') %>
-      <% content_tag(:button, :type => "button", :onclick => "window.location.href = '#{url_for(pn)}'; ") do -%>
-        Remove Location Filter
-      <% end %>
-  <% end %>
-</div>
+      <%# content_tag(:button, :type => "button", :onclick => "window.location.href = '#{url_for(pn)}'; ") do -%>
+<!--        Remove Location Filter -->
+      <%# end %>
+  <%# end %>
+<!--</div>-->
 <%#= include_wice_grid_assets %>
   <% if params[:scope]%>
     <% if params[:scope]['countries.id'] %>
@@ -143,7 +143,7 @@ newwindow=window.open('#{url_for(:controller => :samples, :action => :calibrate_
 <%unless params[:bbox]%>
 <%=javascript_tag '$(function() {
   // initially hide all containers for tab content
-  $("#map_container").hide();
+//  $("#map_container").hide();
 });'
 %>
 <%end%>

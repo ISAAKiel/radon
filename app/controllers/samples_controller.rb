@@ -25,7 +25,7 @@ class SamplesController < ApplicationController
       if scope[0] then scope[0]= old_scope_head + 'sites.lat >= ? AND sites.lat <= ? AND sites.lng >= ? AND sites.lng <= ?' end
       scope.push('sites.lat >= ? AND sites.lat <= ? AND sites.lng >= ? AND sites.lng <= ?') if !scope[0]
       
-      scope.push(bbox[1].to_f,bbox[3].to_f,bbox[0].to_f,bbox[2].to_f)
+      scope.push(bbox[2].to_f,bbox[0].to_f,bbox[3].to_f,bbox[1].to_f)
     end
 
     #@samples = Sample.with_permissions_to(:show).paginate :page => params[:page], :per_page => 20, :order => params[:sort]

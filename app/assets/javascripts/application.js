@@ -11,7 +11,8 @@
 //= require jquery-ui
 //= require wice_grid
 //= require_tree ../../../vendor/assets/javascripts/.
-//= require openlayers-rails
+//= require leaflet
+//= require leaflet.draw
 //= require_tree .
 
 

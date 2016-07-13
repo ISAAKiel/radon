@@ -114,3 +114,8 @@ end
 
 # CI and Code Coverage
 gem 'codecov', :require => false, :group => :test
+
+# mapping with leaflet
+
+gem 'leaflet-rails'
+gem 'leaflet-draw-rails'
