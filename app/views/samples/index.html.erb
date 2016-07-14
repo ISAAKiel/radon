@@ -1,10 +1,11 @@
 <script type="text/javascript" src="//maps.googleapis.com/maps/api/js?sensor=false"></script>
 <script type="text/javascript" src="http://leaflet.github.io/Leaflet.heat/dist/leaflet-heat.js"></script>
-<a href="javascript:toggleMap();"/>Show/Hide Map</a>
+<a href="javascript:toggleMap();" id="toggleMap" />Show/Hide Map</a>
 <%= javascript_tag '
 function toggleMap(){
     var el = $("#map_container");
     el.toggle(400);
+    $(".leaflet-container").setZoom(4)
 }
 '%>
 

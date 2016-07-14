@@ -61,45 +61,46 @@ jQuery ->
 
   # create map
   map = L.map('map', {maxZoom: 20}).setView([
-    48.856
-    2.35
-  ], 5)
+      54.339161
+      10.123868
+    ], 5)
   data = $('#map').data('sites');
   i = 0
-#  markers = L.markerClusterGroup()
-#  markers = L.layerGroup()
-#  while i < data.length
-#    ourLat = data[i].lat
-#    ourLong = data[i].lng
-    # create the markers
-#    L.marker([
-#    L.circleMarker([
-#      ourLat
-#      ourLong
-#    ], {radius: 4}).addTo markers
-#    ]).addTo markers
-#    i++
-#    markers.addTo map
-  addressPoints = data.map((p) ->
+
+  marker_clusters = L.markerClusterGroup()
+
+  points = data.map((p) ->
+    L.marker([
+      p['lat']
+      p['lng']
+    ]).addTo marker_clusters
     [
       p['lat']
       p['lng']
     ]
+    p
   )
-  heat = L.heatLayer(addressPoints, {minOpacity: 0.25, gradient: {0.4: 'blue', 0.65: 'lime', 1: 'red'}}).addTo(map);
 
-  # add tile layer 
-  tileurl = 'http://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png'
-  tileattribution = 'Map data &copy; <a href="http://openstreetmap.org">OpenStreetMap</a> contributors, <a href="http://creativecommons.org/licenses/by-sa/2.0/">CC-BY-SA</a>'
+  heat = L.heatLayer(points, {minOpacity: 0.25, gradient: {0.25: "rgb(254,232,200)", 0.5: "rgb(253,187,132)", 0.75: 'rgb(227,74,51)'}})
 
-  L.tileLayer(tileurl, 
-    attribution: tileattribution
-    maxZoom: 18).addTo map
+  arrange_layers = ->
+    if map.getZoom() > 8 and map.hasLayer(heat)
+      map.removeLayer heat
+      map.addLayer marker_clusters
+    if map.getZoom() <= 8 and map.hasLayer(heat) == false
+      map.addLayer heat
+      map.removeLayer marker_clusters
+    return
+
+  googleLayer = new L.Google('HYBRID')
+  map.addLayer(googleLayer, maxZoom: 18)
 
   # add drawing layer
   drawnItems = new (L.FeatureGroup)
 
   recreate_bbox() if /bbox/.test(window.location.href)
+
+  arrange_layers()
 
   # add drawing controls
   drawControl = new (L.Control.Draw)(
@@ -152,3 +153,16 @@ jQuery ->
     history.pushState stateObj, 'page 2', coordtext
     window.location = coordtext
     return
+
+  map.on 'zoomend', ->
+    arrange_layers()
+    return
+
+  selectList = L.DomUtil.get('toggleMap')
+
+  @_resetZoom = (event) ->
+    zoom = @getZoom()
+    @setZoom zoom
+    return
+
+  L.DomEvent.addListener selectList, 'click', @_resetZoom, map
