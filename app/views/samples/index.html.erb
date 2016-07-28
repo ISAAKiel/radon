@@ -1,4 +1,4 @@
-<script type="text/javascript" src="//maps.googleapis.com/maps/api/js?sensor=false"></script>
+<%=javascript_include_tag "//maps.googleapis.com/maps/api/js?sensor=false&key=#{ENV['GOOGLE_MAPS_API_KEY_JAVASCRIPT']}"%>
 <script type="text/javascript" src="http://leaflet.github.io/Leaflet.heat/dist/leaflet-heat.js"></script>
 <a href="javascript:toggleMap();" id="toggleMap" />Show/Hide Map</a>
 <%= javascript_tag '

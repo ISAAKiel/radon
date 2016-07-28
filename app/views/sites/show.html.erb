@@ -1,3 +1,4 @@
+<%=javascript_include_tag "//maps.googleapis.com/maps/api/js?sensor=false&key=#{ENV['GOOGLE_MAPS_API_KEY_JAVASCRIPT']}"%>
 <% present @site do |site_presenter| %>
   <%- model_class = Site -%>
   <div class="page-header">

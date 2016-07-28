@@ -1,3 +1,7 @@
+<%=javascript_include_tag "//maps.googleapis.com/maps/api/js?sensor=false&key=#{ENV['GOOGLE_MAPS_API_KEY_JAVASCRIPT']}"%>
+
+<script type="text/javascript" src="http://leaflet.github.io/Leaflet.heat/dist/leaflet-heat.js"></script>
+
 <% present @sample do |sample_presenter| %>
 
   <%- model_class = Sample -%>

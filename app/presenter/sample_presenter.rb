@@ -81,7 +81,7 @@ class SamplePresenter < BasePresenter
   def map
     if sample.site.present? && sample.site.lat.present? && sample.site.lng.present?
       loc=sample.site
-      out = content_tag(:div, nil, :id => "map", style: "width: 100%; height: 512px")
+      out = content_tag(:div, nil, :id => "map", style: "width: 100%; height: 512px", data: {"sites": {lat: sample.site.lat, lng: sample.site.lng}})
       #out << (render partial: 'layouts/basic_map', locals: {loc: loc}, formats: [:js])
       out
     else
