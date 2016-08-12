@@ -50,27 +50,34 @@ jQuery ->
 
   if $('.samples.index').length > 0
 
-    # set map center
-    recreate_bbox = ->
-      bbox_array = getQueryParam("bbox").split(",")
-      bounds = [
-        [bbox_array[0], bbox_array[1]]
-        [bbox_array[2], bbox_array[3]]
-      ]
-      L.rectangle(bounds, {color: '#000000'}).addTo(drawnItems)
-      map.addLayer drawnItems
-      map.fitBounds(bounds)
+    ###
+    # setup map
+    ###
 
     # create map
     map = L.map('map', {maxZoom: 20}).setView([
         54.339161
         10.123868
       ], 5)
+
+
+
+    ###
+    # load data
+    ###
+
+    # define data object
     data = $('#map').data('sites');
-    i = 0
 
+
+
+    ###
+    # setup map objects
+    ###
+
+    # create cluster object
+    markerCluster = new (L.FeatureGroup)
     marker_clusters = L.markerClusterGroup()
-
     points = data.map((p) ->
       L.marker([
         p['lat']
@@ -82,29 +89,20 @@ jQuery ->
       ]
       p
     )
+    marker_clusters.addTo(markerCluster)
 
-    heat = L.heatLayer(points, {minOpacity: 0.25, gradient: {0.25: "rgb(254,232,200)", 0.5: "rgb(253,187,132)", 0.75: 'rgb(227,74,51)'}})
+    # create heatmap object
+    heatItem = new (L.FeatureGroup)
+    heat = L.heatLayer(points, {minOpacity: 0.25, gradient: {0.25: "rgb(254,232,200)", 0.5: "rgb(253,187,132)", 0.75: "rgb(227,74,51)"}})
+    heat.addTo(heatItem)
 
-    arrange_layers = ->
-      if map.getZoom() > 8 and map.hasLayer(heat)
-        map.removeLayer heat
-        map.addLayer marker_clusters
-      if map.getZoom() <= 8 and map.hasLayer(heat) == false
-        map.addLayer heat
-        map.removeLayer marker_clusters
-      return
-
+    # create background map object
     googleLayer = new L.Google('HYBRID')
-    map.addLayer(googleLayer, maxZoom: 18)
 
-    # add drawing layer
+    # create drawing layer
     drawnItems = new (L.FeatureGroup)
 
-    arrange_layers()
-
-    recreate_bbox() if /bbox/.test(window.location.href)
-
-    # add drawing controls
+    # create drawing controls
     drawControl = new (L.Control.Draw)(
       draw:
         polyline: false
@@ -114,36 +112,41 @@ jQuery ->
         circle: false
       edit:
         featureGroup: drawnItems)
-    map.addControl drawControl
 
-    # change colour of drawn rectangles
-    drawControl.setDrawingOptions rectangle: shapeOptions: color: '#000000'
 
-    # react to user starting to draw
-    map.on 'draw:drawstart', (e) ->
-      if map.hasLayer drawnItems
-        drawnItems.eachLayer (layer) ->
-          do drawnItems.removeLayer layer
-        return
+
+    ###
+    # map creation functions
+    ###
+
+    # function: set map center
+    recreate_bbox = ->
+      bbox_array = getQueryParam("bbox").split(",")
+      bounds = [
+        [bbox_array[0], bbox_array[1]]
+        [bbox_array[2], bbox_array[3]]
+      ]
+      L.rectangle(bounds, {color: '#000000'}).addTo(drawnItems)
       map.addLayer drawnItems
+      map.fitBounds(bounds)
+
+    # function: layer arrangement in relation to zoom state
+    arrange_layers = ->
+      if map.getZoom() > 8 and map.hasLayer(heat)
+        map.removeLayer heatItem
+        map.addLayer markerCluster
+        #console.log "1"
+        #markerCluster.bringToBack()
+        #drawnItems.bringToFront()
+      if map.getZoom() <= 8 and map.hasLayer(heat) == false
+        map.removeLayer markerCluster
+        map.addLayer heatItem  
+        #console.log "2"
+        #heatItem.bringToBack()
+        #drawnItems.bringToFront()
       return
 
-    # react to user drawing
-    map.on 'draw:created', (e) ->
-      layer = e.layer
-      coturl(layer)
-      drawnItems.addLayer layer
-      return
-
-    # react to editing
-    map.on 'draw:edited', (e) ->
-      layers = e.layers
-      layers.eachLayer (layer) ->
-        coturl(layer)
-        return
-      return
-
-    # coordinates to url method
+    # function: coordinates to url method
     coturl = (layer) ->
       ll = layer.getBounds()
       north = ll.getNorth()
@@ -156,9 +159,67 @@ jQuery ->
       window.location = coordtext
       return
 
+
+
+    ###
+    # map listener/reaction functions
+    ###
+
+    # function: react to user starting to draw
+    map.on 'draw:drawstart', (e) ->
+      if map.hasLayer drawnItems
+        drawnItems.eachLayer (layer) ->
+          do drawnItems.removeLayer layer
+        return
+      map.addLayer drawnItems
+      return
+
+    # function: react to user drawing
+    map.on 'draw:created', (e) ->
+      layer = e.layer
+      coturl(layer)
+      drawnItems.addLayer layer
+      return
+
+    # function: react to user editing
+    map.on 'draw:edited', (e) ->
+      layers = e.layers
+      layers.eachLayer (layer) ->
+        coturl(layer)
+        return
+      return
+
+    # function: react to user zooming
     map.on 'zoomend', ->
       arrange_layers()
+      #console.log "ZOOMEND"
       return
+
+
+
+    ###
+    # add map elements
+    ###
+
+    # add background to map
+    map.addLayer(googleLayer, maxZoom: 18)
+
+    # add user controls
+    map.addControl drawControl
+
+		# add and arrange map layers depending on zoom state
+    arrange_layers()
+
+    # add user drawing
+    recreate_bbox() if /bbox/.test(window.location.href)
+    # change colour of drawn rectangles
+    drawControl.setDrawingOptions rectangle: shapeOptions: color: '#000000'
+
+
+
+    ###
+    # ?
+    ### 
 
     selectList = L.DomUtil.get('toggleMap')
 
