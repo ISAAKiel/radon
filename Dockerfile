@@ -15,7 +15,8 @@ ENV TWITTER_CONSUMER_SECRET=$tcs
 RUN gem install passenger -v 5.0.4 && \
     apt-get update && \
     apt-get install -y libcurl4-openssl-dev && \
-		apt-get install -y qt5-default	&& \
+		apt-get install -y qt4-default && \
+		apt-get install -y libqtwebkit-dev && \
     passenger-install-nginx-module --auto
 
 ADD docker/rails/conf/nginx.conf /opt/nginx/conf/nginx.conf
