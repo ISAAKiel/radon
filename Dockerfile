@@ -3,6 +3,19 @@
 FROM ruby:2.3.5-jessie
 MAINTAINER Martin Hinz <martin.hinz@ufg.uni-kiel.de>
 
+# Define user option arguments
+ARG rprk
+ARG rpuk
+ARG tat
+ARG tats
+ARG tck
+ARG tcs
+ARG dbh
+ARG dbp
+ARG dbn
+ARG dbu
+ARG dbup
+
 # Define environment variables
 ENV RECAPTCHA_PRIVATE_KEY=$rprk
 ENV RECAPTCHA_PUBLIC_KEY=$rpuk
@@ -10,6 +23,11 @@ ENV TWITTER_ACCESS_TOKEN=$tat
 ENV TWITTER_ACCESS_TOKEN_SECRET=$tats
 ENV TWITTER_CONSUMER_KEY=$tck
 ENV TWITTER_CONSUMER_SECRET=$tcs
+ENV DB_HOST=$dbh
+ENV DB_PORT=$dbp
+ENV DB_NAME=$dbn
+ENV DB_USER=$dbu
+ENV DB_USER_PW=$dbup
 
 # Install nginx with passenger
 RUN gem install passenger -v 5.0.4 && \
