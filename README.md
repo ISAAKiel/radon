@@ -1,4 +1,4 @@
-[![Build Status](https://travis-ci.org/ISAAKiel/radon.svg?branch=master)](https://travis-ci.org/ISAAKiel/radon) [![Coverage Status](https://img.shields.io/codecov/c/github/ISAAKiel/radon/master.svg)](https://codecov.io/github/ISAAKiel/radon?branch=master)
+[![Build Status](https://travis-ci.org/ISAAKiel/radon.svg?branch=master)](https://travis-ci.org/ISAAKiel/radon) [![Coverage Status](https://img.shields.io/codecov/c/github/ISAAKiel/radon/master.svg)](https://codecov.io/github/ISAAKiel/radon?branch=master) [![Docker Build Status](https://img.shields.io/docker/build/isaakiel/radon.svg)](https://hub.docker.com/r/isaakiel/radon/)
 
 # radon
 
