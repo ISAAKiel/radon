@@ -33,6 +33,7 @@ RUN bundle install --system
 ADD . /usr/src/app
 
 # Initialize log
+RUN mkdir /usr/src/app/log
 RUN cat /dev/null > /usr/src/app/log/production.log
 RUN chmod -R a+w /usr/src/app/log
 
