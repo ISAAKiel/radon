@@ -59,9 +59,9 @@ and a postgres container with
 
 You should then connect to the database server, create a radon database (probably by restoring a dump of the original radon database) and add a user that acts as owner of this database.
 
-Finally you can run the radon container with the correct settings for your setup.
+Finally you can run the radon container with the correct settings for your setup. The DB_HOST IP can vary: You can check it with `docker inspect radon_database`. Please bear in mind that starting the container takes some time, because the assets of the webapp have to be precompiled. 
 
-`docker run -it -p 80:80 --net=radon_net --name radon_webapp -e DB_HOST=192.168.0.X -e DB_PORT=5432 -e DB_NAME=a_name -e DB_USER=a_name -e DB_USER_PW=a_password -e RECAPTCHA_PRIVATE_KEY=a_key -e RECAPTCHA_PUBLIC_KEY=a_key -e TWITTER_ACCESS_TOKEN=a_key -e TWITTER_ACCESS_TOKEN_SECRET=a_key -e TWITTER_CONSUMER_KEY=a_key -e TWITTER_CONSUMER_SECRET=a_key isaakiel/radon:latest`
+`docker run -d -p 80:80 --net=radon_net --name radon_webapp -e DB_HOST=192.168.0.2 -e DB_PORT=5432 -e DB_NAME=a_name -e DB_USER=a_name -e DB_USER_PW=a_password -e RECAPTCHA_PRIVATE_KEY=a_key -e RECAPTCHA_PUBLIC_KEY=a_key -e TWITTER_ACCESS_TOKEN=a_key -e TWITTER_ACCESS_TOKEN_SECRET=a_key -e TWITTER_CONSUMER_KEY=a_key -e TWITTER_CONSUMER_SECRET=a_key isaakiel/radon:latest`
 
 There's a set of relevant environment variables that can or should be defined.
 
