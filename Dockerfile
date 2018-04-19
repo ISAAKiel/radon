@@ -1,5 +1,3 @@
-# taken from https://github.com/mookjp/rails-docker-example
-
 FROM ruby:2.3.5-jessie
 MAINTAINER Martin Hinz <martin.hinz@ufg.uni-kiel.de>
 
@@ -20,28 +18,36 @@ RUN echo "daemon off;" >> /opt/nginx/conf/nginx.conf
 RUN apt-get update && apt-get install -y nodejs --no-install-recommends && rm -rf /var/lib/apt/lists/*
 RUN apt-get update && apt-get install -y mysql-client postgresql-client sqlite3 --no-install-recommends && rm -rf /var/lib/apt/lists/*
 
-# throw errors if Gemfile has been modified since Gemfile.lock
+# Throw errors if Gemfile has been modified since Gemfile.lock
 RUN bundle config --global frozen 1
 
-RUN mkdir -p /usr/src/app
+# Set Workdir
 WORKDIR /usr/src/app
 
-ADD Gemfile /usr/src/app/
-ADD Gemfile.lock /usr/src/app/
-RUN bundle install --system
+# File transfer into container
+RUN mkdir -p .
+ADD Gemfile .
+ADD Gemfile.lock .
+ADD docker/rails/start.sh .
 
-ADD . /usr/src/app
+# Bundle install
+
+RUN bundle install --system
+ADD . .
 
 # Initialize log
-RUN mkdir /usr/src/app/log
-RUN cat /dev/null > /usr/src/app/log/production.log
-RUN chmod -R a+w /usr/src/app/log
+RUN cat /dev/null > ./log/production.log
+RUN chmod -R a+w ./log
 
+# Port
 EXPOSE 80
 
+# Rails Environment
 ENV RAILS_ENV=production
 
-ADD docker/rails/start.sh /usr/src/app/
-RUN chmod +x /usr/src/app/start.sh
-WORKDIR /usr/src/app/
+# Permission management
+RUN chmod +x ./start.sh
+RUN chown -R nobody:nogroup ./tmp/
+
+# Define start script
 CMD ["./start.sh"]
