@@ -36,6 +36,7 @@ RUN bundle install --system
 ADD . .
 
 # Initialize log
+RUN mkdir -p ./log
 RUN cat /dev/null > ./log/production.log
 RUN chmod -R a+w ./log
 
