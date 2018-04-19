@@ -48,7 +48,8 @@ ENV RAILS_ENV=production
 
 # Permission management
 RUN chmod +x ./start.sh
-RUN chown -R nobody:nogroup ./tmp/
+RUN mkdir -p ./tmp
+RUN chown -R nobody:nogroup ./tmp
 
 # Define start script
 CMD ["./start.sh"]
