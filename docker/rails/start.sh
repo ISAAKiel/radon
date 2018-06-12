@@ -13,5 +13,5 @@ export SECRET_KEY_BASE=$(rake secret) && \
     ln -s app/assets/images/radon_b_logo.png public/assets/radon_b_logo.png && \
     ln -s app/assets/images/radon_b_schriftzug.png public/assets/radon_b_schriftzug.png && \
     # start webserver
-    /opt/nginx/sbin/nginx && \
+    /opt/nginx/sbin/nginx
 
