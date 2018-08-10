@@ -12,6 +12,8 @@ export SECRET_KEY_BASE=$(rake secret) && \
     ln -sf ../../app/assets/images/radon_b_image.png public/assets/radon_b_image.png && \
     ln -sf ../../app/assets/images/radon_b_logo.png public/assets/radon_b_logo.png && \
     ln -sf ../../app/assets/images/radon_b_schriftzug.png public/assets/radon_b_schriftzug.png && \
+		# start cron service
+		service cron start && \
     # start webserver
     /opt/nginx/sbin/nginx
 
