@@ -51,5 +51,13 @@ RUN chmod +x ./start.sh
 RUN mkdir -p ./tmp
 RUN chown -R nobody:nogroup ./tmp
 
+# Install and configure cron
+RUN apt-get update && apt-get install -y cron
+ADD docker/static_download/static_download_prep_cron /etc/cron.daily/static_download_prep_cron
+ADD docker/static_download/static_download_prep.sql .
+RUN chmod +x /etc/cron.daily/static_download_prep_cron
+RUN chmod +x static_download_prep.sql
+
 # Define start script
 CMD ["./start.sh"]
+
