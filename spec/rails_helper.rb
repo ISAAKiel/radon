@@ -48,7 +48,7 @@ RSpec.configure do |config|
   # If you're not using ActiveRecord, or you'd prefer not to run each of your
   # examples within a transaction, remove the following line or assign false
   # instead of true.
-  config.use_transactional_fixtures = false
+  config.use_transactional_fixtures = true
 
   # If true, the base class of anonymous controllers will be inferred
   # automatically. This will be the default behavior in future versions of
@@ -72,7 +72,7 @@ RSpec.configure do |config|
   end
 
   config.before(:each, :js => true) do
-    DatabaseCleaner.strategy = :deletion
+    DatabaseCleaner.strategy = :truncation
   end
 
   config.before(:each) do
@@ -88,19 +88,21 @@ RSpec.configure do |config|
   config.filter_run :focus => true
   config.run_all_when_everything_filtered = true
 
-#  Capybara.register_driver :selenium do |app|
-#    Capybara::Selenium::Driver.new(app, :browser => :chrome)
-#  end
-  Capybara.javascript_driver = :webkit
-
-  Capybara::Webkit.configure do |config|
-
-    # Allow pages to make requests to any URL without issuing a warning.
-    config.allow_unknown_urls
-
+  Capybara.register_driver :selenium do |app|
+    Capybara::Selenium::Driver.new(app, :browser => :chrome)
   end
 
-  Capybara.server_port = 3000
+#  Capybara.javascript_driver = :webkit
+
+  Capybara.server = :webrick
+
+ # Capybara::Webkit.configure do |config|
+ #   config.debug = true
+    # Allow pages to make requests to any URL without issuing a warning.
+ #   config.allow_unknown_urls
+ # end
+
+  Capybara.server_port = 4444
 
   config.include FactoryBot::Syntax::Methods
 
@@ -127,3 +129,16 @@ end
     FactoryBot.create(:announcement)
   end
 end
+
+class ActiveRecord::Base
+  mattr_accessor :shared_connection
+  @@shared_connection = nil
+
+  def self.connection
+    @@shared_connection || retrieve_connection
+  end
+end
+
+# Forces all threads to share the same connection. This works on
+# Capybara because it starts the web server in a thread.
+ActiveRecord::Base.shared_connection = ActiveRecord::Base.connection

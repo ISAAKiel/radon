@@ -71,15 +71,16 @@ include Rails.application.routes.url_helpers
         login(user)
         visit sites_path
         expect{
-          click_link 'New Site'
+        click_link 'New Site'
         fill_in 'Name', with: site.name
         fill_in 'Lat', with: site.lat
         fill_in 'Lng', with: site.lng
         select(site.country_subdivision.country.name, :from => 'site_country_id')
+        sleep(inspection_time=5)
         select(site.country_subdivision.name, :from => 'site_country_subdivision_id')
         fill_in 'Parish', with: site.parish
         fill_in 'District', with: site.district
-          click_button "Create Site"
+  	click_button "Create Site"
           assert_text "Successfully created site."
         }.to change(Site,:count).by(1)
         expect(page).to have_content "Successfully created site."
