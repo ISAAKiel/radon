@@ -37,9 +37,9 @@ gem 'therubyracer'
 gem 'less-rails'
 gem 'twitter-bootstrap-rails', branch: 'bootstrap3', git: 'git://github.com/seyhunak/twitter-bootstrap-rails.git'
 
-gem 'activerecord-session_store', github: 'rails/activerecord-session_store'
+gem 'activerecord-session_store', '~>0.1.2'
 
-gem 'acts_as_list'
+gem 'acts_as_list', '~> 0.8.2'
 
 gem 'formtastic', '~> 3.0'
 #gem 'formtastic-bootstrap', '~> 3.0.0'
@@ -64,9 +64,9 @@ gem 'unicorn'
 gem 'openlayers-rails'
 
 gem 'dotenv-rails', :require => 'dotenv/rails-now'
-gem 'recaptcha', :require => 'recaptcha/rails'
+gem 'recaptcha', '~> 3.2.0', :require => 'recaptcha/rails'
 
-gem 'bibtex-ruby'
+gem 'bibtex-ruby', '~> 4.4.7'
 gem 'twitter', '~> 5.0'
 
 gem 'redcarpet', '~> 3.1.1'
@@ -77,7 +77,7 @@ gem "iconv", "~> 1.0.4"
 
 group :development, :test do
   # Call 'byebug' anywhere in the code to stop execution and get a debugger console
-  gem 'byebug'
+  gem 'byebug', '~> 9.1.0'
 
   # gems from current radon gemfile
   gem 'rspec-rails', '~> 3.4.2'
@@ -99,7 +99,7 @@ group :development do
   gem 'web-console', '~> 2.0'
 
   # Spring speeds up development by keeping your application running in the background. Read more: https://github.com/rails/spring
-  gem 'spring'
+  gem 'spring', '~> 1.7.2'
 
   # gems from current radon gemfile
   gem 'capistrano', '~> 2.13.5'
@@ -113,4 +113,5 @@ end
 #  gem 'actionpack-action_caching'
 
 # CI and Code Coverage
+gem 'simplecov-html', '~> 0.10.0', :require => false
 gem 'codecov', :require => false, :group => :test
