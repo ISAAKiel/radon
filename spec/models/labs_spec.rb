@@ -3,12 +3,12 @@ require 'rails_helper'
 describe "Labs" do
 
   it "has a valid factory" do
-    expect(FactoryGirl.build(:lab)).to be_valid
+    expect(FactoryBot.build(:lab)).to be_valid
   end
   it "has a valid factory also for samples"
 
   it "should act_as_list" do
-    expect(FactoryGirl.build(:lab)).to respond_to(:move_to_top)
+    expect(FactoryBot.build(:lab)).to respond_to(:move_to_top)
   end
 
   it "should have accessible :name" do
@@ -29,15 +29,15 @@ describe "Labs" do
   end
 
   it "is invalid without :name" do
-    expect(FactoryGirl.build(:lab, name: nil)).not_to be_valid
+    expect(FactoryBot.build(:lab, name: nil)).not_to be_valid
   end
 
   it "is invalid without :lab_code" do
-    expect(FactoryGirl.build(:lab, lab_code: nil)).not_to be_valid
+    expect(FactoryBot.build(:lab, lab_code: nil)).not_to be_valid
   end
 
   it "does not allow duplicate :name" do
-    FactoryGirl.create(:lab, name: "1")
-    expect(FactoryGirl.build(:lab, name: "1")).not_to be_valid
+    FactoryBot.create(:lab, name: "1")
+    expect(FactoryBot.build(:lab, name: "1")).not_to be_valid
   end
 end

@@ -8,7 +8,7 @@ describe SamplesController, type: :controller do
   end
 
   before(:each, :admin_user_logged_in => true) do
-    @admin_user = FactoryGirl.create(:admin_user)
+    @admin_user = FactoryBot.create(:admin_user)
     activate_authlogic
     UserSession.create(@admin_user)
   end
@@ -16,15 +16,15 @@ describe SamplesController, type: :controller do
   describe "GET index" do
 
     it "assigns all samples with right_id 1 as @samples" do
-      samples = FactoryGirl.create_list(:public_sample,2)
+      samples = FactoryBot.create_list(:public_sample,2)
       get :index, {}
       expect(assigns(:samples_grid).resultset).to match_array(samples)
     end
 
     it "not assigns all samples without right_id 1 as @samples" do
-#      FactoryGirl.create(:right)
-#      FactoryGirl.create(:right)
-      samples = FactoryGirl.create_list(:private_sample,2)
+#      FactoryBot.create(:right)
+#      FactoryBot.create(:right)
+      samples = FactoryBot.create_list(:private_sample,2)
       get :index, {}
       expect(assigns(:samples_grid).resultset).not_to match_array(samples)
     end
@@ -32,7 +32,7 @@ describe SamplesController, type: :controller do
 
   describe "GET show" do
     it "assigns the requested sample as @sample" do
-      sample = FactoryGirl.create(:sample)
+      sample = FactoryBot.create(:sample)
       get :show, {:id => sample.to_param}
       expect(assigns(:sample)).to eq(sample)
     end
@@ -53,12 +53,12 @@ describe SamplesController, type: :controller do
 
   describe "GET edit" do
     it "assigns the requested sample as @sample with admin user", :admin_user_logged_in => true do
-      sample = FactoryGirl.create(:sample)
+      sample = FactoryBot.create(:sample)
       get :edit, {:id => sample.to_param}
       expect(assigns(:sample)).to eq(sample)
     end
     it "assigns the requested sample as @sample" do
-      sample = FactoryGirl.create(:sample)
+      sample = FactoryBot.create(:sample)
       get :edit, {:id => sample.to_param}
       expect(assigns(:sample)).to be_nil
     end
@@ -67,14 +67,14 @@ describe SamplesController, type: :controller do
   describe "POST create without admin_user" do
     describe "with valid params" do
       it "not creates a new Sample" do
-        attributes = FactoryGirl.attributes_for(:sample)
+        attributes = FactoryBot.attributes_for(:sample)
         expect {
         post :create, {:sample => attributes}
         }.not_to change(Sample, :count)
       end
 
       it "redirects to the root" do
-        attributes = FactoryGirl.attributes_for(:sample)
+        attributes = FactoryBot.attributes_for(:sample)
         post :create, {:sample => attributes}
         expect(response).to redirect_to(root_url)
       end
@@ -84,21 +84,21 @@ describe SamplesController, type: :controller do
   describe "POST create with admin_user", :admin_user_logged_in => true do
     describe "with valid params" do
       it "creates a new Sample" do
-        attributes = FactoryGirl.build(:sample).attributes.slice(*@valid_attribute_names)
+        attributes = FactoryBot.build(:sample).attributes.slice(*@valid_attribute_names)
         expect {
           post :create, {:sample => attributes}
         }.to change(Sample.unscoped, :count).by(1)
       end
 
       it "assigns a newly created sample as @sample" do
-        attributes = FactoryGirl.build(:sample).attributes.slice(*@valid_attribute_names)
+        attributes = FactoryBot.build(:sample).attributes.slice(*@valid_attribute_names)
         post :create, {:sample => attributes}
         expect(assigns(:sample)).to be_a(Sample)
         expect(assigns(:sample)).to be_persisted
       end
 
       it "redirects to the created sample" do
-        attributes = FactoryGirl.build(:sample).attributes.slice(*@valid_attribute_names)
+        attributes = FactoryBot.build(:sample).attributes.slice(*@valid_attribute_names)
         post :create, {:sample => attributes}
         expect(response).to redirect_to(Sample.unscoped.last)
       end
@@ -124,7 +124,7 @@ describe SamplesController, type: :controller do
   describe "PUT update without admin_user" do
     describe "with valid params" do
       it "updates the requested sample" do
-        sample = FactoryGirl.create(:sample)
+        sample = FactoryBot.create(:sample)
         # Assuming there are no other samples in the database, this
         # specifies that the Sample created on the previous line
         # receives the :update_attributes message with whatever params are
@@ -133,13 +133,13 @@ describe SamplesController, type: :controller do
       end
 
       it "assigns the requested sample as @sample" do
-        sample = FactoryGirl.create(:sample)
+        sample = FactoryBot.create(:sample)
         put :update, {:id => sample.to_param, :sample => sample.attributes.slice(*@valid_attribute_names)}
         expect(assigns(:sample)).to be_nil
       end
 
       it "redirects to root" do
-        sample = FactoryGirl.create(:sample)
+        sample = FactoryBot.create(:sample)
         put :update, {:id => sample.to_param, :sample => sample.attributes.slice(*@valid_attribute_names)}
         expect(response).to redirect_to(root_url)
       end
@@ -149,15 +149,15 @@ describe SamplesController, type: :controller do
   describe "PUT update with admin_user", :admin_user_logged_in => true do
     describe "with valid params" do
       it "assigns the requested sample as @sample" do
-        sample = FactoryGirl.create(:sample)
-        sample_attributes = FactoryGirl.attributes_for(:sample)
+        sample = FactoryBot.create(:sample)
+        sample_attributes = FactoryBot.attributes_for(:sample)
         put :update, {:id => sample.to_param, :sample => sample_attributes}
         expect(assigns(:sample)).to eq(sample)
       end
 
       it "redirects to the sample" do
-        sample = FactoryGirl.create(:sample)
-        sample_attributes = FactoryGirl.attributes_for(:sample)
+        sample = FactoryBot.create(:sample)
+        sample_attributes = FactoryBot.attributes_for(:sample)
         put :update, {:id => sample.to_param, :sample => sample_attributes}
         expect(response).to redirect_to(sample)
       end
@@ -165,7 +165,7 @@ describe SamplesController, type: :controller do
 
     describe "with invalid params" do
       it "assigns the sample as @sample" do
-        sample = FactoryGirl.create(:sample)
+        sample = FactoryBot.create(:sample)
         # Trigger the behavior that occurs when invalid params are submitted
         allow_any_instance_of(Sample).to receive(:save).and_return(false)
         put :update, {:id => sample.to_param, :sample => { "these" => "params" }}
@@ -173,7 +173,7 @@ describe SamplesController, type: :controller do
       end
 
       it "re-renders the 'edit' template" do
-        sample = FactoryGirl.create(:sample)
+        sample = FactoryBot.create(:sample)
         # Trigger the behavior that occurs when invalid params are submitted
         allow_any_instance_of(Sample).to receive(:save).and_return(false)
         put :update, {:id => sample.to_param, :sample => { "these" => "params" }}
@@ -184,14 +184,14 @@ describe SamplesController, type: :controller do
 
   describe "DELETE destroy without admin_user" do
     it "not destroys the requested sample" do
-      sample = FactoryGirl.create(:sample)
+      sample = FactoryBot.create(:sample)
       expect {
         delete :destroy, {:id => sample.to_param}
       }.not_to change(Sample.unscoped, :count)
     end
 
     it "redirects to root" do
-      sample = FactoryGirl.create(:sample)
+      sample = FactoryBot.create(:sample)
       delete :destroy, {:id => sample.to_param}
       expect(response).to redirect_to(root_url)
     end
@@ -199,14 +199,14 @@ describe SamplesController, type: :controller do
 
   describe "DELETE destroy with admin_user", :admin_user_logged_in => true do
     it "destroys the requested sample" do
-      sample = FactoryGirl.create(:sample)
+      sample = FactoryBot.create(:sample)
       expect {
         delete :destroy, {:id => sample.to_param}
       }.to change(Sample, :count).by(-1)
     end
 
     it "redirects to the samples list" do
-      sample = FactoryGirl.create(:sample)
+      sample = FactoryBot.create(:sample)
       delete :destroy, {:id => sample.to_param}
       expect(response).to redirect_to(samples_url)
     end

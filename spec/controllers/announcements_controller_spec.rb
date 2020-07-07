@@ -7,7 +7,7 @@ describe AnnouncementsController, type: :controller do
   end
 
   before(:each, :admin_user_logged_in => true) do
-    @admin_user = FactoryGirl.create(:admin_user)
+    @admin_user = FactoryBot.create(:admin_user)
     activate_authlogic
     UserSession.create(@admin_user)
   end
@@ -15,7 +15,7 @@ describe AnnouncementsController, type: :controller do
   describe "GET index" do
     it "assigns all announcements as @announcements" do
       Announcement.delete_all
-      announcements = FactoryGirl.create_list(:announcement,10)
+      announcements = FactoryBot.create_list(:announcement,10)
       get :index, {}
       expect(assigns(:announcements)).to match_array(announcements)
     end
@@ -23,7 +23,7 @@ describe AnnouncementsController, type: :controller do
 
   describe "GET show" do
     it "assigns the requested announcement as @announcement" do
-      announcement = FactoryGirl.create(:announcement)
+      announcement = FactoryBot.create(:announcement)
       get :show, {:id => announcement.to_param}
       expect(assigns(:announcement)).to eq(announcement)
     end
@@ -44,12 +44,12 @@ describe AnnouncementsController, type: :controller do
 
   describe "GET edit" do
     it "assigns the requested announcement as @announcement with admin user", :admin_user_logged_in => true do
-      announcement = FactoryGirl.create(:announcement)
+      announcement = FactoryBot.create(:announcement)
       get :edit, {:id => announcement.to_param}
       expect(assigns(:announcement)).to eq(announcement)
     end
     it "assigns the requested announcement as @announcement" do
-      announcement = FactoryGirl.create(:announcement)
+      announcement = FactoryBot.create(:announcement)
       get :edit, {:id => announcement.to_param}
       expect(assigns(:announcement)).to be_nil
     end
@@ -58,14 +58,14 @@ describe AnnouncementsController, type: :controller do
   describe "POST create without admin_user" do
     describe "with valid params" do
       it "not creates a new Announcement" do
-        attributes = FactoryGirl.attributes_for(:announcement)
+        attributes = FactoryBot.attributes_for(:announcement)
         expect {
         post :create, {:announcement => attributes}
         }.not_to change(Announcement.unscoped, :count)
       end
 
       it "redirects to the created announcement" do
-        attributes = FactoryGirl.attributes_for(:announcement)
+        attributes = FactoryBot.attributes_for(:announcement)
         post :create, {:announcement => attributes}
         expect(response).to redirect_to(root_url)
       end
@@ -75,21 +75,21 @@ describe AnnouncementsController, type: :controller do
   describe "POST create with admin_user", :admin_user_logged_in => true do
     describe "with valid params" do
       it "creates a new Announcement" do
-        attributes = FactoryGirl.attributes_for(:announcement)
+        attributes = FactoryBot.attributes_for(:announcement)
         expect {
           post :create, {:announcement => attributes}
         }.to change(Announcement.unscoped, :count).by(1)
       end
 
       it "assigns a newly created announcement as @announcement" do
-        attributes = FactoryGirl.attributes_for(:announcement)
+        attributes = FactoryBot.attributes_for(:announcement)
         post :create, {:announcement => attributes}
         expect(assigns(:announcement)).to be_a(Announcement)
         expect(assigns(:announcement)).to be_persisted
       end
 
       it "redirects to the created announcement" do
-        attributes = FactoryGirl.attributes_for(:announcement)
+        attributes = FactoryBot.attributes_for(:announcement)
         post :create, {:announcement => attributes}
         expect(response).to redirect_to(Announcement.last)
       end
@@ -115,7 +115,7 @@ describe AnnouncementsController, type: :controller do
   describe "PUT update without admin_user" do
     describe "with valid params" do
       it "updates the requested announcement" do
-        announcement = FactoryGirl.create(:announcement)
+        announcement = FactoryBot.create(:announcement)
         # Assuming there are no other announcements in the database, this
         # specifies that the Announcement created on the previous line
         # receives the :update_attributes message with whatever params are
@@ -124,13 +124,13 @@ describe AnnouncementsController, type: :controller do
       end
 
       it "assigns the requested announcement as @announcement" do
-        announcement = FactoryGirl.create(:announcement)
+        announcement = FactoryBot.create(:announcement)
         put :update, :id => announcement.to_param, :announcement => announcement.attributes.slice(*@valid_attribute_names)
         expect(assigns(:announcement)).to be_nil
       end
 
       it "redirects to the announcement" do
-        announcement = FactoryGirl.create(:announcement)
+        announcement = FactoryBot.create(:announcement)
         put :update, :id => announcement.to_param, :announcement => announcement.attributes.slice(*@valid_attribute_names)
         expect(response).to redirect_to(root_url)
       end
@@ -140,13 +140,13 @@ describe AnnouncementsController, type: :controller do
   describe "PUT update with admin_user", :admin_user_logged_in => true do
     describe "with valid params" do
       it "assigns the requested announcement as @announcement" do
-        announcement = FactoryGirl.create(:announcement)
+        announcement = FactoryBot.create(:announcement)
         put :update, {:id => announcement.to_param, :announcement => announcement.attributes.slice(*@valid_attribute_names)}
         expect(assigns(:announcement)).to eq(announcement)
       end
 
       it "redirects to the announcement" do
-        announcement = FactoryGirl.create(:announcement)
+        announcement = FactoryBot.create(:announcement)
         put :update, {:id => announcement.to_param, :announcement => announcement.attributes.slice(*@valid_attribute_names)}
         expect(response).to redirect_to(announcement)
       end
@@ -154,7 +154,7 @@ describe AnnouncementsController, type: :controller do
 
     describe "with invalid params" do
       it "assigns the announcement as @announcement" do
-        announcement = FactoryGirl.create(:announcement)
+        announcement = FactoryBot.create(:announcement)
         # Trigger the behavior that occurs when invalid params are submitted
         allow_any_instance_of(Announcement).to receive(:save).and_return(false)
         put :update, {:id => announcement.to_param, :announcement => {  "these" => "params"  }}
@@ -162,7 +162,7 @@ describe AnnouncementsController, type: :controller do
       end
 
       it "re-renders the 'edit' template" do
-        announcement = FactoryGirl.create(:announcement)
+        announcement = FactoryBot.create(:announcement)
         # Trigger the behavior that occurs when invalid params are submitted
         allow_any_instance_of(Announcement).to receive(:save).and_return(false)
         put :update, {:id => announcement.to_param, :announcement => {  "these" => "params"  }}
@@ -173,14 +173,14 @@ describe AnnouncementsController, type: :controller do
 
   describe "DELETE destroy without admin_user" do
     it "not destroys the requested announcement" do
-      announcement = FactoryGirl.create(:announcement)
+      announcement = FactoryBot.create(:announcement)
       expect {
         delete :destroy, {:id => announcement.to_param}
       }.not_to change(Announcement.unscoped, :count)
     end
 
     it "redirects to root" do
-      announcement = FactoryGirl.create(:announcement)
+      announcement = FactoryBot.create(:announcement)
       delete :destroy, {:id => announcement.to_param}
       expect(response).to redirect_to(root_url)
     end
@@ -188,14 +188,14 @@ describe AnnouncementsController, type: :controller do
 
   describe "DELETE destroy with admin_user", :admin_user_logged_in => true do
     it "destroys the requested announcement" do
-      announcement = FactoryGirl.create(:announcement)
+      announcement = FactoryBot.create(:announcement)
       expect {
         delete :destroy, {:id => announcement.id}
       }.to change(Announcement.unscoped,:count).by(-1)
     end
 
     it "redirects to the announcements list" do
-      announcement = FactoryGirl.create(:announcement)
+      announcement = FactoryBot.create(:announcement)
       delete :destroy, {:id => announcement.to_param}
       expect(response).to redirect_to(announcements_url)
     end

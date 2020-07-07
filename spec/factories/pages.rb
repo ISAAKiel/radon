@@ -1,4 +1,4 @@
-FactoryGirl.define do
+FactoryBot.define do
   factory :page do |f|
     f.sequence(:name) { |n| "foo#{n}" }
     f.sequence(:content) { |n| "bar#{n}" }

@@ -7,14 +7,14 @@ describe LiteraturesController, type: :controller do
   end
 
   before(:each, :admin_user_logged_in => true) do
-    @admin_user = FactoryGirl.create(:admin_user)
+    @admin_user = FactoryBot.create(:admin_user)
     activate_authlogic
     UserSession.create(@admin_user)
   end
 
   describe "GET index" do
     it "assigns all literatures as @literatures" do
-      literatures = FactoryGirl.create_list(:literature,10)
+      literatures = FactoryBot.create_list(:literature,10)
       get :index, {}
       expect(assigns(:literatures)).to match_array(literatures)
     end
@@ -22,7 +22,7 @@ describe LiteraturesController, type: :controller do
 
   describe "GET show" do
     it "assigns the requested literature as @literature" do
-      literature = FactoryGirl.create(:literature)
+      literature = FactoryBot.create(:literature)
       get :show, {:id => literature.to_param}
       expect(assigns(:literature)).to eq(literature)
     end
@@ -43,12 +43,12 @@ describe LiteraturesController, type: :controller do
 
   describe "GET edit" do
     it "assigns the requested literature as @literature with admin user", :admin_user_logged_in => true do
-      literature = FactoryGirl.create(:literature)
+      literature = FactoryBot.create(:literature)
       get :edit, {:id => literature.to_param}
       expect(assigns(:literature)).to eq(literature)
     end
     it "assigns the requested literature as @literature" do
-      literature = FactoryGirl.create(:literature)
+      literature = FactoryBot.create(:literature)
       get :edit, {:id => literature.to_param}
       expect(assigns(:literature)).to be_nil
     end
@@ -57,14 +57,14 @@ describe LiteraturesController, type: :controller do
   describe "POST create without admin_user" do
     describe "with valid params" do
       it "not creates a new Literature" do
-        attributes = FactoryGirl.attributes_for(:literature)
+        attributes = FactoryBot.attributes_for(:literature)
         expect {
         post :create, {:literature => attributes}
         }.not_to change(Literature, :count)
       end
 
       it "redirects to the created literature" do
-        attributes = FactoryGirl.attributes_for(:literature)
+        attributes = FactoryBot.attributes_for(:literature)
         post :create, {:literature => attributes}
         expect(response).to redirect_to(root_url)
       end
@@ -74,21 +74,21 @@ describe LiteraturesController, type: :controller do
   describe "POST create with admin_user", :admin_user_logged_in => true do
     describe "with valid params" do
       it "creates a new Literature" do
-        attributes = FactoryGirl.attributes_for(:literature)
+        attributes = FactoryBot.attributes_for(:literature)
         expect {
           post :create, {:literature => attributes}
         }.to change(Literature, :count).by(1)
       end
 
       it "assigns a newly created literature as @literature" do
-        attributes = FactoryGirl.attributes_for(:literature)
+        attributes = FactoryBot.attributes_for(:literature)
         post :create, {:literature => attributes}
         expect(assigns(:literature)).to be_a(Literature)
         expect(assigns(:literature)).to be_persisted
       end
 
       it "redirects to the created literature" do
-        attributes = FactoryGirl.attributes_for(:literature)
+        attributes = FactoryBot.attributes_for(:literature)
         post :create, {:literature => attributes}
         expect(response).to redirect_to(Literature.last)
       end
@@ -114,7 +114,7 @@ describe LiteraturesController, type: :controller do
   describe "PUT update without admin_user" do
     describe "with valid params" do
       it "updates the requested literature" do
-        literature = FactoryGirl.create(:literature)
+        literature = FactoryBot.create(:literature)
         # Assuming there are no other literatures in the database, this
         # specifies that the Literature created on the previous line
         # receives the :update_attributes message with whatever params are
@@ -123,13 +123,13 @@ describe LiteraturesController, type: :controller do
       end
 
       it "assigns the requested literature as @literature" do
-        literature = FactoryGirl.create(:literature)
+        literature = FactoryBot.create(:literature)
         put :update, :id => literature.to_param, :literature => literature.attributes.slice(*@valid_attribute_names)
         expect(assigns(:literature)).to be_nil
       end
 
       it "redirects to the literature" do
-        literature = FactoryGirl.create(:literature)
+        literature = FactoryBot.create(:literature)
         put :update, :id => literature.to_param, :literature => literature.attributes.slice(*@valid_attribute_names)
         expect(response).to redirect_to(root_url)
       end
@@ -139,13 +139,13 @@ describe LiteraturesController, type: :controller do
   describe "PUT update with admin_user", :admin_user_logged_in => true do
     describe "with valid params" do
       it "assigns the requested literature as @literature" do
-        literature = FactoryGirl.create(:literature)
+        literature = FactoryBot.create(:literature)
         put :update, {:id => literature.to_param, :literature => literature.attributes.slice(*@valid_attribute_names)}
         expect(assigns(:literature)).to eq(literature)
       end
 
       it "redirects to the literature" do
-        literature = FactoryGirl.create(:literature)
+        literature = FactoryBot.create(:literature)
         put :update, {:id => literature.to_param, :literature => literature.attributes.slice(*@valid_attribute_names)}
         expect(response).to redirect_to(literature)
       end
@@ -153,7 +153,7 @@ describe LiteraturesController, type: :controller do
 
     describe "with invalid params" do
       it "assigns the literature as @literature" do
-        literature = FactoryGirl.create(:literature)
+        literature = FactoryBot.create(:literature)
         # Trigger the behavior that occurs when invalid params are submitted
         allow_any_instance_of(Literature).to receive(:save).and_return(false)
         put :update, {:id => literature.to_param, :literature => {  "these" => "params"  }}
@@ -161,7 +161,7 @@ describe LiteraturesController, type: :controller do
       end
 
       it "re-renders the 'edit' template" do
-        literature = FactoryGirl.create(:literature)
+        literature = FactoryBot.create(:literature)
         # Trigger the behavior that occurs when invalid params are submitted
         allow_any_instance_of(Literature).to receive(:save).and_return(false)
         put :update, {:id => literature.to_param, :literature => {  "these" => "params"  }}
@@ -172,14 +172,14 @@ describe LiteraturesController, type: :controller do
 
   describe "DELETE destroy without admin_user" do
     it "not destroys the requested literature" do
-      literature = FactoryGirl.create(:literature)
+      literature = FactoryBot.create(:literature)
       expect {
         delete :destroy, {:id => literature.to_param}
       }.not_to change(Literature, :count)
     end
 
     it "redirects to root" do
-      literature = FactoryGirl.create(:literature)
+      literature = FactoryBot.create(:literature)
       delete :destroy, {:id => literature.to_param}
       expect(response).to redirect_to(root_url)
     end
@@ -187,14 +187,14 @@ describe LiteraturesController, type: :controller do
 
   describe "DELETE destroy with admin_user", :admin_user_logged_in => true do
     it "destroys the requested literature" do
-      literature = FactoryGirl.create(:literature)
+      literature = FactoryBot.create(:literature)
       expect {
         delete :destroy, {:id => literature.to_param}
       }.to change(Literature, :count).by(-1)
     end
 
     it "redirects to the literatures list" do
-      literature = FactoryGirl.create(:literature)
+      literature = FactoryBot.create(:literature)
       delete :destroy, {:id => literature.to_param}
       expect(response).to redirect_to(literatures_url)
     end

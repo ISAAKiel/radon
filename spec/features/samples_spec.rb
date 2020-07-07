@@ -32,15 +32,15 @@ include Rails.application.routes.url_helpers
 #  end
 
   before(:each, :js=>true) do
-    @sample = FactoryGirl.create(:sample)
+    @sample = FactoryBot.create(:sample)
   end
 
   describe "GET /samples" do
 
     before(:each) do
-      FactoryGirl.create(:right, id: 1)
-      FactoryGirl.create(:sample, :lab_nr => '12345', right_id: 1)
-      FactoryGirl.create(:sample, :lab_nr => '54321', right_id: 1)
+      FactoryBot.create(:right, id: 1)
+      FactoryBot.create(:sample, :lab_nr => '12345', right_id: 1)
+      FactoryBot.create(:sample, :lab_nr => '54321', right_id: 1)
       visit samples_path
     end
 
@@ -71,7 +71,7 @@ include Rails.application.routes.url_helpers
   describe "GET /sample" do
     it "displays the a sample" do
       # Run the generator again with the --webrat flag if you want to use webrat methods/matchers
-      sample = FactoryGirl.create(:public_sample)
+      sample = FactoryBot.create(:public_sample)
       visit samples_path
       find("#sample_#{sample.id}").click_link 'Show'
       expect(current_path).to eq(sample_path(sample))
@@ -92,13 +92,13 @@ include Rails.application.routes.url_helpers
       end
 
       it "do not display the Edit link" do
-        @sample = FactoryGirl.create(:sample)
+        @sample = FactoryBot.create(:sample)
         visit samples_path
         expect(page).not_to have_link('Edit', href: edit_sample_path(@sample))
       end
 
       it "do not display the Edit form" do
-        @sample = FactoryGirl.create(:sample)
+        @sample = FactoryBot.create(:sample)
         visit edit_sample_path(@sample)
         expect(current_path).not_to eq(edit_sample_path(@sample))
       end
@@ -106,7 +106,7 @@ include Rails.application.routes.url_helpers
     end
     context "logged in admin_user" do
       it "do display the New link" do
-        user = FactoryGirl.create(:admin_user)
+        user = FactoryBot.create(:admin_user)
         login(user)
         visit samples_path
         expect(page).to have_link('New', href: new_sample_path)
@@ -114,9 +114,9 @@ include Rails.application.routes.url_helpers
       end
 
       it "Adds a new Sample with new site lat lng and displays the results", js: true do
-        user = FactoryGirl.create(:admin_user)
-        sample = FactoryGirl.create(:sample)
-        site=FactoryGirl.build(:site)
+        user = FactoryBot.create(:admin_user)
+        sample = FactoryBot.create(:sample)
+        site=FactoryBot.build(:site)
 
         login(user)
         visit samples_path
@@ -135,9 +135,9 @@ include Rails.application.routes.url_helpers
       end
 
       it "Adds a new Sample with existing site and displays the results", js: true do
-        user = FactoryGirl.create(:admin_user)
-        sample = FactoryGirl.build(:public_sample)
-        site=FactoryGirl.create(:site)
+        user = FactoryBot.create(:admin_user)
+        sample = FactoryBot.build(:public_sample)
+        site=FactoryBot.create(:site)
 
         login(user)
         visit samples_path
@@ -159,10 +159,10 @@ include Rails.application.routes.url_helpers
       end
 
       it "creates a Sample with adding existing literature and displays the results", js: true do
-        user = FactoryGirl.create(:admin_user)
-        sample = FactoryGirl.create(:sample)
-        literature_template = FactoryGirl.create(:literature)
-        site=FactoryGirl.create(:site)
+        user = FactoryBot.create(:admin_user)
+        sample = FactoryBot.create(:sample)
+        literature_template = FactoryBot.create(:literature)
+        site=FactoryBot.create(:site)
 
         login(user)
         visit samples_path
@@ -191,9 +191,9 @@ include Rails.application.routes.url_helpers
       end
 
       it "Edits a Sample and displays the results", js: true do
-        user = FactoryGirl.create(:admin_user)
-        sample = FactoryGirl.create(:sample)
-        sample_template = FactoryGirl.create(:sample)
+        user = FactoryBot.create(:admin_user)
+        sample = FactoryBot.create(:sample)
+        sample_template = FactoryBot.create(:sample)
         login(user)
         visit samples_path
         within "#sample_#{sample.id}" do
@@ -207,10 +207,10 @@ include Rails.application.routes.url_helpers
       end
 
       it "edits a Sample with adding existing literature and displays the results", js: true do
-        user = FactoryGirl.create(:admin_user)
-        sample = FactoryGirl.create(:sample)
-        sample_template = FactoryGirl.create(:sample)
-        literature_template = FactoryGirl.create(:literature)
+        user = FactoryBot.create(:admin_user)
+        sample = FactoryBot.create(:sample)
+        sample_template = FactoryBot.create(:sample)
+        literature_template = FactoryBot.create(:literature)
         login(user)
         visit samples_path
         within "#sample_#{sample.id}" do
@@ -233,7 +233,7 @@ include Rails.application.routes.url_helpers
     end
 
     it "Deletes a Sample", js: true do
-      user = FactoryGirl.create(:admin_user)
+      user = FactoryBot.create(:admin_user)
       login(user)
       visit samples_path
       expect{

@@ -6,14 +6,14 @@ describe "Sites" do
 include Rails.application.routes.url_helpers
 
   before(:each, :js=>true) do
-    @site = FactoryGirl.create(:site)
+    @site = FactoryBot.create(:site)
   end
 
   describe "GET /sites" do
     it "displays the sites" do
       # Run the generator again with the --webrat flag if you want to use webrat methods/matchers
-      FactoryGirl.create(:site, :name => 'test_site2')
-      FactoryGirl.create(:site, :name => 'test_site1')
+      FactoryBot.create(:site, :name => 'test_site2')
+      FactoryBot.create(:site, :name => 'test_site1')
       visit sites_path
       expect(page).to have_content("test_site1")
       expect(page).to have_content("test_site2")
@@ -23,7 +23,7 @@ include Rails.application.routes.url_helpers
   describe "GET /site" do
     it "displays the a site" do
       # Run the generator again with the --webrat flag if you want to use webrat methods/matchers
-      site = FactoryGirl.create(:site)
+      site = FactoryBot.create(:site)
       visit sites_path
       find("#site_#{site.id}").click_link 'Show'
       expect(current_path).to eq(site_path(site))
@@ -44,13 +44,13 @@ include Rails.application.routes.url_helpers
       end
 
       it "do not display the Edit link" do
-        @site = FactoryGirl.create(:site)
+        @site = FactoryBot.create(:site)
         visit sites_path
         expect(page).not_to have_link('Edit', href: edit_site_path(@site))
       end
 
       it "do not display the Edit form" do
-        @site = FactoryGirl.create(:site)
+        @site = FactoryBot.create(:site)
         visit edit_site_path(@site)
         expect(current_path).not_to eq(edit_site_path(@site))
       end
@@ -58,7 +58,7 @@ include Rails.application.routes.url_helpers
     end
     context "logged in admin_user" do
       it "do display the New link" do
-        user = FactoryGirl.create(:admin_user)
+        user = FactoryBot.create(:admin_user)
         login(user)
         visit sites_path
         expect(page).to have_link('New Site', href: new_site_path)
@@ -66,8 +66,8 @@ include Rails.application.routes.url_helpers
       end
 
       it "Adds a new Site via LatLong Enter and displays the results", js: true do
-        user = FactoryGirl.create(:admin_user)
-        site = FactoryGirl.build(:site)
+        user = FactoryBot.create(:admin_user)
+        site = FactoryBot.build(:site)
         login(user)
         visit sites_path
         expect{
@@ -94,10 +94,10 @@ include Rails.application.routes.url_helpers
       end
 
       it "Edits a Site via LatLong Enter and displays the results", js: true do
-        user = FactoryGirl.create(:admin_user)
-        site = FactoryGirl.create(:site)
-        country = FactoryGirl.create(:country_with_country_subdivisions)
-        site_template = FactoryGirl.build(:site, :country_subdivision => country.country_subdivisions[0])
+        user = FactoryBot.create(:admin_user)
+        site = FactoryBot.create(:site)
+        country = FactoryBot.create(:country_with_country_subdivisions)
+        site_template = FactoryBot.build(:site, :country_subdivision => country.country_subdivisions[0])
         login(user)
         visit sites_path
         within "#site_#{site.id}" do
@@ -124,7 +124,7 @@ include Rails.application.routes.url_helpers
     end
 
     it "Deletes a Site", js: true do
-      user = FactoryGirl.create(:admin_user)
+      user = FactoryBot.create(:admin_user)
       login(user)
       visit sites_path
       expect{

@@ -102,7 +102,7 @@ RSpec.configure do |config|
 
   Capybara.server_port = 3000
 
-  config.include FactoryGirl::Syntax::Methods
+  config.include FactoryBot::Syntax::Methods
 
 
   # rspec-rails 3 will no longer automatically infer an example group's spec type
@@ -119,11 +119,11 @@ end
 
   Spork.each_run do
     # This code will be run each time you run your specs.
-    FactoryGirl.reload
+    FactoryBot.reload
   end
 
   def setup_frontend
-    FactoryGirl.create(:page,:name => 'home' )
-    FactoryGirl.create(:announcement)
+    FactoryBot.create(:page,:name => 'home' )
+    FactoryBot.create(:announcement)
   end
 end

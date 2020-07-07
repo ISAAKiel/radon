@@ -5,20 +5,20 @@ require 'rails_helper'
 describe "Prmats", type: :feature do
 
   before(:each) do
-    FactoryGirl.create(:page,:name => 'home' )
-    FactoryGirl.create(:announcement)
+    FactoryBot.create(:page,:name => 'home' )
+    FactoryBot.create(:announcement)
   end
 
   before(:each, :js=>true) do
-    @prmat = FactoryGirl.create(:prmat)
+    @prmat = FactoryBot.create(:prmat)
   end
 
 
   describe "GET /prmats" do
     it "displays the prmats" do
       # Run the generator again with the --webrat flag if you want to use webrat methods/matchers
-      FactoryGirl.create(:prmat, :name => 'test_prmat2')
-      FactoryGirl.create(:prmat, :name => 'test_prmat1')
+      FactoryBot.create(:prmat, :name => 'test_prmat2')
+      FactoryBot.create(:prmat, :name => 'test_prmat1')
       visit prmats_path
       expect(page).to have_content("test_prmat1")
       expect(page).to have_content("test_prmat2")
@@ -28,7 +28,7 @@ describe "Prmats", type: :feature do
   describe "GET /prmat" do
     it "displays the a prmat" do
       # Run the generator again with the --webrat flag if you want to use webrat methods/matchers
-      prmat = FactoryGirl.create(:prmat)
+      prmat = FactoryBot.create(:prmat)
       visit prmats_path
       find("#prmat_#{prmat.id}").click_link 'Show'
       expect(current_path).to eq(prmat_path(prmat))
@@ -49,13 +49,13 @@ describe "Prmats", type: :feature do
       end
 
       it "do not display the Edit link" do
-        @prmat = FactoryGirl.create(:prmat)
+        @prmat = FactoryBot.create(:prmat)
         visit prmats_path
         expect(page).not_to have_link('Edit', href: edit_prmat_path(@prmat))
       end
 
       it "do not display the Edit form" do
-        @prmat = FactoryGirl.create(:prmat)
+        @prmat = FactoryBot.create(:prmat)
         visit edit_prmat_path(@prmat)
         expect(current_path).not_to eq(edit_prmat_path(@prmat))
       end
@@ -63,7 +63,7 @@ describe "Prmats", type: :feature do
     end
     context "logged in admin_user" do
       it "do display the New link" do
-        user = FactoryGirl.create(:admin_user)
+        user = FactoryBot.create(:admin_user)
         login(user)
         visit prmats_path
         expect(page).to have_link('New Sample material', href: new_prmat_path)
@@ -71,8 +71,8 @@ describe "Prmats", type: :feature do
       end
 
       it "Adds a new Prmat and displays the results" do
-        user = FactoryGirl.create(:admin_user)
-        prmat = FactoryGirl.build(:prmat)
+        user = FactoryBot.create(:admin_user)
+        prmat = FactoryBot.build(:prmat)
         login(user)
         visit prmats_url
         expect{
@@ -86,9 +86,9 @@ describe "Prmats", type: :feature do
       end
 
       it "Edits a Prmat and displays the results" do
-        user = FactoryGirl.create(:admin_user)
-        prmat = FactoryGirl.create(:prmat)
-        prmat_template = FactoryGirl.build(:prmat)
+        user = FactoryBot.create(:admin_user)
+        prmat = FactoryBot.create(:prmat)
+        prmat_template = FactoryBot.build(:prmat)
         login(user)
         visit prmats_url
         within "#prmat_#{prmat.id}" do
@@ -106,7 +106,7 @@ describe "Prmats", type: :feature do
     end
 
     it "Deletes a Prmat", js: true do
-      user = FactoryGirl.create(:admin_user)
+      user = FactoryBot.create(:admin_user)
       login(user)
       visit prmats_path
       expect{

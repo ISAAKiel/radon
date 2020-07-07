@@ -2,10 +2,10 @@ require 'rails_helper'
 
 describe "DatingMethods" do
   it "has a valid factory" do
-    expect(FactoryGirl.build(:dating_method)).to be_valid
+    expect(FactoryBot.build(:dating_method)).to be_valid
   end
   it "should act_as_list" do
-    expect(FactoryGirl.build(:dating_method)).to respond_to(:move_to_top)
+    expect(FactoryBot.build(:dating_method)).to respond_to(:move_to_top)
   end
   it "should have accessible :name" do
     expect { DatingMethod.new(name: 'name') }.not_to raise_error
@@ -21,11 +21,11 @@ describe "DatingMethods" do
   end
 
   it "is invalid without :name" do
-    expect(FactoryGirl.build(:dating_method, name: nil)).not_to be_valid
+    expect(FactoryBot.build(:dating_method, name: nil)).not_to be_valid
   end
 
   it "does not allow duplicate :name" do
-    FactoryGirl.create(:dating_method, name: "1")
-    expect(FactoryGirl.build(:dating_method, name: "1")).not_to be_valid
+    FactoryBot.create(:dating_method, name: "1")
+    expect(FactoryBot.build(:dating_method, name: "1")).not_to be_valid
   end
 end

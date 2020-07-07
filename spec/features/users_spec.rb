@@ -7,8 +7,8 @@ require 'rails_helper'
   } do
 
     background do
-      @agent = FactoryGirl.create(:user)
-      FactoryGirl.create(:page,:name => 'home' )
+      @agent = FactoryBot.create(:user)
+      FactoryBot.create(:page,:name => 'home' )
     end
 
     scenario 'User log in' do

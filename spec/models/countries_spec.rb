@@ -2,10 +2,10 @@ require 'rails_helper'
 
 describe "Countries" do
   it "has a valid factory" do
-    expect(FactoryGirl.build(:country)).to be_valid
+    expect(FactoryBot.build(:country)).to be_valid
   end
   it "should act_as_list" do
-    expect(FactoryGirl.build(:country)).to respond_to(:move_to_top)
+    expect(FactoryBot.build(:country)).to respond_to(:move_to_top)
   end
   it "should have accessible :name" do
     expect { Country.new(name: 'name') }.not_to raise_error
@@ -17,12 +17,12 @@ describe "Countries" do
   end
 
   it "is invalid without :name" do
-    expect(FactoryGirl.build(:country, name: nil)).not_to be_valid
+    expect(FactoryBot.build(:country, name: nil)).not_to be_valid
   end
 
   it "does not allow duplicate :name" do
-    FactoryGirl.create(:country, name: "1")
-    expect(FactoryGirl.build(:country, name: "1")).not_to be_valid
+    FactoryBot.create(:country, name: "1")
+    expect(FactoryBot.build(:country, name: "1")).not_to be_valid
   end
 
   it "accepts nested attributes for CountrySubdivision"

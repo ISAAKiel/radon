@@ -5,8 +5,8 @@ require 'rails_helper'
 describe "Rights", type: :feature do
 
   before(:each) do
-    FactoryGirl.create(:right)
-    @right = FactoryGirl.create(:right)
+    FactoryBot.create(:right)
+    @right = FactoryBot.create(:right)
   end
 
 
@@ -14,8 +14,8 @@ describe "Rights", type: :feature do
     context "not logged in" do
       it "do not displays the rights" do
         # Run the generator again with the --webrat flag if you want to use webrat methods/matchers
-        FactoryGirl.create(:right, :name => 'test_right2')
-        FactoryGirl.create(:right, :name => 'test_right1')
+        FactoryBot.create(:right, :name => 'test_right2')
+        FactoryBot.create(:right, :name => 'test_right1')
         visit rights_path
         expect(current_path).not_to eq(rights_path)
         expect(page).not_to have_content("test_right1")
@@ -25,9 +25,9 @@ describe "Rights", type: :feature do
     context "logged in as admin" do
       it "displays the rights" do
         # Run the generator again with the --webrat flag if you want to use webrat methods/matchers
-        FactoryGirl.create(:right, :name => 'test_right2')
-        FactoryGirl.create(:right, :name => 'test_right1')
-        user = FactoryGirl.create(:admin_user)
+        FactoryBot.create(:right, :name => 'test_right2')
+        FactoryBot.create(:right, :name => 'test_right1')
+        user = FactoryBot.create(:admin_user)
         login(user)
         visit rights_path
         expect(current_path).to eq(rights_path)
@@ -42,8 +42,8 @@ describe "Rights", type: :feature do
     context "logged in as admin user" do
       it "displays the a right" do
         # Run the generator again with the --webrat flag if you want to use webrat methods/matchers
-        right = FactoryGirl.create(:right)
-        user = FactoryGirl.create(:admin_user)
+        right = FactoryBot.create(:right)
+        user = FactoryBot.create(:admin_user)
         login(user)
         visit rights_path
 #        save_and_open_page
@@ -68,13 +68,13 @@ describe "Rights", type: :feature do
       end
 
       it "do not display the Edit link" do
-        @right = FactoryGirl.create(:right)
+        @right = FactoryBot.create(:right)
         visit rights_path
         expect(page).not_to have_link('Edit', href: edit_right_path(@right))
       end
 
       it "do not display the Edit form" do
-        @right = FactoryGirl.create(:right)
+        @right = FactoryBot.create(:right)
         visit edit_right_path(@right)
         expect(current_path).not_to eq(edit_right_path(@right))
       end
@@ -82,7 +82,7 @@ describe "Rights", type: :feature do
     end
     context "logged in admin_user" do
       it "do display the New link" do
-        user = FactoryGirl.create(:admin_user)
+        user = FactoryBot.create(:admin_user)
         login(user)
         visit rights_path
         expect(page).to have_link('New Right', href: new_right_path)
@@ -90,8 +90,8 @@ describe "Rights", type: :feature do
       end
 
       it "Adds a new Right and displays the results" do
-        user = FactoryGirl.create(:admin_user)
-        right = FactoryGirl.build(:right)
+        user = FactoryBot.create(:admin_user)
+        right = FactoryBot.build(:right)
         login(user)
         visit rights_path
         expect{
@@ -105,9 +105,9 @@ describe "Rights", type: :feature do
       end
 
       it "Edits a Right and displays the results" do
-        user = FactoryGirl.create(:admin_user)
-        right = FactoryGirl.create(:right)
-        right_template = FactoryGirl.build(:right)
+        user = FactoryBot.create(:admin_user)
+        right = FactoryBot.create(:right)
+        right_template = FactoryBot.build(:right)
         login(user)
         visit rights_url
         within "#right_#{right.id}" do
@@ -125,7 +125,7 @@ describe "Rights", type: :feature do
     end
 
     it "Deletes a Feature type", js: true do
-      user = FactoryGirl.create(:admin_user)
+      user = FactoryBot.create(:admin_user)
       login(user)
       visit rights_path
       expect{

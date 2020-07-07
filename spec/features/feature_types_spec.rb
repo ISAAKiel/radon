@@ -5,15 +5,15 @@ require 'rails_helper'
 describe "FeatureTypes", type: :feature do
 
   before(:each, :js=>true) do
-    @feature_type = FactoryGirl.create(:feature_type)
+    @feature_type = FactoryBot.create(:feature_type)
   end
 
 
   describe "GET /feature_types" do
     it "displays the feature_types" do
       # Run the generator again with the --webrat flag if you want to use webrat methods/matchers
-      FactoryGirl.create(:feature_type, :name => 'test_feature_type2')
-      FactoryGirl.create(:feature_type, :name => 'test_feature_type1')
+      FactoryBot.create(:feature_type, :name => 'test_feature_type2')
+      FactoryBot.create(:feature_type, :name => 'test_feature_type1')
       visit feature_types_path
       expect(page).to have_content("test_feature_type1")
       expect(page).to have_content("test_feature_type2")
@@ -23,7 +23,7 @@ describe "FeatureTypes", type: :feature do
   describe "GET /feature_type" do
     it "displays the a feature_type" do
       # Run the generator again with the --webrat flag if you want to use webrat methods/matchers
-      feature_type = FactoryGirl.create(:feature_type)
+      feature_type = FactoryBot.create(:feature_type)
       visit feature_types_path
       find("#feature_type_#{feature_type.id}").click_link 'Show'
       expect(current_path).to eq(feature_type_path(feature_type))
@@ -44,13 +44,13 @@ describe "FeatureTypes", type: :feature do
       end
 
       it "do not display the Edit link" do
-        @feature_type = FactoryGirl.create(:feature_type)
+        @feature_type = FactoryBot.create(:feature_type)
         visit feature_types_path
         expect(page).not_to have_link('Edit', href: edit_feature_type_path(@feature_type))
       end
 
       it "do not display the Edit form" do
-        @feature_type = FactoryGirl.create(:feature_type)
+        @feature_type = FactoryBot.create(:feature_type)
         visit edit_feature_type_path(@feature_type)
         expect(current_path).not_to eq(edit_feature_type_path(@feature_type))
       end
@@ -58,7 +58,7 @@ describe "FeatureTypes", type: :feature do
     end
     context "logged in admin_user" do
       it "do display the New link" do
-        user = FactoryGirl.create(:admin_user)
+        user = FactoryBot.create(:admin_user)
         login(user)
         visit feature_types_path
         expect(page).to have_link('New Feature Type', href: new_feature_type_path)
@@ -66,8 +66,8 @@ describe "FeatureTypes", type: :feature do
       end
 
       it "Adds a new FeatureType and displays the results" do
-        user = FactoryGirl.create(:admin_user)
-        feature_type = FactoryGirl.build(:feature_type)
+        user = FactoryBot.create(:admin_user)
+        feature_type = FactoryBot.build(:feature_type)
         login(user)
         visit feature_types_url
         assert_text "New Feature Type"
@@ -84,9 +84,9 @@ describe "FeatureTypes", type: :feature do
       end
 
       it "Edits a FeatureType and displays the results" do
-        user = FactoryGirl.create(:admin_user)
-        feature_type = FactoryGirl.create(:feature_type)
-        feature_type_template = FactoryGirl.build(:feature_type)
+        user = FactoryBot.create(:admin_user)
+        feature_type = FactoryBot.create(:feature_type)
+        feature_type_template = FactoryBot.build(:feature_type)
         login(user)
         visit feature_types_url
         assert_text "Feature Types"
@@ -109,7 +109,7 @@ describe "FeatureTypes", type: :feature do
     end
 
     it "Deletes a Feature type", js: true do
-      user = FactoryGirl.create(:admin_user)
+      user = FactoryBot.create(:admin_user)
       login(user)
       visit feature_types_path
       expect{

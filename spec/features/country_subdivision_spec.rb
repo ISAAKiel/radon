@@ -5,15 +5,15 @@ require 'rails_helper'
 describe "CountrySubdivisions", type: :feature do
 
   before(:each, :js=>true) do
-    @country_subdivision = FactoryGirl.create(:country_subdivision)
+    @country_subdivision = FactoryBot.create(:country_subdivision)
   end
 
 
   describe "GET /country_subdivisions" do
     it "displays the country_subdivisions" do
       # Run the generator again with the --webrat flag if you want to use webrat methods/matchers
-      FactoryGirl.create(:country_subdivision, :name => 'test_country_subdivision2')
-      FactoryGirl.create(:country_subdivision, :name => 'test_country_subdivision1')
+      FactoryBot.create(:country_subdivision, :name => 'test_country_subdivision2')
+      FactoryBot.create(:country_subdivision, :name => 'test_country_subdivision1')
       visit country_subdivisions_path
       expect(page).to have_content("test_country_subdivision1")
       expect(page).to have_content("test_country_subdivision2")
@@ -23,7 +23,7 @@ describe "CountrySubdivisions", type: :feature do
   describe "GET /country_subdivision" do
     it "displays the a country_subdivision" do
       # Run the generator again with the --webrat flag if you want to use webrat methods/matchers
-      country_subdivision = FactoryGirl.create(:country_subdivision_with_sites)
+      country_subdivision = FactoryBot.create(:country_subdivision_with_sites)
       visit country_subdivisions_path
       find("#country_subdivision_#{country_subdivision.id}").click_link 'Show'
       expect(current_path).to eq(country_subdivision_path(country_subdivision))
@@ -44,13 +44,13 @@ describe "CountrySubdivisions", type: :feature do
       end
 
       it "do not display the Edit link" do
-        @country_subdivision = FactoryGirl.create(:country_subdivision)
+        @country_subdivision = FactoryBot.create(:country_subdivision)
         visit country_subdivisions_path
         expect(page).not_to have_link('Edit', href: edit_country_subdivision_path(@country_subdivision))
       end
 
       it "do not display the Edit form" do
-        @country_subdivision = FactoryGirl.create(:country_subdivision)
+        @country_subdivision = FactoryBot.create(:country_subdivision)
         visit edit_country_subdivision_path(@country_subdivision)
         expect(current_path).not_to eq(edit_country_subdivision_path(@country_subdivision))
       end
@@ -58,7 +58,7 @@ describe "CountrySubdivisions", type: :feature do
     end
     context "logged in admin_user" do
       it "do display the New link" do
-        user = FactoryGirl.create(:admin_user)
+        user = FactoryBot.create(:admin_user)
         login(user)
         visit country_subdivisions_path
         expect(page).to have_link('New Country Subdivision', href: new_country_subdivision_path)
@@ -66,8 +66,8 @@ describe "CountrySubdivisions", type: :feature do
       end
 
       it "Adds a new CountrySubdivision and displays the results" do
-        user = FactoryGirl.create(:admin_user)
-        country_subdivision = FactoryGirl.build(:country_subdivision)
+        user = FactoryBot.create(:admin_user)
+        country_subdivision = FactoryBot.build(:country_subdivision)
         country_subdivision.name = country_subdivision.name + "new"
         login(user)
         visit country_subdivisions_url
@@ -85,9 +85,9 @@ describe "CountrySubdivisions", type: :feature do
       end
 
       it "Edits a CountrySubdivision and displays the results" do
-        user = FactoryGirl.create(:admin_user)
-        country_subdivision = FactoryGirl.create(:country_subdivision)
-        country_subdivision_template = FactoryGirl.build(:country_subdivision)
+        user = FactoryBot.create(:admin_user)
+        country_subdivision = FactoryBot.create(:country_subdivision)
+        country_subdivision_template = FactoryBot.build(:country_subdivision)
         country_subdivision_template.name=country_subdivision_template.name + "new"
         login(user)
         visit country_subdivisions_url
@@ -111,7 +111,7 @@ describe "CountrySubdivisions", type: :feature do
     end
 
     it "Deletes a CountrySubdivision", js: true do
-      user = FactoryGirl.create(:admin_user)
+      user = FactoryBot.create(:admin_user)
       login(user)
       visit country_subdivisions_path
       expect{

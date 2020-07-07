@@ -2,7 +2,7 @@ require 'rails_helper'
 
 describe "Rights" do
   it "has a valid factory" do
-    expect(FactoryGirl.build(:right)).to be_valid
+    expect(FactoryBot.build(:right)).to be_valid
   end
 
   it "should have accessible :name" do
@@ -15,11 +15,11 @@ describe "Rights" do
   end
 
   it "is invalid without :name" do
-    expect(FactoryGirl.build(:right, name: nil)).not_to be_valid
+    expect(FactoryBot.build(:right, name: nil)).not_to be_valid
   end
 
   it "does not allow duplicate :name" do
-    FactoryGirl.create(:right, name: "1")
-    expect(FactoryGirl.build(:right, name: "1")).not_to be_valid
+    FactoryBot.create(:right, name: "1")
+    expect(FactoryBot.build(:right, name: "1")).not_to be_valid
   end
 end

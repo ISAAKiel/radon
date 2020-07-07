@@ -1,6 +1,6 @@
 # Read about factories at https://github.com/thoughtbot/factory_girl
 
-FactoryGirl.define do
+FactoryBot.define do
   factory :literature do
     sequence(:short_citation) { |n| "short_citation_#{n}" }
     sequence(:year) { |n| "#{n}"}

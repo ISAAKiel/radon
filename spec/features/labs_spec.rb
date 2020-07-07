@@ -5,20 +5,20 @@ require 'rails_helper'
 describe "Labs", type: :feature do
 
   before(:each) do
-    FactoryGirl.create(:page,:name => 'home' )
-    FactoryGirl.create(:announcement)
+    FactoryBot.create(:page,:name => 'home' )
+    FactoryBot.create(:announcement)
   end
 
   before(:each, :js=>true) do
-    @lab = FactoryGirl.create(:lab)
+    @lab = FactoryBot.create(:lab)
   end
 
 
   describe "GET /labs" do
     it "displays the labs" do
       # Run the generator again with the --webrat flag if you want to use webrat methods/matchers
-      FactoryGirl.create(:lab, :name => 'test_lab2')
-      FactoryGirl.create(:lab, :name => 'test_lab1')
+      FactoryBot.create(:lab, :name => 'test_lab2')
+      FactoryBot.create(:lab, :name => 'test_lab1')
       visit labs_path
       expect(page).to have_content("test_lab1")
       expect(page).to have_content("test_lab2")
@@ -28,7 +28,7 @@ describe "Labs", type: :feature do
   describe "GET /lab" do
     it "displays the a lab" do
       # Run the generator again with the --webrat flag if you want to use webrat methods/matchers
-      lab = FactoryGirl.create(:lab)
+      lab = FactoryBot.create(:lab)
       visit labs_path
       find("#lab_#{lab.id}").click_link 'Show'
       expect(current_path).to eq(lab_path(lab))
@@ -49,13 +49,13 @@ describe "Labs", type: :feature do
       end
 
       it "do not display the Edit link" do
-        @lab = FactoryGirl.create(:lab)
+        @lab = FactoryBot.create(:lab)
         visit labs_path
         expect(page).not_to have_link('Edit', href: edit_lab_path(@lab))
       end
 
       it "do not display the Edit form" do
-        @lab = FactoryGirl.create(:lab)
+        @lab = FactoryBot.create(:lab)
         visit edit_lab_path(@lab)
         expect(current_path).not_to eq(edit_lab_path(@lab))
       end
@@ -63,7 +63,7 @@ describe "Labs", type: :feature do
     end
     context "logged in admin_user" do
       it "do display the New link" do
-        user = FactoryGirl.create(:admin_user)
+        user = FactoryBot.create(:admin_user)
         login(user)
         visit labs_path
         expect(page).to have_link('New Laboratory', href: new_lab_path)
@@ -71,8 +71,8 @@ describe "Labs", type: :feature do
       end
 
       it "Adds a new Lab and displays the results" do
-        user = FactoryGirl.create(:admin_user)
-        lab = FactoryGirl.build(:lab)
+        user = FactoryBot.create(:admin_user)
+        lab = FactoryBot.build(:lab)
         login(user)
         visit labs_url
         expect{
@@ -92,9 +92,9 @@ describe "Labs", type: :feature do
       end
 
       it "Edits a Lab and displays the results" do
-        user = FactoryGirl.create(:admin_user)
-        lab = FactoryGirl.create(:lab)
-        lab_template = FactoryGirl.build(:lab, :active => !lab.active)
+        user = FactoryBot.create(:admin_user)
+        lab = FactoryBot.create(:lab)
+        lab_template = FactoryBot.build(:lab, :active => !lab.active)
         login(user)
         visit labs_url
         within "#lab_#{lab.id}" do
@@ -128,8 +128,8 @@ describe "Labs", type: :feature do
     end
 
     it "Deletes a Lab", js: true do
-      FactoryGirl.create(:admin_user)
-      user = FactoryGirl.create(:admin_user)
+      FactoryBot.create(:admin_user)
+      user = FactoryBot.create(:admin_user)
       login(user)
       visit labs_path
       expect{

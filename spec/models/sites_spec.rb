@@ -3,7 +3,7 @@ require 'rails_helper'
 describe "Sites" do
 
   it "has a valid factory" do
-    expect(FactoryGirl.build(:site)).to be_valid
+    expect(FactoryBot.build(:site)).to be_valid
   end
 
   it "has a valid factory also for samples"
@@ -38,7 +38,7 @@ describe "Sites" do
   end
 
   it "is invalid without :name" do
-    expect(FactoryGirl.build(:site, name: nil)).not_to be_valid
+    expect(FactoryBot.build(:site, name: nil)).not_to be_valid
   end
 
 end

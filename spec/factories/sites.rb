@@ -1,6 +1,6 @@
 # Read about factories at https://github.com/thoughtbot/factory_girl
 
-FactoryGirl.define do
+FactoryBot.define do
   factory :site do |f|
     f.sequence(:name) { |n| "site_#{n}" }
     f.sequence(:parish) { |n| "parish_#{n}" }
@@ -13,7 +13,7 @@ FactoryGirl.define do
     factory :site_with_samples do
       after(:create) do |site|
         if site.samples.length==0
-          site.samples << FactoryGirl.build(:sample, :site => site)
+          site.samples << FactoryBot.build(:sample, :site => site)
         end
       end
     end

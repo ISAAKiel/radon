@@ -5,8 +5,8 @@ require 'rails_helper'
 describe "DatingMethods", type: :feature do
 
   before(:each) do
-    FactoryGirl.create(:dating_method)
-    @dating_method = FactoryGirl.create(:dating_method)
+    FactoryBot.create(:dating_method)
+    @dating_method = FactoryBot.create(:dating_method)
   end
 
 
@@ -14,8 +14,8 @@ describe "DatingMethods", type: :feature do
     context "not logged in" do
       it "displays the dating_methods" do
         # Run the generator again with the --webrat flag if you want to use webrat methods/matchers
-        FactoryGirl.create(:dating_method, :name => 'test_dating_method2')
-        FactoryGirl.create(:dating_method, :name => 'test_dating_method1')
+        FactoryBot.create(:dating_method, :name => 'test_dating_method2')
+        FactoryBot.create(:dating_method, :name => 'test_dating_method1')
         visit dating_methods_path
         expect(current_path).not_to eq(dating_methods_path)
         expect(page).not_to have_content("test_dating_method1")
@@ -25,9 +25,9 @@ describe "DatingMethods", type: :feature do
     context "logged in as admin" do
       it "displays the dating_methods" do
         # Run the generator again with the --webrat flag if you want to use webrat methods/matchers
-        FactoryGirl.create(:dating_method, :name => 'test_dating_method2')
-        FactoryGirl.create(:dating_method, :name => 'test_dating_method1')
-        user = FactoryGirl.create(:admin_user)
+        FactoryBot.create(:dating_method, :name => 'test_dating_method2')
+        FactoryBot.create(:dating_method, :name => 'test_dating_method1')
+        user = FactoryBot.create(:admin_user)
         login(user)
         visit dating_methods_path
         expect(current_path).to eq(dating_methods_path)
@@ -42,8 +42,8 @@ describe "DatingMethods", type: :feature do
     context "logged in as admin user" do
       it "displays the a dating_method" do
         # Run the generator again with the --webrat flag if you want to use webrat methods/matchers
-        dating_method = FactoryGirl.create(:dating_method)
-        user = FactoryGirl.create(:admin_user)
+        dating_method = FactoryBot.create(:dating_method)
+        user = FactoryBot.create(:admin_user)
         login(user)
         visit dating_methods_path
 #        save_and_open_page
@@ -68,13 +68,13 @@ describe "DatingMethods", type: :feature do
       end
 
       it "do not display the Edit link" do
-        @dating_method = FactoryGirl.create(:dating_method)
+        @dating_method = FactoryBot.create(:dating_method)
         visit dating_methods_path
         expect(page).not_to have_link('Edit', href: edit_dating_method_path(@dating_method))
       end
 
       it "do not display the Edit form" do
-        @dating_method = FactoryGirl.create(:dating_method)
+        @dating_method = FactoryBot.create(:dating_method)
         visit edit_dating_method_path(@dating_method)
         expect(current_path).not_to eq(edit_dating_method_path(@dating_method))
       end
@@ -82,7 +82,7 @@ describe "DatingMethods", type: :feature do
     end
     context "logged in admin_user" do
       it "do display the New link" do
-        user = FactoryGirl.create(:admin_user)
+        user = FactoryBot.create(:admin_user)
         login(user)
         visit dating_methods_path
         expect(page).to have_link('New Dating Method', href: new_dating_method_path)
@@ -90,8 +90,8 @@ describe "DatingMethods", type: :feature do
       end
 
       it "Adds a new DatingMethod and displays the results" do
-        user = FactoryGirl.create(:admin_user)
-        dating_method = FactoryGirl.build(:dating_method)
+        user = FactoryBot.create(:admin_user)
+        dating_method = FactoryBot.build(:dating_method)
         login(user)
         visit dating_methods_path
         assert_text "New Dating Method"
@@ -106,9 +106,9 @@ describe "DatingMethods", type: :feature do
       end
 
       it "Edits a DatingMethod and displays the results" do
-        user = FactoryGirl.create(:admin_user)
-        dating_method = FactoryGirl.create(:dating_method)
-        dating_method_template = FactoryGirl.build(:dating_method)
+        user = FactoryBot.create(:admin_user)
+        dating_method = FactoryBot.create(:dating_method)
+        dating_method_template = FactoryBot.build(:dating_method)
         login(user)
         visit dating_methods_url
         assert_text "Dating Methods"
@@ -127,7 +127,7 @@ describe "DatingMethods", type: :feature do
     end
 
     it "Deletes a Dating method", js: true do
-      user = FactoryGirl.create(:admin_user)
+      user = FactoryBot.create(:admin_user)
       login(user)
       visit dating_methods_path
       expect{

@@ -7,14 +7,14 @@ describe FeatureTypesController, type: :controller do
   end
 
   before(:each, :admin_user_logged_in => true) do
-    @admin_user = FactoryGirl.create(:admin_user)
+    @admin_user = FactoryBot.create(:admin_user)
     activate_authlogic
     UserSession.create(@admin_user)
   end
 
   describe "GET index" do
     it "assigns all feature_types as @feature_types" do
-      feature_types = FactoryGirl.create_list(:feature_type,10)
+      feature_types = FactoryBot.create_list(:feature_type,10)
       get :index, {}
       expect(assigns(:feature_types)).to match_array(feature_types)
     end
@@ -22,7 +22,7 @@ describe FeatureTypesController, type: :controller do
 
   describe "GET show" do
     it "assigns the requested feature_type as @feature_type" do
-      feature_type = FactoryGirl.create(:feature_type)
+      feature_type = FactoryBot.create(:feature_type)
       get :show, {:id => feature_type.to_param}
       expect(assigns(:feature_type)).to eq(feature_type)
     end
@@ -43,12 +43,12 @@ describe FeatureTypesController, type: :controller do
 
   describe "GET edit" do
     it "assigns the requested feature_type as @feature_type with admin user", :admin_user_logged_in => true do
-      feature_type = FactoryGirl.create(:feature_type)
+      feature_type = FactoryBot.create(:feature_type)
       get :edit, {:id => feature_type.to_param}
       expect(assigns(:feature_type)).to eq(feature_type)
     end
     it "assigns the requested feature_type as @feature_type" do
-      feature_type = FactoryGirl.create(:feature_type)
+      feature_type = FactoryBot.create(:feature_type)
       get :edit, {:id => feature_type.to_param}
       expect(assigns(:feature_type)).to be_nil
     end
@@ -57,14 +57,14 @@ describe FeatureTypesController, type: :controller do
   describe "POST create without admin_user" do
     describe "with valid params" do
       it "not creates a new FeatureType" do
-        attributes = FactoryGirl.attributes_for(:feature_type)
+        attributes = FactoryBot.attributes_for(:feature_type)
         expect {
         post :create, {:feature_type => attributes}
         }.not_to change(FeatureType, :count)
       end
 
       it "redirects to the created feature_type" do
-        attributes = FactoryGirl.attributes_for(:feature_type)
+        attributes = FactoryBot.attributes_for(:feature_type)
         post :create, {:feature_type => attributes}
         expect(response).to redirect_to(root_url)
       end
@@ -74,21 +74,21 @@ describe FeatureTypesController, type: :controller do
   describe "POST create with admin_user", :admin_user_logged_in => true do
     describe "with valid params" do
       it "creates a new FeatureType" do
-        attributes = FactoryGirl.attributes_for(:feature_type)
+        attributes = FactoryBot.attributes_for(:feature_type)
         expect {
           post :create, {:feature_type => attributes}
         }.to change(FeatureType, :count).by(1)
       end
 
       it "assigns a newly created feature_type as @feature_type" do
-        attributes = FactoryGirl.attributes_for(:feature_type)
+        attributes = FactoryBot.attributes_for(:feature_type)
         post :create, {:feature_type => attributes}
         expect(assigns(:feature_type)).to be_a(FeatureType)
         expect(assigns(:feature_type)).to be_persisted
       end
 
       it "redirects to the created feature_type" do
-        attributes = FactoryGirl.attributes_for(:feature_type)
+        attributes = FactoryBot.attributes_for(:feature_type)
         post :create, {:feature_type => attributes}
         expect(response).to redirect_to(FeatureType.last)
       end
@@ -114,7 +114,7 @@ describe FeatureTypesController, type: :controller do
   describe "PUT update without admin_user" do
     describe "with valid params" do
       it "updates the requested feature_type" do
-        feature_type = FactoryGirl.create(:feature_type)
+        feature_type = FactoryBot.create(:feature_type)
         # Assuming there are no other feature_types in the database, this
         # specifies that the FeatureType created on the previous line
         # receives the :update_attributes message with whatever params are
@@ -123,13 +123,13 @@ describe FeatureTypesController, type: :controller do
       end
 
       it "assigns the requested feature_type as @feature_type" do
-        feature_type = FactoryGirl.create(:feature_type)
+        feature_type = FactoryBot.create(:feature_type)
         put :update, {:id => feature_type.to_param, :feature_type => feature_type.attributes.slice(*@valid_attribute_names)}
         expect(assigns(:feature_type)).to be_nil
       end
 
       it "redirects to the feature_type" do
-        feature_type = FactoryGirl.create(:feature_type)
+        feature_type = FactoryBot.create(:feature_type)
         put :update, {:id => feature_type.to_param, :feature_type => feature_type.attributes.slice(*@valid_attribute_names)}
         expect(response).to redirect_to(root_url)
       end
@@ -139,13 +139,13 @@ describe FeatureTypesController, type: :controller do
   describe "PUT update with admin_user", :admin_user_logged_in => true do
     describe "with valid params" do
       it "assigns the requested feature_type as @feature_type" do
-        feature_type = FactoryGirl.create(:feature_type)
+        feature_type = FactoryBot.create(:feature_type)
         put :update, {:id => feature_type.to_param, :feature_type => feature_type.attributes.slice(*@valid_attribute_names)}
         expect(assigns(:feature_type)).to eq(feature_type)
       end
 
       it "redirects to the feature_type" do
-        feature_type = FactoryGirl.create(:feature_type)
+        feature_type = FactoryBot.create(:feature_type)
         put :update, {:id => feature_type.to_param, :feature_type => feature_type.attributes.slice(*@valid_attribute_names)}
         expect(response).to redirect_to(feature_type)
       end
@@ -153,7 +153,7 @@ describe FeatureTypesController, type: :controller do
 
     describe "with invalid params" do
       it "assigns the feature_type as @feature_type" do
-        feature_type = FactoryGirl.create(:feature_type)
+        feature_type = FactoryBot.create(:feature_type)
         # Trigger the behavior that occurs when invalid params are submitted
         allow_any_instance_of(FeatureType).to receive(:save).and_return(false)
         put :update, {:id => feature_type.to_param, :feature_type => { "these" => "params" }}
@@ -161,7 +161,7 @@ describe FeatureTypesController, type: :controller do
       end
 
       it "re-renders the 'edit' template" do
-        feature_type = FactoryGirl.create(:feature_type)
+        feature_type = FactoryBot.create(:feature_type)
         # Trigger the behavior that occurs when invalid params are submitted
         allow_any_instance_of(FeatureType).to receive(:save).and_return(false)
         put :update, {:id => feature_type.to_param, :feature_type => { "these" => "params" }}
@@ -172,14 +172,14 @@ describe FeatureTypesController, type: :controller do
 
   describe "DELETE destroy without admin_user" do
     it "not destroys the requested feature_type" do
-      feature_type = FactoryGirl.create(:feature_type)
+      feature_type = FactoryBot.create(:feature_type)
       expect {
         delete :destroy, {:id => feature_type.to_param}
       }.not_to change(FeatureType, :count)
     end
 
     it "redirects to root" do
-      feature_type = FactoryGirl.create(:feature_type)
+      feature_type = FactoryBot.create(:feature_type)
       delete :destroy, {:id => feature_type.to_param}
       expect(response).to redirect_to(root_url)
     end
@@ -187,14 +187,14 @@ describe FeatureTypesController, type: :controller do
 
   describe "DELETE destroy with admin_user", :admin_user_logged_in => true do
     it "destroys the requested feature_type" do
-      feature_type = FactoryGirl.create(:feature_type)
+      feature_type = FactoryBot.create(:feature_type)
       expect {
         delete :destroy, {:id => feature_type.to_param}
       }.to change(FeatureType, :count).by(-1)
     end
 
     it "redirects to the feature_types list" do
-      feature_type = FactoryGirl.create(:feature_type)
+      feature_type = FactoryBot.create(:feature_type)
       delete :destroy, {:id => feature_type.to_param}
       expect(response).to redirect_to(feature_types_url)
     end

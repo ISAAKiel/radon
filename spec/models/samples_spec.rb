@@ -3,7 +3,7 @@ require 'rails_helper'
 describe "Samples" do
 
   it "has a valid factory" do
-    expect(FactoryGirl.build(:sample)).to be_valid
+    expect(FactoryBot.build(:sample)).to be_valid
   end
 
   it "should have accessible :lab_id" do
@@ -110,51 +110,51 @@ describe "Samples" do
   end
 
   it "is invalid without :lab_nr" do
-    expect(FactoryGirl.build(:sample, lab_nr: nil)).not_to be_valid
+    expect(FactoryBot.build(:sample, lab_nr: nil)).not_to be_valid
   end
 
   it "is invalid without :bp" do
-    expect(FactoryGirl.build(:sample, bp: nil)).not_to be_valid
+    expect(FactoryBot.build(:sample, bp: nil)).not_to be_valid
   end
 
   it "is invalid without :std" do
-    expect(FactoryGirl.build(:sample, std: nil)).not_to be_valid
+    expect(FactoryBot.build(:sample, std: nil)).not_to be_valid
   end
 
   it "is invalid without :prmat" do
-    expect(FactoryGirl.build(:sample, prmat: nil)).not_to be_valid
+    expect(FactoryBot.build(:sample, prmat: nil)).not_to be_valid
   end
 
   it "is invalid without :feature_type" do
-    expect(FactoryGirl.build(:sample, feature_type: nil)).not_to be_valid
+    expect(FactoryBot.build(:sample, feature_type: nil)).not_to be_valid
   end
 
   it "is invalid without :right" do
-    expect(FactoryGirl.build(:sample, right: nil)).not_to be_valid
+    expect(FactoryBot.build(:sample, right: nil)).not_to be_valid
   end
 
   it "is invalid without :site" do
-    expect(FactoryGirl.build(:sample, site: nil)).not_to be_valid
+    expect(FactoryBot.build(:sample, site: nil)).not_to be_valid
   end
 
   it "is invalid without :phase" do
-    expect(FactoryGirl.build(:sample, phase: nil)).not_to be_valid
+    expect(FactoryBot.build(:sample, phase: nil)).not_to be_valid
   end
 
   it "is invalid without :lab" do
-    expect(FactoryGirl.build(:sample, lab: nil)).not_to be_valid
+    expect(FactoryBot.build(:sample, lab: nil)).not_to be_valid
   end
 
   it "should convert delta_13_c from german to english float" do
-    expect(FactoryGirl.build(:sample, delta_13_c: '12,13').delta_13_c).to eq(12.13)
+    expect(FactoryBot.build(:sample, delta_13_c: '12,13').delta_13_c).to eq(12.13)
   end
 
   it "should convert delta_13_c_std from german to english float" do
-    expect(FactoryGirl.build(:sample, delta_13_c_std: '12,13').delta_13_c_std).to eq(12.13)
+    expect(FactoryBot.build(:sample, delta_13_c_std: '12,13').delta_13_c_std).to eq(12.13)
   end
 
   it "should return a name from lab_code and lab_nr" do
-    s = FactoryGirl.build(:sample)
+    s = FactoryBot.build(:sample)
     expect(s.name).to eq((s.lab.lab_code rescue "") + "-" + s.lab_nr)
   end
 

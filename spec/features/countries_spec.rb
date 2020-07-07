@@ -5,19 +5,19 @@ require 'rails_helper'
 describe "Countries", :type => :feature do
 
   before(:each) do
-#    FactoryGirl.create(:page,:name => 'home' )
-#    FactoryGirl.create(:announcement)
+#    FactoryBot.create(:page,:name => 'home' )
+#    FactoryBot.create(:announcement)
   end
 
   before(:each, :js=>true) do
-    @country = FactoryGirl.create(:country)
+    @country = FactoryBot.create(:country)
   end
 
   describe "GET /countries" do
     it "displays the countries" do
       # Run the generator again with the --webrat flag if you want to use webrat methods/matchers
-      FactoryGirl.create(:country, :name => 'test_country2')
-      FactoryGirl.create(:country, :name => 'test_country1')
+      FactoryBot.create(:country, :name => 'test_country2')
+      FactoryBot.create(:country, :name => 'test_country1')
       visit countries_path
       expect(page).to have_content("test_country1")
       expect(page).to have_content("test_country2")
@@ -27,7 +27,7 @@ describe "Countries", :type => :feature do
   describe "GET /country" do
     it "displays the a country" do
       # Run the generator again with the --webrat flag if you want to use webrat methods/matchers
-      country = FactoryGirl.create(:country_with_country_subdivisions)
+      country = FactoryBot.create(:country_with_country_subdivisions)
       visit countries_path
       find("#country_#{country.id}").click_link 'Show'
       expect(current_path).to eq(country_path(country))
@@ -48,13 +48,13 @@ describe "Countries", :type => :feature do
       end
 
       it "do not display the Edit link" do
-        @country = FactoryGirl.create(:country)
+        @country = FactoryBot.create(:country)
         visit countries_path
         expect(page).not_to have_link('Edit', href: edit_country_path(@country))
       end
 
       it "do not display the Edit form" do
-        @country = FactoryGirl.create(:country)
+        @country = FactoryBot.create(:country)
         visit edit_country_path(@country)
         expect(current_path).not_to eq(edit_country_path(@country))
       end
@@ -62,7 +62,7 @@ describe "Countries", :type => :feature do
     end
     context "logged in admin_user" do
       it "do display the New link" do
-        user = FactoryGirl.create(:admin_user)
+        user = FactoryBot.create(:admin_user)
         login(user)
         visit countries_path
         expect(page).to have_link('New Country', href: new_country_path)
@@ -70,8 +70,8 @@ describe "Countries", :type => :feature do
       end
 
       it "Adds a new Country and displays the results" do
-        user = FactoryGirl.create(:admin_user)
-        country = FactoryGirl.build(:country)
+        user = FactoryBot.create(:admin_user)
+        country = FactoryBot.build(:country)
         login(user)
         visit countries_url
         assert_text "New Country"
@@ -86,9 +86,9 @@ describe "Countries", :type => :feature do
       end
 
       it "Edits a Country and displays the results" do
-        user = FactoryGirl.create(:admin_user)
-        country = FactoryGirl.create(:country)
-        country_template = FactoryGirl.build(:country)
+        user = FactoryBot.create(:admin_user)
+        country = FactoryBot.create(:country)
+        country_template = FactoryBot.build(:country)
         country_template.name = country_template.name + "new"
         login(user)
         visit countries_url
@@ -108,7 +108,7 @@ describe "Countries", :type => :feature do
     end
 
     it "Deletes a Feature type", js: true do
-      user = FactoryGirl.create(:admin_user)
+      user = FactoryBot.create(:admin_user)
       login(user)
       visit countries_path
       expect{

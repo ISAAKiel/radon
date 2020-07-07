@@ -2,10 +2,10 @@ require 'rails_helper'
 
 describe "FeatureTypes" do
   it "has a valid factory" do
-    expect(FactoryGirl.build(:feature_type)).to be_valid
+    expect(FactoryBot.build(:feature_type)).to be_valid
   end
   it "should act_as_list" do
-    expect(FactoryGirl.build(:feature_type)).to respond_to(:move_to_top)
+    expect(FactoryBot.build(:feature_type)).to respond_to(:move_to_top)
   end
   it "should have accessible :name" do
     expect { FeatureType.new(name: 'name') }.not_to raise_error
@@ -19,11 +19,11 @@ describe "FeatureTypes" do
   end
 
   it "is invalid without :name" do
-    expect(FactoryGirl.build(:feature_type, name: nil)).not_to be_valid
+    expect(FactoryBot.build(:feature_type, name: nil)).not_to be_valid
   end
 
   it "does not allow duplicate :name" do
-    FactoryGirl.create(:feature_type, name: "1")
-    expect(FactoryGirl.build(:feature_type, name: "1")).not_to be_valid
+    FactoryBot.create(:feature_type, name: "1")
+    expect(FactoryBot.build(:feature_type, name: "1")).not_to be_valid
   end
 end
