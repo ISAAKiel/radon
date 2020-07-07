@@ -1,9 +1,8 @@
-[![Build Status](https://travis-ci.org/ISAAKiel/radon.svg?branch=master)](https://travis-ci.org/ISAAKiel/radon) [![Coverage Status](https://img.shields.io/codecov/c/github/ISAAKiel/radon/master.svg)](https://codecov.io/github/ISAAKiel/radon?branch=master)
+[![Build Status](https://travis-ci.org/ISAAKiel/radon.svg?branch=master)](https://travis-ci.org/ISAAKiel/radon) [![Coverage Status](https://img.shields.io/codecov/c/github/ISAAKiel/radon/master.svg)](https://codecov.io/github/ISAAKiel/radon?branch=master) [![Docker Build Status](https://img.shields.io/docker/build/isaakiel/radon.svg)](https://hub.docker.com/r/isaakiel/radon/)
 
 # radon
 
-
-Backend for one of the largest 14C-Database online.
+Ruby on Rails WebApp to interact with one of the largest 14C-Databases online.
 
 ## The real RADON
 
@@ -45,6 +44,43 @@ Additionally, you might register and provide keys for the intigration of [Twitte
 
 ## Usage
     rails server
+
+## Docker 
+
+The prebuild docker container [here](https://hub.docker.com/r/isaakiel/radon/) is probably the most simple way to setup radon in a production environment. The container requires a docker network with a postgres container that provides the database.
+
+You can create the docker network with
+
+`docker network create -d bridge --subnet 192.168.0.0/24 --gateway 192.168.0.1 radon_net`
+
+and a postgres container with
+
+`docker run --name radon_database -e POSTGRES_PASSWORD=a_password --net=radon_net -d postgres:latest`
+
+You should then connect to the database server, create a radon database (probably by restoring a dump of the original radon database) and add a user that acts as owner of this database.
+
+Finally you can run the radon container with the correct settings for your setup. The DB_HOST IP can vary: You can check it with `docker inspect radon_database`. Please bear in mind that starting the container takes some time, because the assets of the webapp have to be precompiled. 
+
+`docker run -d -p 80:80 --net=radon_net --name radon_webapp -e DB_HOST=192.168.0.2 -e DB_PORT=5432 -e DB_NAME=a_name -e DB_USER=a_name -e DB_USER_PW=a_password -e RECAPTCHA_PRIVATE_KEY=a_key -e RECAPTCHA_PUBLIC_KEY=a_key -e TWITTER_ACCESS_TOKEN=a_key -e TWITTER_ACCESS_TOKEN_SECRET=a_key -e TWITTER_CONSUMER_KEY=a_key -e TWITTER_CONSUMER_SECRET=a_key isaakiel/radon:latest`
+
+There's a set of relevant environment variables that can or should be defined.
+
+**required**
+
+- *DB_HOST*: IP adress of the database container in the docker network
+- *DB_PORT*: Port of the postgres server within the database container
+- *DB_NAME*: Name of the radon database in the postgres containers postgres server
+- *DB_USER*: Name of the user with access to the radon database within the postgres containers postgres server
+- *DB_USER_PW*: Password of the user with access to the radon database within the postgres containers postgres server 
+
+**optional**
+
+- *RECAPTCHA_PRIVATE_KEY*
+- *RECAPTCHA_PUBLIC_KEY*
+- *TWITTER_ACCESS_TOKEN*
+- *TWITTER_ACCESS_TOKEN_SECRET*
+- *TWITTER_CONSUMER_KEY*
+- *TWITTER_CONSUMER_SECRET*
 
 ## Submitting an Issue
 We use the [GitHub issue tracker][issues] to track bugs and features. Before

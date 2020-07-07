@@ -1,0 +1,3 @@
+#!/bin/bash
+
+export PGPASSWORD=$DB_USER_PW && psql -h $DB_HOST -p $DB_PORT -d $DB_NAME -U $DB_USER -f /usr/src/app/static_download_prep.sql --no-align --field-separator $'\t' --pset footer=off | sed '1,12d' > /usr/src/app/public/radondaily.txt
