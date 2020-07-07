@@ -47,17 +47,6 @@ class SamplesController < ApplicationController
 @map << 'map = new OpenLayers.Map("map", {theme : false,projection : "new OpenLayers.Projection(\"EPSG:900913\")",displayProjection : "new OpenLayers.Projection(\"EPSG:4326\")"});'
 
       @map << '
-              var gsat = new OpenLayers.Layer.Google(
-                  "Google Satellite",
-                  {type: google.maps.MapTypeId.SATELLITE}
-              );
-              var ghyb = new OpenLayers.Layer.Google(
-              "Google Hybrid",{
-                type: google.maps.MapTypeId.HYBRID,
-                numZoomLevels: 20,
-                "sphericalMercator": true,
-                "maxExtent": new OpenLayers.Bounds(-20037508.34, -20037508.34, 20037508.34, 20037508.34)}
-              );
               var proj = new OpenLayers.Projection("EPSG:4326");'
 
 
@@ -95,7 +84,9 @@ class SamplesController < ApplicationController
                     "transform": style
                 })
             });
-            map.addLayers([gsat, ghyb, vectors]);
+            var osm = new OpenLayers.Layer.OSM();
+
+            map.addLayers([osm, vectors]);
                 var       controls = {
                 regular: new OpenLayers.Control.DrawFeature(vectors,
                             OpenLayers.Handler.RegularPolygon,

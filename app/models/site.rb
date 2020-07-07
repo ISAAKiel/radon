@@ -11,7 +11,7 @@ class Site < ActiveRecord::Base
 
   def self.propose_locations(search)
     require 'iconv'
-    unless search.blank?
+    unless true # Monkey patch remove geonames, because not accessible any longer
 #      search_string = Iconv.iconv('ascii//translit', 'utf-8', CGI.unescape(search)).to_s
       search_string = CGI.unescape(search).force_encoding('UTF-8')
       url = "http://ws.geonames.org" + "/searchJSON?a=a"

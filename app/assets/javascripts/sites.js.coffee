@@ -112,13 +112,7 @@ default_marker = (lonlat) ->
 
 load_map = (lon,lat) ->
  map = new OpenLayers.Map 'map'
- layer = new OpenLayers.Layer.Google(
-              "Google Hybrid",{
-                type: google.maps.MapTypeId.HYBRID,
-                numZoomLevels: 20,
-                "sphericalMercator": true,
-                "maxExtent": new OpenLayers.Bounds(-20037508.34, -20037508.34, 20037508.34, 20037508.34)}
-              );
+ layer = new OpenLayers.Layer.OSM();
  map.addLayer(layer)
 
  style=new OpenLayers.StyleMap({'default':{

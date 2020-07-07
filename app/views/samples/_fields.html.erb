@@ -17,8 +17,9 @@
     Site associated in the Data Base: <span id="site_display_name"><%= ((@sample && @sample.site) ? @sample.site.name : nil ) || params[:site_name] || 'Not Set'%></span>
 
     <% if session[:users_last_site] -%>
-      <%= link_to "Use last Site", "#", :'data-function'=> 'use_last_site', :'data_site_id' =>session[:users_last_site].id,:'data_site_name' =>session[:users_last_site].name  %>
+      <%#= link_to "Use last Site", "#", :'data-function'=> 'use_last_site', :'data_site_id' =>session[:users_last_site]['id'],:'data_site_name' =>session[:users_last_site]['name']  %>
     <% end -%>
+
     <%= f.semantic_errors :site %>
     <hr style = "clear:both;" />
     <%= f.semantic_fields_for :site do |h| %>

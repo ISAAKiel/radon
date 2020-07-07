@@ -12,18 +12,6 @@ function init() {
     // the SATELLITE layer has all 22 zoom level, so we add it first to
     // become the internal base layer that determines the zoom levels of the
     // map.
-    var gsat = new OpenLayers.Layer.Google(
-        "Google Satellite",
-        {type: google.maps.MapTypeId.SATELLITE}
-    );
-
-var ghyb = new OpenLayers.Layer.Google(
-              "Google Hybrid",{
-                type: google.maps.MapTypeId.HYBRID,
-                numZoomLevels: 20,
-                "sphericalMercator": true,
-                "maxExtent": new OpenLayers.Bounds(-20037508.34, -20037508.34, 20037508.34, 20037508.34)}
-              );
 
     var lat            = <%=loc.lat%>;
     var lon            = <%=loc.lng%>;
@@ -35,7 +23,7 @@ var ghyb = new OpenLayers.Layer.Google(
 
     var osm = new OpenLayers.Layer.OSM();
 
-    map.addLayers([gsat, ghyb]);
+    map.addLayers([osm]);
     //map.setBaseLayer(ghyb);
     // Google.v3 uses EPSG:900913 as projection, so we have to
     // transform our coordinates

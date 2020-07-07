@@ -41,8 +41,8 @@ gem 'activerecord-session_store', github: 'rails/activerecord-session_store'
 
 gem 'acts_as_list'
 
-gem 'formtastic'#, '~> 2.3.0.rc2', branch: '2.3-stable', git: 'git://github.com/justinfrench/formtastic.git'
-gem 'formtastic-bootstrap'#, '~> 3.0.0'
+gem 'formtastic', '~> 3.0'
+#gem 'formtastic-bootstrap', '~> 3.0.0'
 
 gem 'authlogic', '~> 3.4.0'
 gem 'scrypt'
@@ -52,7 +52,7 @@ gem 'declarative_authorization', github: "stffn/declarative_authorization"
 gem 'kaminari'
 gem 'geonames'
 gem 'pg', '~> 0.18'
-gem 'rmagick', '>=2.13.2'
+gem 'rmagick', '>=4.1.0'
 gem 'ruby_parser'
 gem 'activerecord-import'
 
