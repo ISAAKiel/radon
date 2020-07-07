@@ -66,7 +66,7 @@ gem 'openlayers-rails'
 gem 'dotenv-rails', :require => 'dotenv/rails-now'
 gem 'recaptcha', '~> 3.2.0', :require => 'recaptcha/rails'
 
-gem 'bibtex-ruby', '~> 4.4.7'
+gem 'bibtex-ruby', '~> 5.1.4'
 gem 'twitter', '~> 5.0'
 
 gem 'redcarpet', '~> 3.1.1'
