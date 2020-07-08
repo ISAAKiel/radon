@@ -1,4 +1,4 @@
-[![Build Status](https://travis-ci.org/ISAAKiel/radon.svg?branch=master)](https://travis-ci.org/ISAAKiel/radon) [![Coverage Status](https://img.shields.io/codecov/c/github/ISAAKiel/radon/master.svg)](https://codecov.io/github/ISAAKiel/radon?branch=master)
+[![Build Status](https://travis-ci.org/ISAAKiel/radon.svg?branch=master)](https://travis-ci.org/ISAAKiel/radon) [![Coverage Status](https://img.shields.io/codecov/c/github/ISAAKiel/radon/master.svg)](https://codecov.io/github/ISAAKiel/radon?branch=master) [![Project Status: Inactive – The project has reached a stable, usable state but is no longer being actively developed; support/maintenance will be provided as time allows.](https://www.repostatus.org/badges/latest/inactive.svg)](https://www.repostatus.org/#inactive)
 
 # radon
 
