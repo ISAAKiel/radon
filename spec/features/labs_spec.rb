@@ -72,15 +72,16 @@ describe "Labs", type: :feature do
 
       it "Adds a new Lab and displays the results" do
         user = FactoryBot.create(:admin_user)
-        lab = FactoryBot.build(:lab)
+        dating_method = FactoryBot.create(:dating_method)
+        lab = FactoryBot.build(:lab, dating_method: dating_method)
         login(user)
         visit labs_url
-        expect{
-          click_link 'New Laboratory'
+        click_link 'New Laboratory'
         fill_in 'Name', with: lab.name
         fill_in 'Lab code', with: lab.lab_code
-        select(lab.dating_method.name, :from => 'lab_dating_method_id')
+        select(dating_method.name, :from => 'lab_dating_method_id')
         check "lab_active" if lab.active
+        expect{
           click_button "Create Lab"
         }.to change(Lab,:count).by(1)
         expect(page).to have_content "Successfully created lab."
@@ -94,7 +95,8 @@ describe "Labs", type: :feature do
       it "Edits a Lab and displays the results" do
         user = FactoryBot.create(:admin_user)
         lab = FactoryBot.create(:lab)
-        lab_template = FactoryBot.build(:lab, :active => !lab.active)
+        dating_method = FactoryBot.create(:dating_method)
+        lab_template = FactoryBot.build(:lab, :active => !lab.active, dating_method: dating_method)
         login(user)
         visit labs_url
         within "#lab_#{lab.id}" do

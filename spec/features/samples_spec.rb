@@ -51,7 +51,6 @@ include Rails.application.routes.url_helpers
     end
 
     it "has the map functionalities", js: true do
-      pending("dragdrop laeuft momentan nicht")
       click_link("Show/Hide Map")
       expect(page).to have_selector('#map')
       click_button("Draw Selection Frame")
@@ -134,14 +133,13 @@ include Rails.application.routes.url_helpers
         logout(user)
       end
 
-      it "Adds a new Sample with existing site and displays the results", js: true do
+      it "Adds a new Sample with existing site and displays the results", js: true  do
         user = FactoryBot.create(:admin_user)
-        sample = FactoryBot.build(:public_sample)
+        sample = FactoryBot.create(:public_sample)
         site=FactoryBot.create(:site)
 
         login(user)
         visit samples_path
-        expect{
           click_link 'New'
           fill_in 'search', with: site.name
           click_button 'Search'
@@ -149,6 +147,7 @@ include Rails.application.routes.url_helpers
             click_link 'Select'
           end
           fill_in_standard_sample(sample)
+          expect{
           click_button "Submit"
           assert_text "Successfully created sample."
         }.to change(Sample.unscoped,:count).by(1)

@@ -67,7 +67,8 @@ describe "CountrySubdivisions", type: :feature do
 
       it "Adds a new CountrySubdivision and displays the results" do
         user = FactoryBot.create(:admin_user)
-        country_subdivision = FactoryBot.build(:country_subdivision)
+        country = FactoryBot.create(:country)
+        country_subdivision = FactoryBot.build(:country_subdivision, country: country)
         country_subdivision.name = country_subdivision.name + "new"
         login(user)
         visit country_subdivisions_url
@@ -86,8 +87,9 @@ describe "CountrySubdivisions", type: :feature do
 
       it "Edits a CountrySubdivision and displays the results" do
         user = FactoryBot.create(:admin_user)
+        country = FactoryBot.create(:country)
         country_subdivision = FactoryBot.create(:country_subdivision)
-        country_subdivision_template = FactoryBot.build(:country_subdivision)
+        country_subdivision_template = FactoryBot.build(:country_subdivision, country: country)
         country_subdivision_template.name=country_subdivision_template.name + "new"
         login(user)
         visit country_subdivisions_url

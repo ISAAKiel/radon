@@ -67,7 +67,8 @@ include Rails.application.routes.url_helpers
 
       it "Adds a new Site via LatLong Enter and displays the results", js: true do
         user = FactoryBot.create(:admin_user)
-        site = FactoryBot.build(:site)
+        country_subdivision = FactoryBot.create(:country_subdivision)
+        site = FactoryBot.build(:site, country_subdivision: country_subdivision)
         login(user)
         visit sites_path
         expect{
